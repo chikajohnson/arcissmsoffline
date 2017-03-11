@@ -41,7 +41,7 @@
         <tr>
           <td><?php echo $item_count; ?></td>
           <?php if($result->isvalid == 0): ?>
-          <td><?php echo $result->matric; ?>&nbsp;<span class="text-warning" title="Invalid matric number"><b>&nbsp;invalid</b></span></td>
+          <td><?php echo $result->matric; ?>&nbsp;<span class="text-warning" title="This matric number does not exist."><b>&nbsp;invalid</b></span></td>
           <?php else: ?>
           <td><?php echo $result->matric; ?></td>
           <?php endif ?>
@@ -72,7 +72,7 @@
     
      function confirmUpload() {
       
-      response = confirm("Are you sure you want to upload the results? Only valid results will be uploaded. ");
+      response = confirm("Are you sure you want to upload the results? Only results with valid matric number will be uploaded. ");
       if(response == true){
         validateInputs()
         return true;

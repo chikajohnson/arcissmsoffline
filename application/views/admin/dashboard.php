@@ -38,13 +38,8 @@
 								<span class="glyphicon glyphicon-cloud">&nbsp;<b>Courses Registered</b></span>
 							</div>
 							<div  class="list-group-item"><h4><?php echo $course_count; ?></h4></div>
-						</div>	
-						<div class="list-group col-sm-2" style="">
-							<div class="list-group-item bg-6">
-								<span class="glyphicon glyphicon-cloud">&nbsp;<b>Courses Registered</b></span>
-							</div>
-							<div  class="list-group-item"><h4><?php echo $course_count; ?></h4></div>
-						</div>						
+						</div>
+											
 					</div>
 
 					<div class="col-md-12 text-justify">
@@ -54,8 +49,8 @@
 							The students dashbaord allows the admin access to the students results in a semester.
 							The admin can perform the following functions:
 							<ul>
-								<li>-- Check a students results in a semester</li>
-								<li>-- Check the score for a particular courses in a semester</li>
+								<li>-- Check student's result for all courses taken in a semester</li>
+								<li>-- Check the score for a particular course in a semester</li>
 								<li>-- Change a students login password</li>
 								<li>-- View the statistics of students activities</li>
 								<li>-- Monitor Activities of students on the system</li>

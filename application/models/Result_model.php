@@ -55,7 +55,7 @@ class Result_model extends CI_MODEL
 		$this->db->join('courses as c', 'r.course = c.id', 'left');
 		$this->db->join('semesters as se', 'r.semester = se.id', 'left');
 		$this->db->join('academicsessions as session', 'r.session = session.id', 'left');
-		$query = $this->db->get($this->table);
+		$query = $this->db->get();
 		$result = $query->result();
 		
 		return $result;
@@ -99,12 +99,14 @@ class Result_model extends CI_MODEL
 	}
 	public function add_batch($data)
 	{
+		
 		$this->db->insert_batch('results', $data);
 
 	}
 	
 	public function get_last_inserted_results($batch_upload_code)
 	{
+
 		$this->db->select('r.* , c.code as code,  c.title as course, se.name as semester, session.name as session' );
 		$this->db->from('temp_results as r');
 		$this->db->join('courses as c', 'r.course = c.id', 'left');
@@ -116,6 +118,7 @@ class Result_model extends CI_MODEL
 	}
 	public function get_last_inserted_tempresults($batch_upload_code)
 	{
+		// var_dump($batch_upload_code); die();
 		$this->db->select('*' );
 		$this->db->from('temp_results as r');
 		$this->db->where('r.batch_upload_code', $batch_upload_code);

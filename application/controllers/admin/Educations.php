@@ -29,7 +29,8 @@ class Educations extends CI_Controller {
 	public function add()
 	{
 		
-		$this->form_validation->set_rules('matric', 'matric', 'trim|required');
+		//$this->form_validation->set_rules('matric', 'matric', 'trim|required');
+		$this->form_validation->set_rules('matric', 'matric number', 'trim|required|callback_matric_check');
 		$this->form_validation->set_rules('school_attended', 'school_attended', 'trim|required');
 		$this->form_validation->set_rules('city', 'city', 'trim|required');
 		$this->form_validation->set_rules('country', 'country', 'trim|required');
@@ -60,6 +61,13 @@ class Educations extends CI_Controller {
 				'degree_obtained' => $this->input->post('degree_obtained'),
 				'degree_class' => $this->input->post('degree_class')
 				);
+
+			//check if matric exists
+			if (!$this->matric_exists($matric)) {
+				
+			} 
+			
+			
 
 			//insert education
 			$this->education_model->add($data);
@@ -245,5 +253,18 @@ class Educations extends CI_Controller {
 			redirect('admin/educations/index','refresh');
 		}
 	}
+
+	public function matric_check($matric)
+    {
+        if ($this->student_model->matric_exist(trim($matric)) == false)
+        {
+                $this->form_validation->set_message('matric_check', 'The {field} ' .' <strong>'. $matric.'</strong>'. ' does not exist');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+    }
 	
 }

@@ -18,7 +18,7 @@ class Dashboard extends CI_Controller {
 		 }
 
 		
-		$data['activities']  = $this->activity_model->get_activities();
+		$data['activities']  = $this->activity_model->get_admin_activities();
 
 		$data['main'] = 'examiner/index';
 		$this->load->view('examiner/layout/main', $data);

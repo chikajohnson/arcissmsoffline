@@ -11,9 +11,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ol class="breadcrumb">
-				<li><a href="<?php echo base_url(); ?>admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-				<li><a href="<?php echo base_url(); ?>admin/results"><i class="fa fa-dashboard"></i>Results</a></li>
-				<li class="active"><i class="fa fa-dashboard"></i> Upload Results</li>
+				<li><a href="<?php echo base_url(); ?>admin/dashboard"><i class=""></i> Dashboard</a></li>
+				<li><a href="<?php echo base_url(); ?>admin/results"><i class=""></i>Results</a></li>
+				<li class="active"><i class=""></i> Upload Results</li>
 			</ol>
 		</div>
 	</div>

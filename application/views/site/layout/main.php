@@ -58,7 +58,7 @@
 							<li class="<?php if($this->uri->segment(2) == 'change_password'){echo "item";} ?>"><?php echo anchor('site/change_password', 'Change Student Password', 'title="Change Password"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'get_help'){echo "item";} ?>"><?php echo anchor('site/get_help', 'Get Instructions', 'title="Get Instruction"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'activities'){echo "item";} ?>""><?php echo anchor('site/activities', 'View Student Activities', 'title="Student Activities"'); ?></li>
-							<li class="active"><?php echo anchor('admin/dashboard', 'Back To Admin Dashboard', 'title="Back to  Home"'); ?></li>
+							<li class="active"><?php echo anchor('admin/dashboard', '<<< &nbsp;Back To Admin Dashboard', 'title="Back to  Home"'); ?></li>
 						</ul>
 						<hr>
 					</div>

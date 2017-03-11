@@ -11,9 +11,7 @@ class Site extends CI_Controller {
 		}
 		if ($this->session->userdata('user_type') != 'admin') {
 		 	redirect('welcome');
-		}
-
-		
+		}		
 	}
 	
 	public function index()
@@ -88,8 +86,8 @@ class Site extends CI_Controller {
 		
 		$this->form_validation->set_rules('matric', 'matric number','trim|required');		
 		$this->form_validation->set_rules('password', 'password','trim|required');
-		$this->form_validation->set_rules('password1', 'new password ','trim|required|min_length[4]|max_length[5]|numeric');
-		$this->form_validation->set_rules('password2', 'repeat password','trim|required|min_length[4]|max_length[5]|numeric');
+		$this->form_validation->set_rules('password1', 'new password ','trim|required|min_length[4]|max_length[6]|numeric');
+		$this->form_validation->set_rules('password2', 'repeat password','trim|required|min_length[4]|max_length[6]|numeric');
 
 		
 		$output['message'] = '';
@@ -115,17 +113,17 @@ class Site extends CI_Controller {
 				$this->load->view('site/layout/main', $output);
 			}
 			elseif (!$this->core_model->password_match($data['matric'], $data['password'])) {
-				$output['message'] = 'user password does not exist.';
+				$output['message'] = 'User password does not exist.';
 				$output['main'] = 'site/change_password';
 				$this->load->view('site/layout/main', $output);
 			}
 			elseif (!$this->core_model->new_passwords_match($data['password1'], $data['password2'])) {
-				$output['message'] = 'new passwords do not match.';
+				$output['message'] = 'New passwords do not match.';
 				$output['main'] = 'site/change_password';
 				$this->load->view('site/layout/main', $output);
 			}
 			elseif($this->core_model->new_password_same_as_old_password($data['password'], $data['password1'])){
-					$output['message'] = 'new password cannot be the same as old password.';
+					$output['message'] = 'New password cannot be the same as old password.';
 					$output['main'] = 'site/change_password';
 					$this->load->view('site/layout/main', $output);
 				

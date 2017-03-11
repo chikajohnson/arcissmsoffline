@@ -54,35 +54,37 @@
         </nav>
         <div class="container">
           <div class="row">
-            <span class="col-md-4"><img src="<?php echo base_url(); ?>assets/images/arcis-logo.png" alt="Arcis logo"></span>           
-            <span class="text-center"><h3>ARCIS SMS RESULT CHECKING SYSTEM</h3></span>            
-            <span class="pull-right"><img src="<?php echo base_url(); ?>assets/images/ui-logo.png" alt="University of Ibadan logo"></span>
+            <div class="col-md-2"><img src="<?php echo base_url(); ?>assets/images/arcis-logo.png" alt="Arcis logo"></div>           
+            <div class="text-center col-md-8">
+              <span class="text-center"><h4><strong>AFRICA REGIONAL CENTRE FOR INFORMATION SCIENCE</strong></h4></span>
+              <span class="text-center"><h5><strong>UNIVERSITY OF IBADAN, IBADAN, NIGERIA</strong></h5></span>
+              <hr>
+            <span class="text-center text-info"><h4><strong>SMS RESULT CHECKING SYSTEM</strong></h4></span>
+           </div>    
+            <div class="col-md-2"><img src="<?php echo base_url(); ?>assets/images/ui-logo.png" alt="University of Ibadan logo" class="pull-right"></div>
           </div>
-          <h4>Welcome To <strong>Africa Regional Centre For Information Science</strong></h4>
-          <hr>
+          <h4>Welcome To <strong>ARCIS</strong></h4>         
             <div class="container row">
               <div class="col-md-6">
                 <h2 class="lead"><strong> Examination Results Via SMS</strong></h2>
                 <p>
-                  Students cannow check the results of their examination result from the comfort of their mobile phones.
-                  No need to visit the Centre to check one's results. The ARCIS SMS Result-checker allows
-                  students to request for the grade of a particular course or all the courses in a semester.
-                  <br>
-                  Students can change their passwword and seek help effortlessly by SMS.
+                 The ARCIS SMS Result checking System allows
+                  students to request for the results of their examination in a semester <strong>without the the need for internet connection</strong>.                  
                 </p>
               </div>
               
               <div class="col-md-6">
-                <h2 class="lead"><strong>Services Supported</strong></h2>
+                <h2 class="lead"><strong>Supported Services</strong></h2>
                 <p>
-                  The SMS Result Checking System provides a range of servies relation to examination results. Some of these services include
-                  <ul>
+                  The SMS Result Checking System provides a range of services. Some of these services include:
+                  <ul class="">
                     <li>Alert students when results are released</li>
-                    <li>Check results</li>
-                    <li>Change password</li>
-                    <li>Request help on correct message format</li>
-                    <li>Views a summary of exam results</li>
-                    <li>Backup results etc.</li>
+                    <li>Allow students to check their examination results</li>
+                    <li>Permits students to change their access password</li>
+                    <li>Allows students to request for help on correct messaging format</li>
+                    <li>Provides a summary display display of s student's exam results</li>
+                    <li>Allows the admin to exort examination results in pdf formats</li>
+                    <li>Provides a backup of examination results, etc.</li>
                   </ul>
                 </div>
                 </div> <!-- /container -->

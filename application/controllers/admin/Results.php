@@ -56,6 +56,7 @@ class Results extends CI_Controller {
 			    	$item = strtolower($item) . "-" . $current_date;
 	            	$batch_upload_code = NULL;
 	            	$heading = True;
+	            	$excel_file_is_empty = true;
 	                $filename=$_FILES["file"]["tmp_name"];
 	                $csv_result_batch = array();
 	                if($_FILES["file"]["size"] > 0)
@@ -87,7 +88,7 @@ class Results extends CI_Controller {
 						        continue;
 						        
 						    }
-						    						    	
+						    	$excel_file_is_empty = false;	    	
 								$batch_upload_code = $item;
 							    $batch_data = array(
 	                                 'matric' => trim($emapData[0]),
@@ -127,30 +128,37 @@ class Results extends CI_Controller {
 	                          // $insertId = $this->result_model->insertCSV($data); 	                     
 	                 }
 	                fclose($file);
-	                	               
-	                $insertId = $this->result_model->temp_insert_batch_CSV($csv_result_batch);
-	                
- 
+	                	           
+	               	if ($excel_file_is_empty == false) {
+	               	    $insertId = $this->result_model->temp_insert_batch_CSV($csv_result_batch); 
  
 
  
-	                $number = $this->result_model->count_last_inserted_tempresults($batch_upload_code);	       
-	                $msg = $number." results have been prepared for batch upload. Click <strong>FINISH UPLOAD</strong> to upload results or <strong>CANCEL UPLOAD </strong> to cancel the upload process.";
-	                // Insert users activity
-	                $activity  = array(
-						'resource_id' => $batch_upload_code,
-						'type' => 'result',
-						'action' => 'updated',
-						'user_id' => $this->session->userdata('user_id'),
-						'message' => $number . ' Results have been prepared  for upload'
-					);
-					//Insert Activivty
-					$this->activity_model->add($activity);	                 
-	                $this->session->set_flashdata('info', $msg);
-	                $data['results'] = $this->result_model->get_last_inserted_results($batch_upload_code);
-	              	
-	              	$data['main'] = "admin/results/batch_upload_final";
-					$this->load->view('admin/layout/main', $data);	
+		                $number = $this->result_model->count_last_inserted_tempresults($batch_upload_code);	       
+		                $msg = $number." results have been prepared for batch upload. Click <strong>FINISH UPLOAD</strong> to upload results or <strong>CANCEL UPLOAD </strong> to cancel the upload process.";
+		                // Insert users activity
+		                $activity  = array(
+							'resource_id' => $batch_upload_code,
+							'type' => 'result',
+							'action' => 'updated',
+							'user_id' => $this->session->userdata('user_id'),
+							'message' => $number . ' Results have been prepared  for upload'
+						);
+						//Insert Activivty
+						$this->activity_model->add($activity);	                 
+		                $this->session->set_flashdata('info', $msg);
+		                $data['results'] = $this->result_model->get_last_inserted_results($batch_upload_code);
+		              	
+		              	$data['main'] = "admin/results/batch_upload_final";
+						$this->load->view('admin/layout/main', $data);
+               	    } else {
+               	    		  
+						$this->session->set_flashdata('excel', 'Excel file is empty');
+						redirect('admin/results/upload_result');
+		                
+               	    }
+	               	        
+	                	
 	              }	             
             }	
         }
@@ -161,6 +169,7 @@ class Results extends CI_Controller {
 		$upload_count = 0;
 		$results = $this->result_model->get_last_inserted_tempresults($batch_upload_code);
 		$batch_result  = array();
+
 		if ($results) {
 			foreach ($results as $result) {
 				$data  = array(
@@ -188,16 +197,16 @@ class Results extends CI_Controller {
 				);
  
 				
+				 
 				if ($data['isvalid'] == 1) {
- 
-				if ($data['isvalid'] == 1) {
-
- 
-					array_push($batch_result, $data);
-					$upload_count++;
+				
+						array_push($batch_result, $data);
+						$upload_count++;
+					}
 				}				
 								
 			}
+
 				$this->result_model->add_batch($batch_result);
  
  
@@ -230,9 +239,8 @@ class Results extends CI_Controller {
 	            $this->session->set_flashdata('success', $msg);   
 				redirect('admin/results','refresh');
 		}
-	}
-		
-	}
+			
+	
 
 	public function cancel_batch_upload($batch_upload_code)
 	{   
