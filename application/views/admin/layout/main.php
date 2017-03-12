@@ -26,7 +26,7 @@
 					<span class="icon-bar"></span>
 					</button>
 					<div class="btn btn-sm"></div>
-					<a class="navbar-brand" href="<?php echo base_url() ?>admin"><strong>ARCIS SMS RESULT CHECKING SYSTEM</strong></a>
+					<a class="navbar-brand" href="<?php echo base_url() ?>"><strong>ARCIS SMS RESULT CHECKING SYSTEM</strong></a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
@@ -58,21 +58,26 @@
 						<ul class="nav nav-sidebar text-center">
 							<li class="<?php if($this->uri->segment(1) == 'admin'){echo "active";} ?>"><?php echo anchor('admin', 'Admin Dashboard', 'title="Dashboard Home"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'students'){echo "item";} ?>"><?php echo anchor('admin/students', 'Student Records', 'title="Student Records"'); ?></li>
-							<li class="<?php if($this->uri->segment(2) == 'results'){echo "item";} ?>"><?php echo anchor('admin/results', 'Exam Results', 'title="Examination Results"'); ?></li>
+							<li class="<?php if($this->uri->segment(2) == 'results'){echo "item";} ?>"><?php echo anchor('admin/results', 'Examination Results', 'title="Examination Results"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'messages'){echo "item";} ?>"><?php echo anchor('admin/messages', 'Messages', 'title="Messages"'); ?></li>
-							<li class="<?php if($this->uri->segment(2) == 'educations'){echo "item";} ?>"><?php echo anchor('admin/educations', 'Educational Qualifications', 'title="Educational Qualifications"'); ?></li>
+							<!-- <li class="<?php if($this->uri->segment(2) == 'educations'){echo "item";} ?>"><?php echo anchor('admin/educations', 'Educational Qualifications', 'title="Educational Qualifications"'); ?></li> -->
 							<hr>
 							<li class="<?php if($this->uri->segment(2) == 'courses'){echo "item";} ?>"><?php echo anchor('admin/courses', 'Courses', 'title="Dashboard Home"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'semesters'){echo "item";} ?>"><?php echo anchor('admin/semesters', 'Semesters', 'title="Academic Semesters"'); ?></li>							
 							<li class="<?php if($this->uri->segment(2) == 'academic_sessions'){echo "item";} ?>"><?php echo anchor('admin/academic_sessions', 'Academic Sessions', 'title="Academic Sessions"'); ?></li>
+							<hr>
 							<!-- <li><?php echo anchor('admin/sponsors', 'Sponsors', 'title="Sponsors"'); ?></li> -->
 							<!-- <li><?php echo anchor('admin/lecturers', 'Lecturers', 'title="ARCISS Lecturers"'); ?></li> -->
-							<li class="<?php if($this->uri->segment(2) == 'programs'){echo "item";} ?>"><?php echo anchor('admin/programs', 'Program of Study', 'title="Program of Study"'); ?></li>
+							<li class="<?php if($this->uri->segment(2) == 'programs'){echo "item";} ?>"><?php echo anchor('admin/programs', 'Programmes of Study', 'title="Programmes of Study"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'message_types'){echo "item";} ?>"><?php echo anchor('admin/message_types', 'Message Types', 'title="Messages type"'); ?></li>
 							
 							
+							<?php if($this->uri->segment(2) == null || $this->uri->segment(2) == ""): ?>
+								<li class="active"><?php echo anchor('/', 'Back To Home', 'title="Back to Home"'); ?></li>
+							<?php else: ?>
+								<li class="active"><?php echo anchor('admin', 'Back To Admin', 'title="Back To Admin Dashboard"'); ?></li>
+							<?php endif; ?>
 							
-							<li class="active"><?php echo anchor('admin', 'Back To Dashboard', 'title="Back to Home"'); ?></li>
 						</ul>
 					</div>
 				</div>

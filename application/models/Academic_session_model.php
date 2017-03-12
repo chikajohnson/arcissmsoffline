@@ -12,7 +12,7 @@ class Academic_session_model extends CI_MODEL
 	}
 	public function get_academic_sessions()
 	{
-		$this->db->order_by("id", "asc");
+		$this->db->order_by("name", "asc");
 		$query = $this->db->get($this->table);
 		return $query->result();
 	}

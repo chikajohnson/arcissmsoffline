@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="table-responsive">
-		<h4 ><span class="label label-default">Program of Study Details<small><a href="<?php echo base_url(); ?>admin/programs" title="back to program of studies" class="btn btn-md btn-default pull-right">Back</a></small></span></h4>
+		<h4 ><span class="label label-default">Programme of Study Details<small><a href="<?php echo base_url(); ?>admin/programs" title="back to Programme of studies" class="btn btn-md btn-default pull-right">Back</a></small></span></h4>
 	</div>
 	<hr>
 	<table class="table table-striped table-condensed table-responsive" style="width:100%;">

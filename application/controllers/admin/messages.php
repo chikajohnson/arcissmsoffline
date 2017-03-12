@@ -44,6 +44,7 @@ class Messages extends CI_Controller {
 				);
 			//insert message
 			$this->message_model->add($data);
+
 			$data  = array(
 				'resource_id' => $this->db->insert_id(),
 				'type' => 'message',
@@ -53,6 +54,7 @@ class Messages extends CI_Controller {
 				);
 			//Insert Activivty
 			$this->activity_model->add($data);
+			
 			//Set Message
 			$this->session->set_flashdata('success', 'Message has been added');
 			redirect('admin/messages','refresh');

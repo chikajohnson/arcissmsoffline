@@ -7,6 +7,7 @@
 		<title>ARCIS SMS HUB| Students</title>
 		<!-- Bootstrap core CSS -->
 		
+		<link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png">
 		<link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet">
 		<link href="<?php echo  base_url(); ?>assets/css/dashboard.css" rel="stylesheet">
 		<link href="<?php echo  base_url(); ?>assets/css/custom.css" rel="stylesheet">
@@ -54,11 +55,12 @@
 					<div class="col-sm-3 col-md-2 sidebar">
 						<ul class="nav nav-sidebar text-center">
 							<li class="active"><?php echo anchor('site', 'Student Dashboard', 'title="Dashboard Home"'); ?></li>
-							<li class="<?php if($this->uri->segment(2) == 'check_result'){echo "item";} ?>"><?php echo anchor('site/check_result', 'Check Result', 'title="Check Result"'); ?></li>
+							<li class="<?php if($this->uri->segment(2) == 'check_result'){echo "item";} ?>"><?php echo anchor('site/check_result', 'Check Results', 'title="Check Results"'); ?></li>
+							<li class="<?php if($this->uri->segment(2) == 'reset_password'){echo "item";} ?>"><?php echo anchor('site/reset_password', 'Reset Student Password', 'title="Reset Password"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'change_password'){echo "item";} ?>"><?php echo anchor('site/change_password', 'Change Student Password', 'title="Change Password"'); ?></li>
-							<li class="<?php if($this->uri->segment(2) == 'get_help'){echo "item";} ?>"><?php echo anchor('site/get_help', 'Get Instructions', 'title="Get Instruction"'); ?></li>
+							<li class="<?php if($this->uri->segment(2) == 'get_help'){echo "item";} ?>"><?php echo anchor('site/get_help', 'View Instructions', 'title="View Messaging Instruction"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'activities'){echo "item";} ?>""><?php echo anchor('site/activities', 'View Student Activities', 'title="Student Activities"'); ?></li>
-							<li class="active"><?php echo anchor('admin/dashboard', 'Back To Admin Dashboard', 'title="Back to  Home"'); ?></li>
+							<li class="active"><?php echo anchor('admin/dashboard', '<<< &nbsp;Back To Admin Dashboard', 'title="Back to  Home"'); ?></li>
 						</ul>
 						<hr>
 					</div>

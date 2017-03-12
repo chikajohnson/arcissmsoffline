@@ -30,19 +30,19 @@
 				<div class="form-group">
 					<label  class="col-sm-2 control-label">Old Password</label>
 					<div class="col-sm-10">
-						<input type="password" name="password" placeholder="Enter your password" class="form-control" >
+						<input type="password" name="password" placeholder="Enter your password. Password is between 4 to 6 digits only." class="form-control" >
 					</div>
 				</div>
 				<div class="form-group">
 					<label  class="col-sm-2 control-label">New Password</label>
 					<div class="col-sm-10">
-						<input type="password" name="password1" placeholder="Enter new password" class="form-control">
+						<input type="password" name="password1" placeholder="Enter your password. Password is between 4 to 6 digits only." class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
 					<label  class="col-sm-2 control-label">Repeat New Password</label>
 					<div class="col-sm-10">
-						<input type="password" name="password2" placeholder="Repeat new password" class="form-control">
+						<input type="password" name="password2" placeholder="Repeat your password. Password is between 4 to 6 digits only." class="form-control">
 					</div>
 				</div>				
 				<div class="form-group">

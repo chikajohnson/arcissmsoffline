@@ -12,7 +12,7 @@
     
 
    
-    
+    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png">
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet">
      <link href="<?php echo base_url(); ?>assets/css/login.css" rel="stylesheet">
      <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
@@ -36,12 +36,12 @@
           <ul class="nav navbar-nav pull-right">
           <?php if ($this->session->userdata('logged_in')): ?>  
               <?php if ($this->session->userdata('user_type')  == 'examiner'): ?> 
-                  <li><a href="<?php echo base_url(); ?>examiner/dashboard">Dashboard</a></li>
+                  <li><a href="<?php echo base_url(); ?>examiner/dashboard">Enter Dashboard</a></li>
                   <li><a href="<?php echo base_url(); ?>admin/dashboard/logout">Logout</a></li>
               <?php endif; ?>
 
               <?php if ($this->session->userdata('user_type')  == 'admin'): ?>  
-                <li><a href="<?php echo base_url(); ?>admin">Dashboard</a></li>
+                <li><a href="<?php echo base_url(); ?>admin">Enter Dashboard</a></li>
                 <li><a href="<?php echo base_url(); ?>admin/dashboard/logout">Logout</a></li>
               <?php endif; ?>
           <?php else: ?>
@@ -54,35 +54,39 @@
         </nav>
         <div class="container">
           <div class="row">
-            <span class="col-md-4"><img src="<?php echo base_url(); ?>assets/images/arcis-logo.png" alt="Arcis logo"></span>           
-            <span class="text-center"><h3>ARCIS SMS RESULT CHECKING SYSTEM</h3></span>            
-            <span class="pull-right"><img src="<?php echo base_url(); ?>assets/images/ui-logo.png" alt="University of Ibadan logo"></span>
+            <div class="col-md-2"><img src="<?php echo base_url(); ?>assets/images/arcis-logo.png" alt="Arcis logo"></div>           
+            <div class="text-center col-md-8">
+              <span class="text-center"><h4><strong>AFRICA REGIONAL CENTRE FOR INFORMATION SCIENCE</strong></h4></span>
+              <span class="text-center"><h5><strong>UNIVERSITY OF IBADAN, IBADAN, NIGERIA</strong></h5></span>
+              <hr>
+            <span class="text-center text-primary"><h4><strong>SMS RESULT CHECKING SYSTEM</strong></h4></span>
+           </div>    
+            <div class="col-md-2"><img src="<?php echo base_url(); ?>assets/images/ui-logo.png" alt="University of Ibadan logo" class="pull-right"></div>
           </div>
-          <h4>Welcome To <strong>Africa Regional Centre For Information Science</strong></h4>
-          <hr>
+          <h4>Welcome To <strong>ARCIS</strong></h4>         
             <div class="container row">
               <div class="col-md-6">
-                <h2 class="lead"><strong> Examination Results Via SMS</strong></h2>
+                <h2 class="lead"><strong>Check Examination Results Via SMS</strong></h2>
                 <p>
-                  Students cannow check the results of their examination result from the comfort of their mobile phones.
-                  No need to visit the Centre to check one's results. The ARCIS SMS Result-checker allows
-                  students to request for the grade of a particular course or all the courses in a semester.
-                  <br>
-                  Students can change their passwword and seek help effortlessly by SMS.
+                 The ARCIS SMS Result Checking System allows
+                  students to request for their examination results in a semester <strong>without the the need for internet connection</strong>. <br><br>Students compose and send SMS text in a given format to a mobile number. The system processes the request and sends back an appropriate response as SMS.<br><br>
+
+                  Example, a students can compose and send  this text : <i><strong>Result, 189354,22334, FSC755</strong></i> to <strong>+2347087266288 </strong> , to get his score for the course Information Technologies (FSC 755).            
                 </p>
               </div>
               
               <div class="col-md-6">
-                <h2 class="lead"><strong>Services Supported</strong></h2>
+                <h2 class="lead"><strong>Supported Services</strong></h2>
                 <p>
-                  The SMS Result Checking System provides a range of servies relation to examination results. Some of these services include
-                  <ul>
+                  The SMS Result Checking System provides a range of services. Some of these services include:
+                  <ul class="">
                     <li>Alert students when results are released</li>
-                    <li>Check results</li>
-                    <li>Change password</li>
-                    <li>Request help on correct message format</li>
-                    <li>Views a summary of exam results</li>
-                    <li>Backup results etc.</li>
+                    <li>Allow students to check their examination results</li>
+                    <li>Permits students to change their access password</li>
+                    <li>Allows students to request for help on correct messaging format</li>
+                    <li>Provides a summary display display of s student's exam results</li>
+                    <li>Allows the admin to exort examination results in pdf formats</li>
+                    <li>Provides a backup of examination results, etc.</li>
                   </ul>
                 </div>
                 </div> <!-- /container -->
@@ -91,8 +95,8 @@
               <footer class="footer text-center">
                 <div class="container">
                   <p class="text-muted">
-                    <h5>ARCIS SMS RESULT-CHECKER</h5>
-                    <small>ARCIS </small> &copy; 2016
+                    <h5>ARCIS SMS RESULT CHECKING SYSTEM</h5>
+                    <small>ARCIS </small> &copy; 2017
                   </p>
                 </div>
               </footer>
