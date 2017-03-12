@@ -1,5 +1,5 @@
 <div class="col-md-offset-3">
-	<h3> Students Activities</h3>
+	<h3> <strong>Students Activities</strong></h3>
 </div>
 <div class="row">
 	<form method="post" accept-charset="utf-8" method="POST" action="<?php echo base_url(); ?>site/paginate">

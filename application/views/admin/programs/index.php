@@ -1,4 +1,4 @@
-<h4 style="margin:0 0 10px 0;"><span class="col-lg-offset-3 "><b>Programs Of Study</b></span></h4><br>
+<h4 style="margin:0 0 10px 0;"><span class="col-lg-offset-3 "><b>Programmes of Study</b></span></h4><br>
 <?php if($this->session->flashdata('success')): ?>
 <?php echo '<div class="alert alert-success alert-dismissable">'.$this->session->flashdata('success').'</div>'; ?>
 <?php endif;?>
@@ -10,7 +10,7 @@
     <?php echo form_open('admin/courses/search'); ?>
     <div class="row">
       <div class="col-sm-6">
-        <small class="pull-left"><a id="delete_button" href="<?php echo base_url(); ?>admin/programs/add" title="add program of study" class="btn btn-sm btn-success pull-left">Add New Program</a></small>
+        <small class="pull-left"><a id="delete_button" href="<?php echo base_url(); ?>admin/programs/add" title="add Programme of study" class="btn btn-sm btn-success pull-left">Add New Programme</a></small>
       </div>
     </div>
   </div>  
@@ -22,7 +22,7 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Nameof Program</th>
+            <th>Name of Programme</th>
             <th>Type</th>
             <th>Department</th>
             <th>Actions</th>

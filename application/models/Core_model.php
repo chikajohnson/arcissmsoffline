@@ -169,6 +169,13 @@ class Core_model extends CI_MODEL
 		$this->db->update('students'); 
 	}
 
+	public function reset_password($matric)
+	{
+		$this->db->set('password', $matric);
+		$this->db->where('matric', $matric);
+		$this->db->update('students'); 
+	}
+
 	public function get_program($matric)
 	{
 		

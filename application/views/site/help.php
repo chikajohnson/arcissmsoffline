@@ -21,7 +21,7 @@
 					<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 						<div class="panel-body">
 							<div class="row">
-								<h4>These are the different messagimhg formats supported by the SMS Result Checking System.Each key item in the request SMS text is separeted by a comma (,) to  <span class="text-danger"><strong>08083948838</strong></span></h4>
+								<h4>&nbsp;&nbsp;&nbsp;These are the different messaging formats supported by the SMS Result Checking System. Each key item in the request SMS text is separeted by a comma (,) to  <span class="text-danger"><strong>"248083948838</strong></span></h4>
 							</div>
 							<div class="row">
 								<ul>

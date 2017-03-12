@@ -80,15 +80,13 @@ class Site extends CI_Controller {
 										
 		}
 	
-	
 	public function change_password()
 	{
 		
 		$this->form_validation->set_rules('matric', 'matric number','trim|required');		
 		$this->form_validation->set_rules('password', 'password','trim|required');
-		$this->form_validation->set_rules('password1', 'new password ','trim|required|min_length[4]|max_length[6]|numeric');
-		$this->form_validation->set_rules('password2', 'repeat password','trim|required|min_length[4]|max_length[6]|numeric');
-
+		$this->form_validation->set_rules('password1', 'new password ','trim|required|min_length[4]|max_length[5]|numeric');
+		$this->form_validation->set_rules('password2', 'repeat password','trim|required|min_length[4]|max_length[5]|numeric');
 		
 		$output['message'] = '';
 		if ($this->form_validation->run() == FALSE) {
@@ -108,22 +106,21 @@ class Site extends CI_Controller {
 			
 			if (!$this->core_model->matric_exists($data['matric'])){
 				$output['message'] = 'Matric number does not exist.';
-
 				$output['main'] = 'site/change_password';
 				$this->load->view('site/layout/main', $output);
 			}
 			elseif (!$this->core_model->password_match($data['matric'], $data['password'])) {
-				$output['message'] = 'User password does not exist.';
+				$output['message'] = 'user password does not exist.';
 				$output['main'] = 'site/change_password';
 				$this->load->view('site/layout/main', $output);
 			}
 			elseif (!$this->core_model->new_passwords_match($data['password1'], $data['password2'])) {
-				$output['message'] = 'New passwords do not match.';
+				$output['message'] = 'new passwords do not match.';
 				$output['main'] = 'site/change_password';
 				$this->load->view('site/layout/main', $output);
 			}
 			elseif($this->core_model->new_password_same_as_old_password($data['password'], $data['password1'])){
-					$output['message'] = 'New password cannot be the same as old password.';
+					$output['message'] = 'new password cannot be the same as old password.';
 					$output['main'] = 'site/change_password';
 					$this->load->view('site/layout/main', $output);
 				
@@ -147,6 +144,53 @@ class Site extends CI_Controller {
 				}					
 			
 			
+			$output['main'] = 'site/index';
+			$this->load->view('site/layout/main', $output);
+		}
+			
+															}
+	}
+	public function reset_password()
+	{
+		
+		$this->form_validation->set_rules('matric', 'matric number','trim|required');
+		
+		$output['message'] = '';
+		if ($this->form_validation->run() == FALSE) {
+			$output['main'] = 'site/reset_password';
+			$this->load->view('site/layout/main', $output);
+		} else {
+			$error = array();
+			$data = array(				
+				'matric' => $this->input->post('matric')	
+				);
+				
+						
+			//check if keyword is 'password'
+			
+			if (!$this->core_model->matric_exists($data['matric'])){
+				$output['message'] = 'Matric number does not exist.';
+
+				$output['main'] = 'site/reset_password';
+				$this->load->view('site/layout/main', $output);
+			}			
+			else
+			{				
+				
+			
+			$this->core_model->reset_password($data['matric']);
+			$output['message'] = 'Password reset was successful.';
+
+			$data  = array(
+				'resource_id' => $this->db->insert_id(),
+				'type' => 'Password',
+				'action' => 'reset',
+				'user_id' => $this->session->userdata('user_id'),
+				'message' => $data['matric'] . " s' password was reset."
+				);
+			//Insert Activivty
+			$this->activity_model->add($data);
+
 			$output['main'] = 'site/index';
 			$this->load->view('site/layout/main', $output);
 		}
@@ -241,7 +285,17 @@ class Site extends CI_Controller {
 							
 							$data['result'] = $this->core_model->get_result($data['matric'], $data['course']);
 
-							
+							//set user activity
+							$data_activities  = array(
+							'resource_id' => $this->db->insert_id(),
+							'type' => 'Result',
+							'action' => 'Result',
+							'user_id' => $this->session->userdata('user_id'),
+							'message' => $data['matric']. "'s result was checked"
+							);
+							//Insert Activivty
+							$this->activity_model->add($data_activities);
+
 							$data['main'] = 'site/result_detail';
 							$this->load->view('site/layout/main', $data);
 							}						
@@ -251,7 +305,17 @@ class Site extends CI_Controller {
 
 							$data['results'] = $this->core_model->get_all_results($data['matric'], $data['semester'],$data['session']);
 
-							//var_dump($output['results']); die();
+							//set user activity
+							$data_activities  = array(
+							'resource_id' => $this->db->insert_id(),
+							'type' => 'Result',
+							'action' => 'Result',
+							'user_id' => $this->session->userdata('user_id'),
+							'message' => $data['matric']. "'s results for were checked"
+							);
+
+							//Insert Activivty
+							$this->activity_model->add($data_activities);
 
 							$data['main'] = 'site/all_results';
 							$this->load->view('site/layout/main', $data);

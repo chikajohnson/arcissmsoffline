@@ -72,7 +72,7 @@
 						<?php if($result->adjusted_mark >= 40): ?>
 						<td><h3 class="label label-success" style="margin-left: 10px; padding:5px 20px;font-size:14px"> &nbsp;PASS</h3></td>
 						<?php elseif($result->adjusted_mark < 40): ?>
-						<td><h3 class="label label-danger" style="margin-left: 10px; padding:5px 20px;font-size:14px"> &nbsp;PASS</h3></td>
+						<td><h3 class="label label-danger" style="margin-left: 10px; padding:5px 20px;font-size:14px"> &nbsp;FAIL</h3></td>
 						<?php endif; ?>
 						<!-- <td>
 							<a href="<?php echo base_url(); ?>site/check_result/<?php echo $result->id ;?>" title="" class="btn btn-sm btn-primary">Detail</a>

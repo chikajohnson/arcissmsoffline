@@ -1,5 +1,5 @@
 <div class="row">
-	<h4><b>Add Program of Study</b></h4>
+	<h4><b>Add a Programme of Study</b></h4>
 	<div>
 		<?php echo validation_errors('<br><p class="alert alert-warning">'); ?>
 		</div>
@@ -8,23 +8,23 @@
 		<div class="col-lg-12">
 			<ol class="breadcrumb">
 				<li><a href="<?php echo base_url(); ?>admin/dashboard"><i class=" "></i> Dashboard</a></li>
-				<li><a href="<?php echo base_url(); ?>admin/programs"><i class=" "></i>Program of study</a></li>
-				<li class="active"><i class=" "></i> Add program</li>
+				<li><a href="<?php echo base_url(); ?>admin/programs"><i class=" "></i>Programme of study</a></li>
+				<li class="active"><i class=" "></i> Add Programme</li>
 			</ol>
 		</div>
 	</div>
 	<?php echo form_open('admin/programs/add'); ?>
 	<div class="form-group">
 		<div class="form-group">
-			<label>Name of Program</label>
+			<label>Name of Programme</label>
 			<input name="name" type="text" class="form-control" placeholder="Enter program of study" value="<?php echo set_value('name'); ?>">
 		</div>
 		<div class="form-group">
-			<label>Program Mode</label>
+			<label>Programme Mode</label>
 			<input name="type" type="text" class="form-control" placeholder="Enter mode eg Full-Time, Part-Time etc" value="<?php echo set_value('type'); ?>">
 		</div>
 		<div class="form-group">
-			<label>Program Description</label>
+			<label>Programme Description</label>
 			<textarea name="description" placeholder="Program Description" class="form-control"><?php echo set_value('description'); ?></textarea>
 		</div>
 		<div class="form-group">

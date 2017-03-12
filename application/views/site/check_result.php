@@ -21,7 +21,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading text-center">
 				<h3 class="panel-title">
-				<strong style="font-size:22px;">Check Examination Result</strong>
+				<strong style="font-size:28px;">Check Examination Results</strong>
 				</h3>
 			</div>
 			<div class="panel-body">
