@@ -50,7 +50,12 @@
 							<li class="<?php if($this->uri->segment(2) == 'users'){echo "item";} ?>"><?php echo anchor('examiner/users', 'Manage Users', 'title="manage users"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'usergroups'){echo "item";} ?>"><?php echo anchor('examiner/usergroups', 'Manage User Groups', 'title="Manage User Groups"'); ?></li>
 							<!-- <li class="<?php if($this->uri->segment(2) == 'results'){echo "item";} ?>"><?php echo anchor('examiner/results', 'Monitor Results', 'title=" Monitor Results"'); ?></li> -->
-							<li class="<?php if($this->uri->segment(2) == 'activities'){echo "item";} ?>"><?php echo anchor('examiner/activities', 'Monitor Site Activities', 'title=" Monitor Activities"'); ?></li>													
+							<li class="<?php if($this->uri->segment(2) == 'activities'){echo "item";} ?>"><?php echo anchor('examiner/activities', 'Monitor Site Activities', 'title=" Monitor Activities"'); ?></li>	
+							<?php if($this->uri->segment(2) == "dashboard"): ?>
+								<li class="active"><?php echo anchor('/', 'Back To Home', 'title="Back to Home"'); ?></li>
+							<?php else: ?>
+								<li class="active"><?php echo anchor('examiner/dashboard', 'Back To Examiner Dashboard', 'title="Back To Examiner Dashboard"'); ?></li>
+							<?php endif; ?>												
 						</ul>
 						<hr>
 					</div>
