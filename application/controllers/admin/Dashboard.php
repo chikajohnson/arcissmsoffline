@@ -100,7 +100,7 @@ class Dashboard extends CI_Controller {
 				redirect('admin/dashboard');
 			} else {
 
-				$this->session->set_flashdata('error', 'Invalid login');
+				$this->session->set_flashdata('error', 'Incorrect login user name or password.');
 
 				$data['main'] = 'login/login';
 				$this->load->view('login/layout/main', $data);				
