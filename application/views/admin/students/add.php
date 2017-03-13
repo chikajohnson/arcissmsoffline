@@ -43,7 +43,7 @@
 				
 				<div class="form-group">
 					<label>Phone Number </label>
-					<input name="phonenumber1" type="number" class="form-control" placeholder="Enter Phonenumber" value="<?php echo set_value('phonenumber1'); ?>">
+					<input name="phonenumber1" type="number" class="form-control" placeholder="Enter Phonenumber eg +2347034295058" value="<?php echo set_value('phonenumber1'); ?>">
 				</div>
 				<div class="form-group">
 					<label>Alternative Phone Number</label>
