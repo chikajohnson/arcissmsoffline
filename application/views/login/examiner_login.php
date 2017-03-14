@@ -9,9 +9,9 @@
     <?php echo '<div class="alert alert-danger alert-dismissable">'.$this->session->flashdata('error').'</div>'; ?>
     <?php endif;?>
     <?php if($this->session->flashdata('not_allowed')): ?>
-    <?php echo '<div class="alert alert-warning alert-dismissable">'.$this->session->flashdata('not_allowed').'</div>'; ?>
+    <?php echo '<div class="alert alert-danger alert-dismissable">'.$this->session->flashdata('not_allowed').'</div>'; ?>
     <?php endif;?>
-    <?php echo validation_errors('<p class="alert alert-warning">'); ?>
+    <?php echo validation_errors('<p class="alert alert-danger text-center">'); ?>
       <div class="panel-body">
         <input type="email" id="email" name="email" class="form-control" placeholder="User Name" autofocus required value="<?php echo set_value('email'); ?>"">
         <input type="password" id="password" name="password" class="form-control" placeholder="Password">

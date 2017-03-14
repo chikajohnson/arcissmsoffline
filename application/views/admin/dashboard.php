@@ -44,7 +44,7 @@
 						<div class="col-md-12 text-justify">
 							<h4><span class="glyphicon glyphicon-cog text">&nbsp;</span><strong class=" text-primary">Services and Features</strong></h4>
 							<p>
-								The <b> Admin Dashbaord</b> allows the admin to manage the different components of the admin section.
+								The <b> Admin Dashbaord</b> allows the admin to manage the different components of the admin module.
 							</p>
 							<p>
 								The <b>Students Dashbaord</b> is a subsection of the admin section. It allows the admin access to the students' examination results, correct messaging instructions and login access data.
