@@ -1,6 +1,9 @@
 <div class="row">
 	<div class="col-md-12">
 		<h4><b>Add User Group</b></h4>
+		<div>
+			<?php echo validation_errors('<br><p class="alert alert-warning">'); ?>
+		</div>
 	</div>
 </div>
 <div class="row">

@@ -125,11 +125,11 @@ class User_model extends CI_MODEL
 	}
 
 	
-	public function check_if_id_exist()
-	{
+	// public function check_if_id_exist()
+	// {
 		
-		redirect('examiner/error','refresh');
-	}
+	// 	redirect('examiner/error','refresh');
+	// }
 
 	public function check_if_id_exists($id)
 	{
@@ -166,6 +166,35 @@ class User_model extends CI_MODEL
 		return $query;
 				
 	}
+
+	public function check_email_exists($email)
+	{
+		$this->db->select('email');
+		$this->db->from('users');
+		$this->db->where('email', $email);
+
+		$result =  $this->db->count_all_results();		
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}
+	}
+
+	public function check_lecurer_email_exists($email)
+	{
+		$this->db->select('email');
+		$this->db->from('lecturers');
+		$this->db->where('email', $email);
+
+		$result =  $this->db->count_all_results();		
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}
+	}
+
 
 	
 }

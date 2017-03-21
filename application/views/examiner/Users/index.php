@@ -31,8 +31,15 @@
           <td><?php echo $user->last_name.' &nbsp;'.$user->first_name; ?></td> 
            <td><?php echo $user->email; ?></td> 
           <td><?php echo $user->phonenumber; ?></td>
-          <!-- <td><?php echo $user->password; ?></td> -->
-          <td><?php echo $user->group; ?></td>
+          <td>
+            <?php if(strtolower($user->group) == "examiner"): ?>
+              <span>Examiner</span> 
+            <?php elseif(strtolower($user->group) == "admin"): ?>
+              <span>Admin</span> 
+            <?php elseif(strtolower($user->group) == "lecturer"): ?>
+              <span>Lecturer</span> 
+            <?php endif; ?>
+          </td>
           <td>
             <a href="<?php echo base_url(); ?>examiner/users/edit/<?php echo $user->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
             <a href="<?php echo base_url(); ?>examiner/users/detail/<?php echo $user->id ;?> " title="details" class="btn btn-sm btn-warning">Details</a>

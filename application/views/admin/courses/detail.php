@@ -11,7 +11,7 @@
 						<h5><strong>Course Code :</strong></h5>
 					</div>
 					<div class="col-md-9">
-						<h5><?php echo $course->code; ?></h5>
+						<h5><strong><?php echo $course->title; ?></strong></h5>
 					</div>
 				</td>
 			</tr>
@@ -21,7 +21,7 @@
 						<h5><strong>Courses Title :</strong></h5>
 					</div>
 					<div class="col-md-9">
-						<h5><?php echo $course->title; ?></h5>
+						<h5><strong><?php echo $course->title; ?></strong></h5>
 					</div>
 				</td>
 			</tr>

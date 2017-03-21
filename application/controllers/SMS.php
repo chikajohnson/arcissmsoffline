@@ -3,38 +3,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class SMS extends CI_Controller {
 	function __construct()
 	{
-		parent::__construct();
-		
+		parent::__construct();		
 	}
 	
 	public function index()
 	{
-
 		$request = array_merge($_GET, $_POST);
-		$request_message = "";
-		$sms_text = "";
 		
-		//check if the response message/body is not empty
-		if($request !=  null){
+		$time_received = $request['time_received'];
+		$text_message = $request['message'];
+		$sender= str_replace('+', '', urlencode($request['from']));
+		$system_number = $request['me'];
 
-			//convert the json response message to an object
-			$request_message = json_decode($request);
-
-			//get the text property from the result object of the response message
-			$sms_text = $request_message->results[0]->text;
-			var_dump($sms_text);
+		
+		if($request['message'] !=  null && $request['message'] !=  ""){
+			$this->process_sms_request($text_message, $sender, $system_number);
+		}else{
+			$error_message = "SMS text is empty.";
+			$this->send_message($sender, $error_message);
 		}
-		
-		$this->process_sms_request($sms_text);	
-		
 	}
 	
-	public function process_sms_request($sms_text)
+	public function process_sms_request($sms_text, $phonenumber, $system_number)
 	{
+		//phonenumber is the student's phonenumber
+		//system number is the phonenumber registered with CloudSMS 
 		$input_array = 	explode(",", $sms_text);
 		$keyword = $input_array[0];
-		$phonenumber = "55555";
-		$system_number = "08178376272";
+
 		switch (strtolower(trim($keyword))){
 			case 'result':
 				if (count($input_array) == 5) {
@@ -167,7 +163,8 @@ class SMS extends CI_Controller {
 	{
 		$item = $this->sms_model->get_single_result($matric, $course);
 		if ($item) {
-			$item = 'Matric'. ' : '.$item->matric . ' -  Score '.' : ' .$item->course_code. ' ('. $item->score . ')';
+			$item = 'Matric'. ": ".$item->matric . ",  Course: ". $item->course_fullname. ",  Score: ". $item->score;
+			
 			return $item;
 		} else {
 			return "No result found";
@@ -177,20 +174,22 @@ class SMS extends CI_Controller {
 	public function check_all_results($matric, $semester, $session)
 	{
 		
-	$items = $this->sms_model->get_all_results($matric, $semester, $session);
-	
-	if ($items) {
-		$matric = "";
-		$results = "";
-		foreach ($items as $item) {
-			//var_dump($item); die();
-				$matric = $item->matric;
+		$items = $this->sms_model->get_all_results($matric, $semester, $session);
+
+		if($items){
+			$matric = "";
+			$results = "";
+			foreach ($items as $item) {
+				//var_dump($item); die();
+				$matric = $item->matric. '('. $item->session. ' Session - '. $item->semester. ' semester)';
 				$results .= $item->course_code.'('. $item->score. ')'.', ';
-		}
-		return $matric. ' : ' .$results;
-		} else {
-			return "No result found.";
-		}
+			}
+				return $matric . ' : ' . $results;
+			} 
+			else
+			{
+				return "No result found.";
+			}
 	
 	}
 	public function matric_exist($matric)
@@ -203,29 +202,35 @@ class SMS extends CI_Controller {
 	}
 	public function send_message($to, $text)
 	{
-		//var_dump($to. "====== ". $text); die();
-		// $curl = curl_init();
-		// $header = array("Content-Type:application/json", "Accept:application/json", "authorization: Basic VGFyYkluYzpUZXN0MTIzNA==");
-		// $postUrl = "https://api.infobip.com/sms/1/text/single";
-		// $from = "ARCISSMS";
-		// $post_fields = "{ \"from\":\"$from \", \"to\":[ \"$to\"], \"text\":\"$text\" }";
-		// curl_setopt($curl, CURLOPT_URL, $postUrl);
-		// curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-		// curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-		// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		// curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
-		// curl_setopt($curl, CURLOPT_MAXREDIRS, 2);
-		// curl_setopt($curl, CURLOPT_POST, 1);
-		// curl_setopt($curl, CURLOPT_POSTFIELDS, $post_fields);
-		// curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		// $response = curl_exec($curl);
-		// $err = curl_error($curl);
-		// curl_close($curl);
-			// if ($err) {
-							// 	var_dump($err)	; die();
-				// 	return "error";
-		// }
-		echo $text;
+		$curl = curl_init();
+
+		//cloudsms setup information
+		 $userid =11984581;
+		 $password = 1234567890;
+		 $type =  0;
+		 $destination   = urlencode($to);
+		 $sender      = "ARCISSMS";
+		 $message = urlencode($text);
+		  
+		
+		curl_setopt_array($curl, array(
+		CURLOPT_URL =>  "http://developers.cloudsms.com.ng/api.php?userid=$userid&password=$password&type=$type&destination=$destination&sender=$sender&message=$message",
+		
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => "",
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 30,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => "POST",		
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		return $response;
+
+
+		
 		
 	}
 	public function record_User_activity($keyword, $input_array, $sms_text="NA", $phonenumber=00000, $status)
@@ -238,7 +243,8 @@ class SMS extends CI_Controller {
 			'phonenumber' =>$phonenumber,
 			'status' => $status
 			);
+
 		//Insert Activivty
-			$this->sms_model->add($data);
+		$this->sms_model->add($data);
 	}
 }

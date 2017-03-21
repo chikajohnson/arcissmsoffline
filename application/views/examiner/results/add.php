@@ -2,7 +2,7 @@
 	<h4><b>Add Student's Result</b></h4>
 	<div>
 		<?php echo validation_errors('<br><p class="alert alert-warning">'); ?>
-		</div>
+	</div>
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
@@ -60,16 +60,16 @@
 <div class="row">
 	<div class="form-group col-sm-6">
 		<label>Continuous Assessment</label>
-		<input name="assessment" type="text" class="form-control" placeholder="Enter assessment" value="<?php echo set_value('assessment'); ?>">
+		<input id="assessment" name="assessment" type="text" class="form-control" placeholder="Enter assessment" value="<?php echo set_value('assessment'); ?>">
 	</div>
 	<div class="form-group col-sm-6">
 		<label>Exam Score </label>
-		<input name="exam_score" type="number" class="form-control" placeholder="Enter the  total score" value="<?php echo set_value('exam_score'); ?>">
+		<input id="exam_score" name="exam_score" type="number" onkeyup="populateText();" class="form-control" placeholder="Enter the  total score" value="<?php echo set_value('exam_score'); ?>">
 	</div>
 </div>
 <div class="form-group">
 	<label>Total Mark</label>
-	<input name="adjusted_mark" type="number" class="form-control" placeholder="Enter the adjusted score" value="<?php echo set_value('adjusted_mark'); ?>">
+	<input id="total_score" name="adjusted_mark" readonly="true" type="number" class="form-control" placeholder="0" value="<?php echo set_value('adjusted_mark'); ?>">
 </div>
 <div class="form-group">
 	<label>Remark</label>
@@ -108,3 +108,26 @@
 	</div>
 </div>
 <?php echo form_close(); ?>
+
+<script type="text/javascript">
+
+	function populateText(){
+		var assessment = document.getElementById('assessment').value;
+		var exam =  document.getElementById('exam_score').value;
+		var total = 0;
+
+		total = parseInt(assessment) + parseInt(exam);
+
+		document.getElementById('total_score').value = total;
+	}
+
+	function cleartext(inputControl) {
+		var cleared = true;
+		if(cleared){
+			inpotControl.value  = "";
+
+			cleared = false;
+		}
+	}
+	
+</script>

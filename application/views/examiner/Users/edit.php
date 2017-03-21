@@ -1,10 +1,18 @@
 <div class="row">
 	<div class="col-md-12">
 		<h4><b>Edit User</b></h4>
+	</div>	
 	</div>
 	<div>
 		<?php echo validation_errors('<br><p class="alert alert-warning">'); ?>
-		</div>
+	</div>
+	<div>
+		<?php if($this->session->flashdata('error')): ?>
+		<?php echo '<div class="alert alert-danger alert-dismissable">'.$this->session->flashdata('error').'</div>'; ?>
+		<?php endif;?>
+		<?php if($this->session->flashdata('success')): ?>
+		<?php echo '<div class="alert alert-success alert-dismissable">'.$this->session->flashdata('success').'</div>'; ?>
+		<?php endif;?>
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
@@ -14,8 +22,7 @@
 				<li class="active"><i class=" "></i> Edit User</li>
 			</ol>
 		</div>
-	</div>
-	<!-- <?php var_dump($groups); var_dump($user); ?> -->
+	</div>	
 	<?php echo form_open('examiner/users/edit/'.$user->id); ?>
 	<div class="form-group">
 		<label>User Name</label>

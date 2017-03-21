@@ -1,8 +1,17 @@
 <div class="row">
 	<h4><b>Add user</b></h4>
+	
+	</div>
 	<div>
 		<?php echo validation_errors('<br><p class="alert alert-warning">'); ?>
 		</div>
+	<div>
+		<?php if($this->session->flashdata('error')): ?>
+		<?php echo '<div class="alert alert-danger alert-dismissable">'.$this->session->flashdata('error').'</div>'; ?>
+		<?php endif;?>
+		<?php if($this->session->flashdata('success')): ?>
+		<?php echo '<div class="alert alert-success alert-dismissable">'.$this->session->flashdata('success').'</div>'; ?>
+		<?php endif;?>
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
@@ -14,10 +23,7 @@
 		</div>
 	</div>
 	<?php echo form_open('examiner/users/add', 'autocomplete'); ?>
-	<!-- <div class="form-group">
-		<label>User Name</label>
-		<input name="user_name" type="text" class="form-control" placeholder="Enter User Name" value="<?php echo set_value('user_name'); ?>">
-	</div> -->
+	
 	<div class="form-group">
 		<label>Last Name</label>
 		<input name="last_name" type="text" class="form-control" placeholder="Enter last name" value="<?php echo set_value('last_name'); ?>">
@@ -36,7 +42,7 @@
 	</div>
 	<div class="form-group">
 		<label>Phonenumber</label>
-		<input name="phonenumber" type="number" class="form-control" placeholder="Enter phonenumber" value="<?php echo set_value('phonenumber'); ?>">
+		<input name="phonenumber" type="number" class="form-control" placeholder="Enter phonenumber in the format 234805699588" value="<?php echo set_value('phonenumber'); ?>">
 	</div>
 	<div class="form-group">
 		<label>Password</label>

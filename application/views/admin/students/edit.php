@@ -2,7 +2,6 @@
 	<div class="col-md-12">
 		<h4><b>Edit student</b></h4>
 	</div>
-	<?php //var_dump($student); die(); ?>
 	<?php echo validation_errors('<br><p class="alert alert-warning">'); ?>
 	</div>
 	<div class="row">

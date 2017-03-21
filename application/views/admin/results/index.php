@@ -13,16 +13,18 @@
     <?php echo form_open('admin/results/search'); ?>
     <div class="row">
       <div class="col-sm-6">
-        <small class="pull-left"><a id="delete_button" href="<?php echo base_url(); ?>admin/results/add" title="add result" class="btn btn-sm btn-success pull-left">Add New result</a></small>
-        <small class="pull-left"><a  href="<?php echo base_url(); ?>admin/results/upload_result" title="Upload in batch" class="btn btn-sm btn-success pull-left">Upload Results in Batch</a></small>
       </div>
       <div class="col-sm-2">
         <select name="result" style="width:120%; height:35px;font-size:13px;" class="form-control">
           <option value="0" >Select Search Column</option>
           <option value="matric">Matric Number</option>
+           <option value="session_name">Session Name</option>
+          <option value="semester_name">Semester</option>
+          <option value="course_code">Course Code</option>
           <option value="remark">Remark</option>
           <option value="assessment">Assessment</option>
           <option value="total_score">Total Score</option>
+
         </select>
       </div>
       <div class="col-sm-2">
@@ -85,8 +87,8 @@
               <td><?php echo $result->adjusted_mark ?></td>
               <td><?php echo $result->remark; ?></td>
               <td>
-                <a href="<?php echo base_url(); ?>admin/results/edit/<?php echo $result->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
-                <a href="<?php echo base_url(); ?>admin/results/detail/<?php echo $result->id ;?> " title="details" class="btn btn-sm btn-warning">Details</a><a href="<?php echo base_url(); ?>admin/results/delete/<?php echo $result->id ;?>" onclick="confirmAction();" title="delete" class="btn btn-sm btn-danger">Delete</a>
+                
+                <a href="<?php echo base_url(); ?>admin/results/detail/<?php echo $result->id ;?> " title="details" class="btn btn-sm btn-warning">Details</a>
               </td>
             </tr>
              <?php endforeach;?>

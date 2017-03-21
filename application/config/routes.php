@@ -62,6 +62,14 @@ $route['examiner'] = 'examiner/dashboard/login';
 $route['examiner/home'] = 'examiner/dashboard/index';
 $route['examiner/activities'] = 'examiner/dashboard/index';
 
+
+$route['examiner/lecturers/edit/(:any)'] = 'examiner/lecturers/edit/$1';
+$route['examiner/lecturers/delete/(:any)'] = 'examiner/lecturers/delete/$1';
+$route['examiner/lecturers/detail/(:any)'] = 'examiner/lecturers/detail/$1';
+
+$route['examiner/lecturers/paginate/(:any)'] = 'examiner/lecturers/index';
+
+
 $route['admin/testing'] = 'admin/testing/test';
 
 $route['admin/courses/edit/(:any)'] = 'admin/courses/edit/$1';
@@ -108,6 +116,9 @@ $route['sms/(:any)'] = 'SMS';
 
 $route['admin/courses/paginate/(:any)'] = 'admin/courses/index';
 $route['sms/(:any)'] = 'SMS';
+
+
+$route['lecturer'] = "lecturer/dashboard/index";
 
 
 

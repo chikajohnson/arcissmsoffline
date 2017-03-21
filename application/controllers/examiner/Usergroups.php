@@ -34,7 +34,7 @@ class Usergroups extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE) {
 			$data['main'] = "examiner/usergroups/add";
-		$this->load->view('examiner/layout/main', $data);
+			$this->load->view('examiner/layout/main', $data);
 		} else {
 			$data  = array(
 				'name' => $this->input->post('name'),

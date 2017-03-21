@@ -50,7 +50,7 @@
 				<th>User</th>
 				<th>Phonenumber</th>
 				<th>SMS Type</th>
-				<th>Status</th>
+				<th>Response Status</th>
 				<th>Message </th>
 			</tr>
 		</thead>

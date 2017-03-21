@@ -26,7 +26,7 @@
 				<option  value="0">Select course</option>
 				<?php if($courses) : ?>
 					<?php foreach($courses as $course): ?>
-						<?php if ($course->id == $result->course): ?>
+						<?php if ($course->id == $result->course_id): ?>
 						<?php $selected = 'selected'; ?>
 				<?php else: ?>
 					<?php $selected = ''; ?>
@@ -42,7 +42,7 @@
 				<option  value="0">Select course</option>
 				<?php if($sessions) : ?>
 				<?php foreach($sessions as $session): ?>
-				<?php if ($session->id == $result->session): ?>
+				<?php if ($session->id == $result->session_id): ?>
 				<?php $selected = 'selected'; ?>
 				<?php else: ?>
 				<?php $selected = ''; ?>
@@ -58,7 +58,7 @@
 				<option  value="0">Select semester</option>
 				<?php if($semesters) : ?>
 				<?php foreach($semesters as $semester): ?>
-				<?php if ($semester->id == $result->semester): ?>
+				<?php if ($semester->id == $result->semester_id): ?>
 				<?php $selected = 'selected'; ?>
 				<?php else: ?>
 				<?php $selected = ''; ?>

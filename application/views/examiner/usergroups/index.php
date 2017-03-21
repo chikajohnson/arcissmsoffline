@@ -2,8 +2,8 @@
 <?php if($this->session->flashdata('success')): ?>
 <?php echo '<div class="alert alert-success alert-dismissable">'.$this->session->flashdata('success').'</div>'; ?>
 <?php endif;?>
-<div class="row">
 
+<div class="row">
   <div class="table-responsive">
     <h4 ><span class="label label-default">Usergroup Information<small><a href="<?php echo base_url(); ?>examiner/usergroups/add" title="add usergroup" class="btn btn-sm btn-success pull-right">Add Usergroup</a></small></span></h4>
     <table class="table table-striped">

@@ -21,7 +21,7 @@ class Dashboard extends CI_Controller {
 		$data['student_count'] = $this->student_model->count();
 		$data['course_count'] = $this->course_model->count();
 		$data['sms_count'] = $this->message_model->count();
-		$data['result_count'] = $this->result_model->count();
+		$data['result_count'] = $this->result_model->count_admin();
 		$data['program_count'] = $this->program_model->count();
 
 		$data['main'] = 'admin/dashboard';

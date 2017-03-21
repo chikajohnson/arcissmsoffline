@@ -58,7 +58,7 @@
 					</label>
 				</div>
 				<div class="form-group" id="custom">
-					<textarea rows="8" name="phonenumbers" placeholder="Enter phone number(s) each separated by a comma e.g. 09038883838,0837738733,08737338288" class="form-control"><?php echo set_value('phonenumbers'); ?></textarea>
+					<textarea rows="8" name="phonenumbers" placeholder="Enter phone number(s) each separated by a comma e.g. 2349038883838,234837738733,2348737338288" class="form-control"><?php echo set_value('phonenumbers'); ?></textarea>
 				</div>
 			</div>
 		</div>

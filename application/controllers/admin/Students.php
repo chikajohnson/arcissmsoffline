@@ -39,7 +39,7 @@ class Students extends CI_Controller {
 		$this->form_validation->set_rules('gender', 'gender', 'trim|required');
 		//$this->form_validation->set_rules('password', 'password', 'trim|required');
 		//$this->form_validation->set_rules('photo', 'photo', 'trim|required');
-		$this->form_validation->set_rules('phonenumber1', 'phonenumber1', 'trim|required');
+		$this->form_validation->set_rules('phonenumber1', 'phonenumber1', 'trim|required|callback_verify_format');
 		$this->form_validation->set_rules('phonenumber2', 'phonenumber2', 'trim|required');
 		$this->form_validation->set_rules('email', 'email', 'trim|required|callback_email_check');
 		$this->form_validation->set_rules('country', 'country', 'trim|required');
@@ -236,6 +236,17 @@ class Students extends CI_Controller {
         }
     }
 
+    public function verify_format($number)
+    {
+    	if(substr($number,0,3) != "234"  || substr($number,0,4) != "+234"){
+		  	 $this->form_validation->set_message('Phone number is not in the correct format.');
+		    return false;
+		  } 
+		  else
+		  {
+		  	return true;
+		  } 
+	 }
 
     public function email_check($email)
     {

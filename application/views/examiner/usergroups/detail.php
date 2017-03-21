@@ -1,7 +1,6 @@
-<h3><b>Dashboard</b></h3>
 <div class="row">
 	<div class="table-responsive">
-		<h3 ><span class="label label-primary">User-Group Details<small><a href="<?php echo base_url(); ?>examiner/usergroups" title="back to user group" class="btn btn-md btn-primary pull-right">Back</a></small></span></h3>
+		<h4 ><b>User-Group Details</b><a href="<?php echo base_url(); ?>examiner/usergroups" title="back to user group" class="btn btn-md btn-primary pull-right">Back</a></h3>
 	</div>
 	<hr>
 	<table class="table table-striped table-condensed table-responsive" style="width:100%;">

@@ -116,7 +116,6 @@ class Courses extends CI_Controller {
 			}
 			
 		}
-
 		
 	}
 
@@ -195,11 +194,10 @@ class Courses extends CI_Controller {
 			
 
 			$data['main'] = "admin/courses/index";
-			$this->load->view('admin/layout/main', $data);
-			
-		}
-		
+			$this->load->view('admin/layout/main', $data);			
+		}		
 	}
+
 
 	public function paginate()
 	{
@@ -226,7 +224,6 @@ class Courses extends CI_Controller {
 
 				$data['main'] = "admin/courses/index";
 				$this->load->view('admin/layout/main', $data);
-
 				
 			}
 

@@ -11,17 +11,81 @@ class Dashboard extends CI_Controller {
 	
 	public function index()
 	{
-		//var_dump('am here'); die();
-		
+
+		if ($this->session->userdata('user_type')!= 'examiner') {
+			redirect('welcome');
+		 }		
+		$this->approve_list();
+	}
+
+	public function activities()
+	{
 		if ($this->session->userdata('user_type')!= 'examiner') {
 			redirect('welcome');
 		 }
-
 		
 		$data['activities']  = $this->activity_model->get_admin_activities();
-
 		$data['main'] = 'examiner/index';
 		$this->load->view('examiner/layout/main', $data);
+	}
+
+
+
+	public function approve_list()
+	{
+
+		if ($this->session->userdata('user_type')!= 'examiner') {
+			redirect('welcome');
+		 }		
+		
+		$data['all_results_approved'] = $this->result_model->check_approved();
+		$data['submitted_results'] = $this->result_model->get_submitted_results();
+
+		$data['main'] = 'examiner/results/index';
+		$this->load->view('examiner/layout/main', $data);
+	}
+
+	public function approve($group_code=0)
+	{
+
+		if ($this->session->userdata('user_type')!= 'examiner') {
+			redirect('welcome');
+		 }	
+
+		if($this->lecturer_model->check_if_groupcode_exists($group_code) == NULL) {
+			$data['main'] = 'examiner/error';
+			$this->load->view('examiner/layout/main', $data);
+		}else{	
+
+			$update_data = array(
+				'approved' => true
+				);
+
+			$data['submitted_results'] = $this->result_model->get_submitted_results();
+			$this->result_model->approve_results($update_data, $group_code);
+
+			$this->session->set_flashdata('approve', 'The result has been approved successfully.');
+			redirect('examiner/dashboard/approve_list','refresh');
+		}
+	}
+
+	public function view($group_code=0)
+	{
+
+		if ($this->session->userdata('user_type')!= 'examiner') {
+			redirect('welcome');
+		 }		
+		
+		if($this->lecturer_model->check_if_groupcode_exists($group_code) == NULL) {
+			$data['main'] = 'examiner/error';
+			$this->load->view('examiner/layout/main', $data);
+		}else{	
+			$data['results'] = $this->result_model->get_group_results($group_code);
+			$data['result_detail'] = $this->result_model->get_results_detail($group_code);
+
+			$data['main'] = 'examiner/results/all_results';
+			$this->load->view('examiner/layout/main', $data);
+		}
 	}
 
 	public function login()
@@ -29,7 +93,6 @@ class Dashboard extends CI_Controller {
 		if ($this->session->userdata('logged_in')) {
 			redirect('welcome');
 		}
-
 		
 		$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -81,15 +144,12 @@ class Dashboard extends CI_Controller {
 			}
 		}
 
-
 	}
 
 	public function logout()
 	{
 		$unset_items  = array('user_id','user_name','logged_in','user_type');
-
-		$this->session->unset_userdata($unset_items);
-		
+		$this->session->unset_userdata($unset_items);		
 		$this->session->sess_destroy();
 		redirect('welcome');
 	}

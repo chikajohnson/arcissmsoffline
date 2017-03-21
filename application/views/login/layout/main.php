@@ -10,9 +10,7 @@
     <link rel="icon" href="../../favicon.ico">
     <title>ARCIS SMS | Login Page</title>
     
-
-    
-    
+     <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png">
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/login.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">

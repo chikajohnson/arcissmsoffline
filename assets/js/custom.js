@@ -1,6 +1,7 @@
 $(document).ready(function(){
 $('#upload_div').hide();
 $('#course-div').hide();
+// $('#inlet_panel').hide();
 
 $('#course-radio').click(function () {
 	 $('#course-div').show();

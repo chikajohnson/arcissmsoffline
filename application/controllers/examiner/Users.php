@@ -5,6 +5,7 @@ class Users extends CI_Controller {
 	
 	public function index()
 	{
+		
 		if (!$this->session->userdata('logged_in')) {
 			redirect('welcome');
 		} else {
@@ -22,6 +23,7 @@ class Users extends CI_Controller {
 		$data['main'] = "examiner/users/index";
 		$this->load->view('examiner/layout/main', $data);
 	}
+	
 	public function add()
 	{
 		if (!$this->session->userdata('logged_in')) {
@@ -39,7 +41,7 @@ class Users extends CI_Controller {
 		$this->form_validation->set_rules('last_name', 'last_name', 'trim|required');
 		$this->form_validation->set_rules('first_name', 'first_name', 'trim|required');
 		$this->form_validation->set_rules('other_names', 'other_names', 'trim|required');
-		$this->form_validation->set_rules('email', 'email', 'trim|required');
+		$this->form_validation->set_rules('email', 'email', 'trim|required|callback_email_check');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 		$this->form_validation->set_rules('user_group', 'User group', 'trim|required|greater_than[0]');
 
@@ -52,7 +54,7 @@ class Users extends CI_Controller {
 		} else {
 			$data  = array(
 				'phonenumber' => $this->input->post('phonenumber'),
-				'user_name' => $this->input->post('email'),
+				'user_name' => strtolower($this->input->post('email')),
 				'last_name' 		=> $this->input->post('last_name'),
 				'first_name'		=> $this->input->post('first_name'),
 				'other_names'		=> $this->input->post('other_names'),
@@ -61,6 +63,16 @@ class Users extends CI_Controller {
 				'user_group' => $this->input->post('user_group'),
 				'password_plain' => $this->input->post('password')
 				);
+
+			//var_dump($this->usergroup_model->get_usergroup_name($data['user_group'])); die();
+
+			if($this->usergroup_model->get_usergroup_name($data['user_group']) == "lecturer"){
+				
+				if($this->user_model->check_lecurer_email_exists(strtolower(trim($data['user_name']))) == false){					
+					$this->session->set_flashdata('error', '<strong>'. $this->input->post('email').'</strong>  is not associated with any registered lecturer');
+					redirect('examiner/users/add');
+				}
+			}
 			//insert user
 			$this->user_model->add($data);
 			$data  = array(
@@ -126,6 +138,16 @@ class Users extends CI_Controller {
 					'user_group' => $this->input->post('user_group'),
 					'password_plain' =>  $this->input->post('password')
 					);
+
+
+
+				if($this->usergroup_model->get_usergroup_name($data['user_group']) == "lecturer"){
+					
+					if($this->user_model->check_lecurer_email_exists(strtolower(trim($data['user_name']))) == false){					
+						$this->session->set_flashdata('error', '<strong>'. $this->input->post('email').'</strong>  is not associated with any registered lecturer');
+						redirect('examiner/users/edit/'.$id);
+					}
+				}
 				//update user
 				$this->user_model->update($id, $data);
 				$data  = array(
@@ -224,7 +246,7 @@ class Users extends CI_Controller {
 					'type' => 'user',
 					'action' => 'suspended',
 					'user_id' => $this->session->userdata('user_id'),
-					'message' =>  'Admin Account - ' .  $admin_email .' has been suspended by the Chief Examiner',
+					'message' =>  $admin_email .' has been suspended by the Chief Examiner',
 					);
 				//Insert Activivty
 				$this->activity_model->add($data);
@@ -262,7 +284,7 @@ class Users extends CI_Controller {
 					'type' => 'user',
 					'action' => 'suspended',
 					'user_id' => $this->session->userdata('user_id'),
-					'message' =>  'Admin Account - ' .  $admin_email .' has been activated by the Chief Examiner',
+					'message' =>  $admin_email .' has been activated by the Chief Examiner',
 					);
 				//Insert Activivty
 				$this->activity_model->add($data);
@@ -271,5 +293,30 @@ class Users extends CI_Controller {
 				redirect('examiner/users','refresh');
 		}
 	}
+
+	public function email_check($email)
+    {
+        if ($this->user_model->check_email_exists(trim($email)) == true)
+        {
+                $this->form_validation->set_message('email_check', 'The {field} ' .' <strong>'. $email.'</strong>'. ' already Exists');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+    }
+
+  //   public function verify_format($number)
+  //   {
+  //   	if(substr($number,0,3) != "234"  || substr($number,0,4) != "+234") {
+		//   	$this->form_validation->set_message('verify_format','Phone number is not in the correct format.');
+		//     return true;
+		//   } 
+		//   else
+		//   {
+		//   	return false;
+		//   } 
+	 // }
 	
 }
