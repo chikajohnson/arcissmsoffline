@@ -5,10 +5,11 @@
 .btn{
 	margin: 0 3px;
 }
-
+/* 
 li{
 	list-style: none;
-}
+} */
+
 #sidebar {
   color: #fff;
   background-color: #428bca;
@@ -46,6 +47,34 @@ li{
 	color: #fff !important;
 	font-size: 17px;
 	font-style: italic;
+}
+
+.glyphicon-globe{
+	font-size: 23px;
+}
+.notifications{
+	position: relative;
+}
+
+
+.notifications .badge{
+	position: absolute;	
+	top:8px;
+	right:-8px;
+	background: #a80a0a;
+	color: #fff;
+	border:2px solid white;
+	z-index: 1000;
+}
+
+
+.new{
+	top:8px;
+	right:-8px;
+	background: #4C992D !important;
+	color: #fff;
+	border:2px solid white;
+	z-index: 1000;
 }
 
 /* .table{

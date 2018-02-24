@@ -8,18 +8,18 @@ class SMS extends CI_Controller {
 	
 	public function index()
 	{
-		$request = array_merge($_GET, $_POST);
-
-		if ($this->input->server('REQUEST_METHOD') == 'GET'){
-		   redirect('welcome','refresh');
+		$request = array_merge($_GET, $_POST);	
+		
+		if($request == null){
+			redirect('welcome','refresh');
 		}
-		else if ($this->input->server('REQUEST_METHOD') == 'POST'){
-		    $time_received = $request['time_received'];
+		else{
+			$time_received = $request['time_received'];
 			$text_message = $request['message'];
-			$sender= str_replace('+', '', urlencode($request['from']));
+			$sender= str_replace('+', '', $request['from']);
 			$system_number = $request['me'];
-
-			//var_dump($sender); die();
+	
+			
 			
 			if($request['message'] !=  null && $request['message'] !=  ""){
 				$this->process_sms_request($text_message, $sender, $system_number);
@@ -28,7 +28,7 @@ class SMS extends CI_Controller {
 				$this->send_message($sender, $error_message);
 				$this->record_User_activity($keyword="NA", $matric="", $text_message, $sender, $status="sent (Empty sms text)");
 			}
-		}
+		}	
 				
 		
 	}
@@ -152,7 +152,8 @@ class SMS extends CI_Controller {
 				}
 				break;
 			default:
-				$error_messaage = "Message is not in correct format.";
+				$error_messaage = "Message is not in correct format. Invalid keyword supplied.";
+				$this->record_User_activity("***".$keyword, $input_array, $sms_text, $sender, $status="sent (Incorrect Keyword)");
 				$this->send_message($sender, $error_messaage);
 				break;
 			}
@@ -237,24 +238,26 @@ class SMS extends CI_Controller {
 		$response = curl_exec($curl);
 
 		curl_close($curl);
-		return $response;
-
-
-		
-		
+		return $response;		
 	}
+
+	
 	public function record_User_activity($keyword, $input_array, $sms_text="NA", $sender, $status)
 	{
 		if($input_array == null){
 			$input_array[1] = "NA";
 		}
 		
+		date_default_timezone_set('Africa/Lagos');
+		$date = date('jS F Y  h:i:sa', time());
+
 		$data  = array(
 			'sms_type' => $keyword,
 			'matric' => $input_array[1],
 			'sms_message' => $sms_text,
 			'phonenumber' =>$sender,
-			'status' => $status
+			'status' => $status,
+			'request_time' => $date
 			);
 
 		//Insert Activivty

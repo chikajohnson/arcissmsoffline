@@ -1,6 +1,6 @@
 <?php
 /**
-*
+* Results model
 */
 class Result_model extends CI_MODEL
 {

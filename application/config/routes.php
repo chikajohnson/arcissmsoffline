@@ -103,6 +103,15 @@ $route['admin/students/edit/(:any)'] = 'admin/students/edit/$1';
 $route['admin/students/delete/(:any)'] = 'admin/students/delete/$1';
 $route['admin/students/detail/(:any)'] = 'admin/students/detail/$1';
 
+$route['admin/notifications/delete/(:any)'] = 'admin/notifications/delete/$1';
+$route['admin/notifications/detail/(:any)'] = 'admin/notifications/detail/$1';
+
+$route['lecturer/notifications/delete/(:any)'] = 'lecturer/notifications/delete/$1';
+$route['lecturer/notifications/detail/(:any)'] = 'lecturer/notifications/detail/$1';
+
+$route['examiner/notifications/delete/(:any)'] = 'examiner/notifications/delete/$1';
+$route['examiner/notifications/detail/(:any)'] = 'examiner/notifications/detail/$1';
+
 $route['admin/courses/search/(:any)'] = 'admin/courses/index/$1';
 $route['admin/educations/search/(:any)'] = 'admin/educations/index/$1';
 $route['admin/academic_sessions/search/(:any)'] = 'admin/academic_sessions/index/$1';

@@ -54,7 +54,7 @@
 				<div class="radio">
 					<label>
 						<input type="radio" name="message_radio" id="some-radio"
-						value="custom" > Enter the phone numbers manually
+						value="custom" > Enter student's phone numbers manually
 					</label>
 				</div>
 				<div class="form-group" id="custom">

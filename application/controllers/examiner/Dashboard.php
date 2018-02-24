@@ -64,6 +64,19 @@ class Dashboard extends CI_Controller {
 			$data['submitted_results'] = $this->result_model->get_submitted_results();
 			$this->result_model->approve_results($update_data, $group_code);
 
+			//Set activities
+			$activities  = array(
+				'resource_id' => $this->db->insert_id(),
+				'type' => 'Result',
+				'action' => 'Approval',
+				'user_id' => $this->session->userdata('user_id'),
+				'message' => $this->session->userdata('user_name'). ' approved result(s) of group_code = '. $group_code
+				);
+
+		
+				//Insert Activivty
+				$this->activity_model->add($activities);
+
 			$this->session->set_flashdata('approve', 'The result has been approved successfully.');
 			redirect('examiner/dashboard/approve_list','refresh');
 		}
@@ -81,8 +94,10 @@ class Dashboard extends CI_Controller {
 			$this->load->view('examiner/layout/main', $data);
 		}else{	
 			$data['results'] = $this->result_model->get_group_results($group_code);
-			$data['result_detail'] = $this->result_model->get_results_detail($group_code);
+			$data['result_detail'] = $this->result_model->get_results_detail($group_code);			
 
+
+			//var_dump($data['results']); die();
 			$data['main'] = 'examiner/results/all_results';
 			$this->load->view('examiner/layout/main', $data);
 		}

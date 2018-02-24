@@ -1,6 +1,6 @@
 <?php
 /**
-*
+* User_model
 */
 class User_model extends CI_MODEL
 {

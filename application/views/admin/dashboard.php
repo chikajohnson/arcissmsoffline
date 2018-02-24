@@ -60,7 +60,7 @@
 							</p>
 							<p class="text-center">
 								<a  class="btn btn-lg btn-default " style="height:50%" title="click to enter the student's dashboard." href="<?php echo base_url(); ?>Site"><span class="glyphicon glyphicon-cog"></span>
-								<strong><span class="text-default">Enter Students' Dashbaord</span></strong>
+								<strong><span class="text-default">Enter Student Dashbaord</span></strong>
 								</a>
 							</p>
 								

@@ -36,10 +36,10 @@
             <tr>
               <th>#</th>
               <th>Matric Number</th>
-              <th>Course</th>
-              <th>Semester</th>
-              <th>Academic Session</th>
-              <th>Total Score</th>
+              <th>Assessement</th>
+              <th>Exam score</th>
+              <th>Total Score</th>              
+              <th>Adjusted Score</th>
               <th>Remark</th>
             </tr>
           </thead>
@@ -49,9 +49,9 @@
             <tr>
               <td><?php echo $item++; ?></td>
               <td><?php echo $result->matric; ?></td>
-              <td><?php echo $result->code. ' - '.$result->course; ?></td>
-              <td><?php echo $result->semester; ?></td>
-              <td><?php echo $result->session ?></td>
+              <td><?php echo $result->assessment ?></td>
+              <td><?php echo $result->exam_score; ?></td>
+              <td><?php echo $result->total_score ?></td>
               <td><?php echo $result->adjusted_mark ?></td>
               <td><?php echo $result->remark; ?></td>              
             </tr>

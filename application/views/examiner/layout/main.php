@@ -47,12 +47,14 @@
 					<div class="col-sm-3 col-md-2 sidebar">
 						<ul class="nav nav-sidebar text-center">
 							<li class="<?php if($this->uri->segment(1) == 'examiner'){echo "active";} ?>"><?php echo anchor('examiner/dashboard', 'Chief Examiner Dashboard', 'title="Dashboard Home"'); ?></li>
+							<li class="<?php if($this->uri->segment(2) == 'notifications'){echo "item";} ?>"><?php echo anchor('examiner/notifications', 'Notifications', 'title="Notifications"'); ?></li>
+
 							<li class="<?php if($this->uri->segment(2) == 'users'){echo "item";} ?>"><?php echo anchor('examiner/users', 'Manage Users', 'title="manage users"'); ?></li>
-							<li class="<?php if($this->uri->segment(3) == 'allocate'){echo "item";} ?>"><?php echo anchor('examiner/lecturers/allocate', 'Allocate Courses', 'title="Allocate Courses"'); ?></li>
+							<!-- <li class="<?php if($this->uri->segment(3) == 'allocate'){echo "item";} ?>"><?php echo anchor('examiner/lecturers/allocate', 'Allocate Courses', 'title="Allocate Courses"'); ?></li> -->
 							<li class="<?php if($this->uri->segment(2) == 'lecturers' && $this->uri->segment(3) == null){echo "item";} ?>"><?php echo anchor('examiner/lecturers', 'Manage Lecturers', 'title="manage lecturers"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'usergroups'){echo "item";} ?>"><?php echo anchor('examiner/usergroups', 'Manage User Groups', 'title="Manage User Groups"'); ?></li>
 							<li class="<?php if($this->uri->segment(3) == 'approve_list' || $this->uri->segment(3) == 'view'){echo "item";} ?>"><?php echo anchor('examiner/dashboard/approve_list', 'Approve Results', 'title=" Approve Results"'); ?></li>
-							<li class="<?php if($this->uri->segment(3) == 'activities'){echo "item";} ?>"><?php echo anchor('examiner/dashboard/activities', 'Site Activities', 'title=" Monitor Activities"'); ?></li>	
+							<li class="<?php if($this->uri->segment(3) == 'activities'){echo "item";} ?>"><?php echo anchor('examiner/dashboard/activities', 'View Users Activities', 'title=" Monitor Users Activities"'); ?></li>	
 							<?php if($this->uri->segment(2) == "dashboard"): ?>
 								<li class="active"><?php echo anchor('/', 'Back To Home', 'title="Back to Home"'); ?></li>
 							<?php else: ?>

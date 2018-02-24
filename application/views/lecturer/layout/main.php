@@ -52,6 +52,7 @@
 						<ul class="nav nav-sidebar text-center">
 							<li class="<?php if($this->uri->segment(1) == 'lecturer'){echo "active";} ?>"><?php echo anchor('lecturer/dashboard', 'Lecturer Dashboard', 'title="Lecturer Home"'); ?>
 							</li>
+							<li class="<?php if($this->uri->segment(2) == 'notifications'){echo "item";} ?>"><?php echo anchor('lecturer/notifications', 'Notifications', 'title="Notifications"'); ?></li>
 
 							<li class="<?php if($this->uri->segment(2) == 'results' && ($this->uri->segment(3) == null || $this->uri->segment(3) == "view" || $this->uri->segment(3) == "add" || $this->uri->segment(3) == "detail" || $this->uri->segment(3) == "edit")) {echo "item";} ?>"><?php echo anchor('lecturer/results', 'View  Results', 'title="View Results"'); ?></li>	
 

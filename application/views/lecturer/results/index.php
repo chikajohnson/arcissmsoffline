@@ -69,9 +69,9 @@
               <th>Matric</th>
               <th>Course</th>
               <th>Semester</th>
-              <th>Academic Session</th>
-              <th>Total Score</th>
-              <th>Approval Status</th>
+              <th>Session</th>
+              <th>Score</th>
+              <th>Approval</th>
               <th>Actions</th>
             </tr>
           </thead>

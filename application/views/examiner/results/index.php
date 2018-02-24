@@ -17,14 +17,14 @@
           <div class="text-center">
             <?php if($submitted_results): ?>
             <?php foreach($submitted_results as $result): ?>
-            <div class="list-group col-sm-4" style="height: 200px;">
+            <div class="list-group col-sm-4" style="height: 210px;">
               <?php if($result->approved == true): ?>
                 <div class="list-group-item  bg-4">
-                <span><b><strong><?php echo $result->course_fullname; ?> (<?php echo $result->session_name; ?>)</strong></b></span>
+                <span><b><strong><?php echo $result->course_fullname; ?> <br>(<?php echo $result->session_name; ?>)</strong></b></span>
               </div>
               <?php  else:?>
               <div class="list-group-item  bg-1">
-                <span><b><strong><?php echo $result->course_fullname; ?> (<?php echo $result->session_name; ?>)</strong></b></span>
+                <span><b><strong><?php echo $result->course_fullname; ?> <br>(<?php echo $result->session_name; ?>)</strong></b></span>
               </div>
             <?php endif; ?>
               
@@ -48,13 +48,13 @@
             <?php endforeach; ?>
               <?php if($all_results_approved == true): ?>
                 
-                <div >
-                  <h4 class="text-success"><strong>All results have been approved</strong></h4>
+                <div>                
+                  <h4 class="text-success" ><strong>All results have been approved</strong></h4>
                 </div>
               <?php endif; ?>
             <?php else: ?>
               <br>
-            <h4>No results submiited for approval.</h4>
+            <h4>No result has been submiited for approval.</h4>
             <?php endif; ?>
           </div>
         </div>

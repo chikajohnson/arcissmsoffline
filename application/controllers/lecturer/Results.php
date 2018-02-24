@@ -20,9 +20,11 @@ class Results extends CI_Controller {
 		$data['semesters'] = $this->semester_model->get_semesters();
 		$data['sessions'] = $this->academic_session_model->get_academic_sessions();
 
- 
+ 		
+
 		$config['upload_path'] =  APPPATH . 'uploads/';
 		$config['allowed_types'] = 'xlsx|xls|csv';
+		$config['file_name'] = "Batch-upload_". $this->generateRandomString(10);
 		$config['max_size']  = '0';
 		$config['max_width']  = '1024';
 		$config['max_height']  = '768';
@@ -34,7 +36,7 @@ class Results extends CI_Controller {
 		$this->form_validation->set_rules('session', 'Academic session',  'trim|required|greater_than[0]');
 		$this->form_validation->set_rules('course', 'Course',  'trim|required|greater_than[0]');
 		$this->form_validation->set_message('greater_than', 'Please select %s.');
-		#var_dump('reacheable'); die();
+		
 		if ($this->form_validation->run() == FALSE) {
 			$data['main'] = "lecturer/results/batch_upload";
 			$this->load->view('lecturer/layout/main', $data);
@@ -82,7 +84,7 @@ class Results extends CI_Controller {
 						        // unset the heading flag
 						        $heading = false;
 						        // skip the loop
-						        continue;
+						        //continue;
 						        
 						    }
 						    	$excel_file_is_empty = false;	    	
@@ -131,7 +133,7 @@ class Results extends CI_Controller {
 	                          	                     
 	                 }
 	                fclose($file);
-	                	           
+	                	                	           
 	               	if ($excel_file_is_empty == false) {
 	               	    $insertId = $this->result_model->temp_insert_batch_CSV($csv_result_batch); 
  
@@ -145,7 +147,7 @@ class Results extends CI_Controller {
 							'type' => 'result',
 							'action' => 'updated',
 							'user_id' => $this->session->userdata('user_id'),
-							'message' => $number . ' Results have been prepared  for upload'
+							'message' => $number . ' Results have been prepared  for batch upload'
 						);
 						//Insert Activivty
 						$this->activity_model->add($activity);	                 
@@ -252,7 +254,7 @@ class Results extends CI_Controller {
 						'type' => 'result',
 						'action' => 'updated',
 						'user_id' => $this->session->userdata('user_id'),
-						'message' => $upload_count . ' Result(s) have been committed into the results table'
+						'message' => $upload_count . ' Result(s) have been upoaded for approval'
 					);
 					//Insert Activivty				
  
@@ -308,7 +310,7 @@ class Results extends CI_Controller {
 		$this->form_validation->set_rules('semester', 'semester', 'trim|required|greater_than[0]');
 		$this->form_validation->set_rules('assessment', 'assessment', 'trim|required');
 		$this->form_validation->set_rules('exam_score', 'Exam Score', 'trim|required');
-		$this->form_validation->set_rules('adjusted_mark', 'adjusted_mark', 'trim|required');
+		$this->form_validation->set_rules('total_score', 'total_score', 'trim|required');
 		$this->form_validation->set_rules('session', 'session', 'trim|required|greater_than[0]');
 		$this->form_validation->set_rules('remark', 'remark', 'trim|required');
 		$this->form_validation->set_rules('course_lecturer1', 'course lecturer1', 'trim|required');
@@ -329,7 +331,8 @@ class Results extends CI_Controller {
 				'semester_name' => $this->semester_model->get_semester_name($this->input->post('semester')),
 				'assessment' => $this->input->post('assessment'),
 				'exam_score' => $this->input->post('exam_score'),
-				'adjusted_mark' => $this->input->post('adjusted_mark'),
+				'total_score' => $this->input->post('total_score'),
+				'adjusted_mark'=> $this->input->post('total_score'),
 				'session' => $this->input->post('session'),
 				'session_name' => $this->academic_session_model->get_session_name($this->input->post('session')),
 				'remark' => $this->input->post('remark'),
@@ -400,7 +403,7 @@ class Results extends CI_Controller {
 			$this->form_validation->set_rules('semester', 'semester', 'trim|required|greater_than[0]');
 			$this->form_validation->set_rules('assessment', 'assessment', 'trim|required');
 			$this->form_validation->set_rules('exam_score', 'Exam Score', 'trim|required');
-			$this->form_validation->set_rules('adjusted_mark', 'adjusted_mark', 'trim|required');
+			$this->form_validation->set_rules('total_score', 'total_score', 'trim|required');
 			$this->form_validation->set_rules('session', 'session', 'trim|required|greater_than[0]');
 			$this->form_validation->set_rules('remark', 'remark', 'trim|required');
 			$this->form_validation->set_rules('course_lecturer1', 'course lecturer1', 'trim|required');
@@ -424,7 +427,8 @@ class Results extends CI_Controller {
 					'semester_name' => $this->semester_model->get_semester_name($this->input->post('semester')),
 					'assessment' => $this->input->post('assessment'),
 					'exam_score' => $this->input->post('exam_score'),
-					'adjusted_mark' => $this->input->post('adjusted_mark'),
+					'total_score' => $this->input->post('total_score'),
+					'adjusted_mark' => $this->input->post('total_score'),
 					'session' => $this->input->post('session'),
 					'session_name' => $this->academic_session_model->get_session_name($this->input->post('session')),
 					'remark' => $this->input->post('remark'),

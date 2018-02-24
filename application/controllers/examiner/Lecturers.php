@@ -27,8 +27,8 @@ class Lecturers extends CI_Controller {
 	public function add()
 	{
 		
-		$this->form_validation->set_rules('last_name', 'last_name', 'trim|required');
-		$this->form_validation->set_rules('first_name', 'first_name', 'trim|required');
+		$this->form_validation->set_rules('last_name', 'last name', 'trim|required');
+		$this->form_validation->set_rules('first_name', 'first name', 'trim|required');
 		$this->form_validation->set_rules('title', 'title', 'trim|required');
 		$this->form_validation->set_rules('phonenumber', 'phonenumber', 'trim|required');
 		$this->form_validation->set_rules('email', 'email', 'trim|required');
@@ -52,7 +52,7 @@ class Lecturers extends CI_Controller {
 				'type' => 'lecturer',
 				'action' => 'added',
 				'user_id' 	=>  $this->session->userdata('user_id'),
-				'message' => 'A new lecturer  was added(' .$data['last_name'].'-'.$data['first_name'].' - '.$data['title'].')'
+				'message' => 'A new lecturer  was created (' .$data['last_name'].'-'.$data['first_name'].' - '.$data['title'].')'
 				);
 
 			//Insert Activivty
@@ -72,8 +72,8 @@ class Lecturers extends CI_Controller {
 		else{
 
 			$data['lecturer'] = $this->lecturer_model->get_lecturer($id);
-			$this->form_validation->set_rules('last_name', 'last_name', 'trim|required');
-			$this->form_validation->set_rules('first_name', 'first_name', 'trim|required');
+			$this->form_validation->set_rules('last_name', 'last name', 'trim|required');
+			$this->form_validation->set_rules('first_name', 'first name', 'trim|required');
 			$this->form_validation->set_rules('title', 'title', 'trim|required');
 			$this->form_validation->set_rules('phonenumber', 'phonenumber', 'trim|required');
 			$this->form_validation->set_rules('email', 'email', 'trim|required');
@@ -246,7 +246,21 @@ class Lecturers extends CI_Controller {
 
 	public function remove($course_id, $lecturer_id)
 	{
+		$lecturer = $this->lecturer_model->get_lecturer($lecturer_id)->email;
+		
 		$this->lecturer_model->remove_allocation($course_id, $lecturer_id);
+
+		//set user activity
+		$data  = array(
+				'resource_id' => $this->db->insert_id(),
+				'type' => 'allocation',
+				'action' => 'removed',
+				'user_id' => $this->session->userdata('user_id'),
+				'message' =>  $lecturer .' was removed from course '.$this->course_model->get_course_code($course_id)
+				);
+		//Insert Activivty
+		$this->activity_model->add($data);
+
 		$this->redirect_to($course_id);
 
 

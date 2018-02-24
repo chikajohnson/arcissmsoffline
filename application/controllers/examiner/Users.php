@@ -42,10 +42,11 @@ class Users extends CI_Controller {
 		$this->form_validation->set_rules('first_name', 'first_name', 'trim|required');
 		$this->form_validation->set_rules('other_names', 'other_names', 'trim|required');
 		$this->form_validation->set_rules('email', 'email', 'trim|required|callback_email_check');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+		$this->form_validation->set_rules('password', 'password', 'trim|alpha_numeric|min_length[4]|max_length[10]|required');
 		$this->form_validation->set_rules('user_group', 'User group', 'trim|required|greater_than[0]');
 
 		$this->form_validation->set_message('greater_than', 'Please select a usergroup.');
+		$this->form_validation->set_message('alpha_numeric', 'Password must be alpha numeric character between 4 to 10 characters long.');
 		$this->form_validation->set_message('required', ' %s is requred.');
 
 		if ($this->form_validation->run() == FALSE) {
@@ -307,16 +308,4 @@ class Users extends CI_Controller {
         }
     }
 
-  //   public function verify_format($number)
-  //   {
-  //   	if(substr($number,0,3) != "234"  || substr($number,0,4) != "+234") {
-		//   	$this->form_validation->set_message('verify_format','Phone number is not in the correct format.');
-		//     return true;
-		//   } 
-		//   else
-		//   {
-		//   	return false;
-		//   } 
-	 // }
-	
 }

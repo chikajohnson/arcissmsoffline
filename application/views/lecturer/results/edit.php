@@ -79,8 +79,8 @@
 		<input id="exam_score" name="exam_score" type="number" onkeyup="populateText();populateStatus();" step="0.001"  class="form-control" placeholder="Enter the exam score" value="<?php echo $result->exam_score; ?>">
 	</div>
 	<div class="form-group">
-		<label>Adjusted Score</label>
-		<input id="total_score" name="adjusted_mark" type="number" readonly="true" class="form-control" placeholder="Enter the adjusted mark" value="<?php echo $result->adjusted_mark; ?>">
+		<label>Total Score</label>
+		<input id="total_score" name="total_score" type="number" readonly="true" class="form-control" placeholder="Enter the Total_score" value="<?php echo $result->total_score; ?>">
 	</div>
 	<div class="form-group">
 		<label>Remark</label>

@@ -72,7 +72,7 @@
 </div>
 <div class="form-group">
 	<label>Total Mark</label>
-	<input id="total_score" name="adjusted_mark" readonly="true" type="number" class="form-control" placeholder="0" value="<?php echo set_value('adjusted_mark'); ?>">
+	<input id="total_score" name="total_score" readonly="true" type="number" class="form-control" placeholder="0" value="<?php echo set_value('total_score'); ?>">
 </div>
 <div class="form-group">
 	<label>Remark</label>
@@ -106,7 +106,7 @@
 </div>
 <div class="col-md-12">
 	<div class="btn-group pull-right">
-		<input type="submit" name="submit" id="page_submit" value = "Add " class="btn btn-sm btn-primary">
+		<input type="submit" name="submit" id="page_submit" value = "Add Result" class="btn btn-sm btn-primary">
 		<a href="<?php echo base_url(); ?>lecturer/results" class="btn btn-sm btn-default">Close</a>
 	</div>
 </div>

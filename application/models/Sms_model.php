@@ -100,6 +100,7 @@ class Sms_model extends CI_MODEL
 		$this->db->select('*' );
 		$this->db->from("sms_request_responses");
 		$this->db->like($table_column, $parameter);
+		$this->db->order_by('id', 'desc');
 		$query = $this->db->get()->result();
 		return $query;
 	}

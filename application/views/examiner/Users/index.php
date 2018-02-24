@@ -4,7 +4,7 @@
 <?php $item_count = 1; ?>
 <div class="row">
   <div class="table-responsive">
-    <h4 ><span class="label label-default">User Information<small><a  href="<?php echo base_url(); ?>examiner/users/add" title="add user" class="btn btn-sm btn-success pull-right">Add User</a></small></span></h4>
+    <h4 ><span class="label label-default">User Information<small><a  href="<?php echo base_url(); ?>examiner/users/add" title="add user" class="btn btn-sm btn-success pull-right">Add New User</a></small></span></h4>
     <table class="table table-striped">
       <thead>
         <tr>

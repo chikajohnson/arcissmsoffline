@@ -1,5 +1,5 @@
 <div class="row">
-	<h4><b>Add user</b></h4>
+	<h4><b>Add New user</b></h4>
 	
 	</div>
 	<div>

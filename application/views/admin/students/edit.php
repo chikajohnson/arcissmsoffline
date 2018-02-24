@@ -138,8 +138,8 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<label>Interests/hobbies</label>
-					<textarea name="interests" placeholder="Enter areas of interests or hobbies" class="form-control"><?php echo $student->interests; ?></textarea>
+					<label>Specialization</label>
+					<textarea name="interests" placeholder="Enter areas of specialization eg Database, Information System, IT Security etc" class="form-control"><?php echo $student->interests; ?></textarea>
 				</div>
 			</div>
 		</div>

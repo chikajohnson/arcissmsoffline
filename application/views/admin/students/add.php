@@ -1,5 +1,5 @@
 <div class="row">
-	<h4><b>Add student</b></h4>
+	<h4><b>Add New student</b></h4>
 	<div>
 		<?php echo validation_errors('<br><p class="alert alert-warning">'); ?>
 		</div>
@@ -122,8 +122,8 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<label>Interests/hobbies</label>
-					<textarea name="interests" placeholder="Enter areas of interests or hobbies" class="form-control"><?php echo set_value('interests'); ?></textarea>
+					<label>Specializations</label>
+					<textarea name="interests" placeholder="Enter areas of specialization eg Database, Information System, IT Security etc" class="form-control"><?php echo set_value('interests'); ?></textarea>
 				</div>
 			</div>
 		</div>

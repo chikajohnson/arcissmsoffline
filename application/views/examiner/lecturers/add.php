@@ -1,11 +1,11 @@
 <div class="row">
 	<div class="col-md-12">
 		<h4><b>Add a Lecturer</b></h4>		
-	</div>
-	<div>
+	</div>	
+</div>
+<div>
 		<?php echo validation_errors('<br><p class="alert alert-warning">'); ?>
 	</div>
-</div>
 <div class="row">
 	<div class="col-lg-12">
 		<ol class="breadcrumb">
@@ -34,7 +34,7 @@
 		</div>
 		<div class="form-group">
 			<label>Phone Number</label>
-			<input name="phonenumber" type="text" class="form-control" placeholder="Enter phone number in this format +23470287772722" value="<?php echo set_value('phonenumber1'); ?>">
+			<input name="phonenumber" type="text" class="form-control" placeholder="Enter phone number in this format 23470287772722" value="<?php echo set_value('phonenumber1'); ?>">
 		</div>		
 		<div class="form-group">
 			<label>Email</label>

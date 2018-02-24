@@ -14,8 +14,9 @@
    
     <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/favicon.png">
     <link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet">
-     <link href="<?php echo base_url(); ?>assets/css/login.css" rel="stylesheet">
-     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+     <link href="<?php echo base_url(); ?>assets/css/login.css" rel="stylesheet">    
+     <link href="<?php echo base_url(); ?>assets/css/custom.css" rel="stylesheet">     
+     <link href="<?php echo base_url(); ?>assets/css/animate.css" rel="stylesheet">
   </head>
   <body>
     <!-- Fixed navbar -->
@@ -36,16 +37,42 @@
           <ul class="nav navbar-nav pull-right">
           <?php if ($this->session->userdata('logged_in')): ?>  
               <?php if ($this->session->userdata('user_type')  == 'examiner'): ?> 
-                  <li><a href="<?php echo base_url(); ?>examiner/dashboard">Enter Dashboard</a></li>
+              <li class="notifications">
+                <a href="#">
+                  <i class="glyphicon glyphicon-globe"></i>
+                  <span class="badge">23</span>
+                </a>
+              </li>           
+              <li><a href="<?php echo base_url(); ?>examiner/dashboard">Enter Dashboard</a></li>
                   <li><a href="<?php echo base_url(); ?>admin/dashboard/logout">Logout</a></li>
               <?php endif; ?>
 
-              <?php if ($this->session->userdata('user_type')  == 'admin'): ?>  
-                <li><a href="<?php echo base_url(); ?>admin">Enter Dashboard</a></li>
+              <?php if ($this->session->userdata('user_type')  == 'admin'): ?>               
+              <li><a href="<?php echo base_url(); ?>admin">Enter Dashboard</a></li>
                 <li><a href="<?php echo base_url(); ?>admin/dashboard/logout">Logout</a></li>
+                <li class="notifications">
+                <a href="admin/notifications">
+                <span class="glyphicon glyphicon-globe"></span>
+                    <?php if($this->session->userdata('notification_count') > 0 ): ?>
+                    <span  class="badge js-notification-count">
+                      <?php echo $this->session->userdata('notification_count') ;?>
+                    </span>
+                  <?php endif; ?>
+                </a>
+              </li>
               <?php endif; ?>
 
               <?php if ($this->session->userdata('user_type')  == 'lecturer'): ?>  
+              <li>
+                 <a href="#">
+                    <span class="glyphicon glyphicon-globe"></span>
+                    <?php if($this->session->userdata('notification_count') > 0 ): ?>
+                    <span style="position:absolute; top:10px; right:50px;" class="badge js-notification-count">
+                      <?php echo $this->session->userdata('notification_count') ;?>
+                    </span>
+                  <?php endif; ?>
+              </a>
+              </li>
                 <li><a href="<?php echo base_url(); ?>lecturer/dashboard">Enter Dashboard</a></li>
                 <li><a href="<?php echo base_url(); ?>lecturer/dashboard/logout">Logout</a></li>
               <?php endif; ?>
@@ -103,6 +130,20 @@
                 </div>
                 </div> <!-- /container -->
               </div>
+              <!-- <div class="list-group">
+                <a href="#" class="list-group-item active">
+                  <h4 class="list-group-item-heading">First List Group Item Heading</h4>
+                  <p class="list-group-item-text">List Group Item Text</p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <h4 class="list-group-item-heading">Second List Group Item Heading</h4>
+                  <p class="list-group-item-text">List Group Item Text</p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <h4 class="list-group-item-heading">Third List Group Item Heading</h4>
+                  <p class="list-group-item-text">List Group Item Text</p>
+                </a>
+              </div> -->
               
               <footer class="footer text-center">
                 <div class="container">
@@ -118,5 +159,7 @@
               <script src="<?php echo base_url(); ?>assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
               <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
               <script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
+              <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
+
             </body>
           </html>
