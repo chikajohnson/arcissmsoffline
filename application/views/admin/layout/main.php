@@ -69,15 +69,14 @@
 							<!-- <li><?php echo anchor('admin/sponsors', 'Sponsors', 'title="Sponsors"'); ?></li> -->
 							<!-- <li><?php echo anchor('admin/lecturers', 'Lecturers', 'title="ARCISS Lecturers"'); ?></li> -->
 							<li class="<?php if($this->uri->segment(2) == 'programs'){echo "item";} ?>"><?php echo anchor('admin/programs', 'Programmes of Study', 'title="Programmes of Study"'); ?></li>
-							<li class="<?php if($this->uri->segment(2) == 'message_types'){echo "item";} ?>"><?php echo anchor('admin/message_types', 'Message Types', 'title="Messages type"'); ?></li>
-							
+							<li class="<?php if($this->uri->segment(2) == 'message_types'){echo "item";} ?>"><?php echo anchor('admin/message_types', 'Message Types', 'title="Messages type"'); ?>								
+							</li>				
 							
 							<?php if($this->uri->segment(2) == null || $this->uri->segment(2) == ""): ?>
 								<li class="active"><?php echo anchor('/', 'Back To Home', 'title="Back to Home"'); ?></li>
 							<?php else: ?>
-								<li class="active"><?php echo anchor('admin', 'Back To Admin', 'title="Back To Admin Dashboard"'); ?></li>
-							<?php endif; ?>
-							
+								<li class="active"><?php echo anchor('site', 'Enter Student Dashboard', 'title="Enter Student Dashboard"'); ?></li>
+							<?php endif; ?>							
 						</ul>
 					</div>
 				</div>

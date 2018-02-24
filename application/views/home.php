@@ -63,7 +63,7 @@
             <div class="col-md-2"><img src="<?php echo base_url(); ?>assets/images/arcis-logo.png" alt="Arcis logo"></div>           
             <div class="text-center col-md-8">
               <span class="text-center"><h4><strong>AFRICA REGIONAL CENTRE FOR INFORMATION SCIENCE</strong>(ARCIS)</h4></span>
-              <span class="text-center"><h5><strong>UNIVERSITY OF IBADAN, IBADAN, NIGERIA</strong></h5></span>
+              <span class="text-center"><h5><strong>UNIVERSITY OF IBADAN, NIGERIA</strong></h5></span>
               <hr>
             <span class="text-center text-primary"><h4><strong>SMS RESULT CHECKING SYSTEM</strong></h4></span>
            </div>    

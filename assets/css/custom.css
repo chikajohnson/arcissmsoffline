@@ -41,6 +41,13 @@ li{
 	background: orange;
 }
 
+.student{
+	background: grey;
+	color: #fff !important;
+	font-size: 17px;
+	font-style: italic;
+}
+
 /* .table{
 	margin-bottom: 1000px !important;
 } */

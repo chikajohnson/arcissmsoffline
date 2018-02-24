@@ -130,9 +130,25 @@ class Dashboard extends CI_Controller {
 					'full_name' => $full_name
 					);
 
+				
+
 				//set session data
 				$this->session->set_userdata($user_data);
 				$this->session->set_flashdata('login', 'Login successful');
+
+
+				$activities  = array(
+					'resource_id' => $this->db->insert_id(),
+					'type' => 'User',
+					'action' => 'Login',
+					'user_id' => $this->session->userdata('user_id'),
+					'message' => $this->session->userdata('user_name') . ' logged into of the system'
+					);
+
+		
+				//Insert Activivty
+				$this->activity_model->add($activities);
+
 				redirect('examiner/dashboard');
 
 			} else {
@@ -149,8 +165,25 @@ class Dashboard extends CI_Controller {
 	public function logout()
 	{
 		$unset_items  = array('user_id','user_name','logged_in','user_type');
-		$this->session->unset_userdata($unset_items);		
-		$this->session->sess_destroy();
+
+		$data  = array(
+			'resource_id' => $this->db->insert_id(),
+			'type' => 'User',
+			'action' => 'Login',
+			'user_id' => $this->session->userdata('user_id'),
+			'message' => $this->session->userdata('user_name') . ' logged out of the system'
+			);
+
+		if (!$this->session->userdata('logged_in')) {
+			redirect('welcome');
+		}else{
+		//Insert Activivty
+			$this->activity_model->add($data);
+			$this->session->unset_userdata($unset_items);		
+			$this->session->sess_destroy();
+		}
+
 		redirect('welcome');
+
 	}
 }

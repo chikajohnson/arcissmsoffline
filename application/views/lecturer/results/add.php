@@ -67,7 +67,7 @@
 	</div>
 	<div class="form-group col-sm-6">
 		<label>Exam Score </label>
-		<input id="exam_score" name="exam_score" type="number" onkeyup="populateText();" class="form-control" placeholder="Enter the  total score" value="<?php echo set_value('exam_score'); ?>">
+		<input id="exam_score" name="exam_score" type="number" onkeyup="populateText();populateStatus();" class="form-control" placeholder="Enter the  total score" value="<?php echo set_value('exam_score'); ?>">
 	</div>
 </div>
 <div class="form-group">
@@ -76,7 +76,7 @@
 </div>
 <div class="form-group">
 	<label>Remark</label>
-	<input name="remark" type="text" class="form-control" placeholder="Enter remark" value="<?php echo set_value('remark'); ?>">
+	<input id="remark" name="remark" type="text" class="form-control" readonly  value="<?php echo set_value('remark'); ?>">
 </div>
 <div class="row">
 	<div class="col-md-6">
@@ -122,6 +122,23 @@
 		total = parseInt(assessment) + parseInt(exam);
 
 		document.getElementById('total_score').value = total;
+	}
+
+	function populateStatus(){
+		var assessment = document.getElementById('assessment').value;
+		var exam =  document.getElementById('exam_score').value;
+		var total = 0;
+
+		total = parseInt(assessment) + parseInt(exam);
+		var remark = "";
+
+		if(total >= 40){
+			remark = "PASS";
+		}else{
+			remark = "FAIL"
+		}
+
+		document.getElementById('remark').value = remark;
 	}
 
 	function cleartext(inputControl) {

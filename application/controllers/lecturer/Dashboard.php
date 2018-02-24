@@ -128,11 +128,14 @@ class Dashboard extends CI_Controller {
 			'message' => $this->session->userdata('user_name') . ' logged out of the system'
 			);
 
+		if (!$this->session->userdata('logged_in')) {
+			redirect('welcome');
+		}else{
 		//Insert Activivty
-		$this->activity_model->add($data);
-		$this->session->unset_userdata($unset_items);		
-		$this->session->sess_destroy();
-
+			$this->activity_model->add($data);
+			$this->session->unset_userdata($unset_items);		
+			$this->session->sess_destroy();
+		}
 
 		redirect('welcome');
 	}

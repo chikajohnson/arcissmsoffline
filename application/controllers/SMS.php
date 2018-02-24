@@ -9,25 +9,35 @@ class SMS extends CI_Controller {
 	public function index()
 	{
 		$request = array_merge($_GET, $_POST);
-		
-		$time_received = $request['time_received'];
-		$text_message = $request['message'];
-		$sender= str_replace('+', '', urlencode($request['from']));
-		$system_number = $request['me'];
 
-		
-		if($request['message'] !=  null && $request['message'] !=  ""){
-			$this->process_sms_request($text_message, $sender, $system_number);
-		}else{
-			$error_message = "SMS text is empty.";
-			$this->send_message($sender, $error_message);
+		if ($this->input->server('REQUEST_METHOD') == 'GET'){
+		   redirect('welcome','refresh');
 		}
+		else if ($this->input->server('REQUEST_METHOD') == 'POST'){
+		    $time_received = $request['time_received'];
+			$text_message = $request['message'];
+			$sender= str_replace('+', '', urlencode($request['from']));
+			$system_number = $request['me'];
+
+			//var_dump($sender); die();
+			
+			if($request['message'] !=  null && $request['message'] !=  ""){
+				$this->process_sms_request($text_message, $sender, $system_number);
+			}else{
+				$error_message = "SMS text is empty.";
+				$this->send_message($sender, $error_message);
+				$this->record_User_activity($keyword="NA", $matric="", $text_message, $sender, $status="sent (Empty sms text)");
+			}
+		}
+				
+		
 	}
 	
-	public function process_sms_request($sms_text, $phonenumber, $system_number)
+	public function process_sms_request($sms_text, $sender, $system_number)
 	{
 		//phonenumber is the student's phonenumber
-		//system number is the phonenumber registered with CloudSMS 
+		//system number is the phonenumber registered with CloudSMS 		
+
 		$input_array = 	explode(",", $sms_text);
 		$keyword = $input_array[0];
 
@@ -42,13 +52,13 @@ class SMS extends CI_Controller {
 
 					if($this->confirm_password($matric, $password) == true && $this->matric_exist($matric)){
 						$all_results = $this->check_all_results($matric, $semester, $session);
-						$this->send_message($phonenumber, $all_results);
-						$this->record_User_activity($keyword, $input_array, $sms_text, $phonenumber, $status="sent");
+						$this->send_message($sender, $all_results);
+						$this->record_User_activity($keyword, $input_array, $sms_text, $sender, $status="sent");
 						return;
 					}
 					else{
 						$error_messaage = "An error has occured. Check message format/content and send again ==== Error 1.";
-						$this->send_message($phonenumber, $error_messaage);
+						$this->send_message($sender, $error_messaage);
 						return;
 					}
 				} else if (count($input_array) == 4) {
@@ -57,21 +67,21 @@ class SMS extends CI_Controller {
 					$course_code = strtolower(trim($input_array[3]));
 					if($this->confirm_password($matric, $password) == true && $this->matric_exist($matric) && $this->course_exist($course_code)){
 						$single_result = $this->check_single_result($matric, $course_code);
-						$this->send_message($phonenumber, $single_result);
-						$this->record_User_activity($keyword, $input_array, $sms_text, $phonenumber, $status="sent");
+						$this->send_message($sender, $single_result);
+						$this->record_User_activity($keyword, $input_array, $sms_text, $sender, $status="sent");
 						return;
 					}
 					else{
 						$error_messaage = "An error has occured. Check message format/content and send again.";
-						$this->send_message($phonenumber, $error_messaage);
-						$this->record_User_activity($keyword, $input_array, $sms_text, $phonenumber, $status="No response Sent");
+						$this->send_message($sender, $error_messaage);
+						$this->record_User_activity($keyword, $input_array, $sms_text, $sender, $status="sent (Incorrect Request)");
 						return;
 						}
 				}
 				else{
 					$error_messaage = "An error has occured. Check message format and send again  ==== Error 3.";
-					$this->send_message($phonenumber, $error_messaage);
-					$this->record_User_activity($keyword, $input_array, $sms_text, $phonenumber, $status="No response Sent");
+					$this->send_message($sender, $error_messaage);
+					$this->record_User_activity($keyword, $input_array, $sms_text, $sender, $status="sent (Incorrect Request)");
 					return;
 				}
 				
@@ -87,27 +97,27 @@ class SMS extends CI_Controller {
 						if ((strlen($new_password) <= 6) && (strlen($new_password) >= 4)) {
 							
 							$this->change_user_password($matric, $new_password);
-							$this->send_message($phonenumber, $password_changed);
-							$this->record_User_activity($keyword, $input_array, $sms_text, $phonenumber, $status="sent");
+							$this->send_message($sender, $password_changed);
+							$this->record_User_activity($keyword, $input_array, $sms_text, $sender, $status="sent");
 							return;							
 
 						} else {
 							$error_messaage = "Error: Password length must be between 4 and 6 digits.";
-							$this->send_message($phonenumber, $error_messaage);							
+							$this->send_message($sender, $error_messaage);							
 						}						
 						
 					}
 					else{
 						$error_messaage = "password do not match or message not in correct format.";
-						$this->send_message($phonenumber, $error_messaage);
-						$this->record_User_activity($keyword, $input_array, $sms_text, $phonenumber, $status="No response Sent");
+						$this->send_message($sender, $error_messaage);
+						$this->record_User_activity($keyword, $input_array, $sms_text, $sender, $status="sent (Incorrect Request)");
 						return;
 					}
 				}
 				else{
 					$error_messaage = "An error occured . Check message format and send again.";
-					$this->send_message($phonenumber, $error_messaage);
-					$this->record_User_activity($keyword, $input_array, $sms_text, $phonenumber, $status="No response Sent");
+					$this->send_message($sender, $error_messaage);
+					$this->record_User_activity($keyword, $input_array, $sms_text, $sender, $status="sent (Incorrect Request)");
 					return;
 				}
 				break;
@@ -117,33 +127,33 @@ class SMS extends CI_Controller {
 					
 					if ($this->matric_exist($matric) && strtolower(trim($input_array[2])) == 'result') {
 						$message = "Send text in this format - 'result,matric,password,coursecode' to ". $system_number. ' to view the result of a single course.';
-						$this->send_message($phonenumber, $message);
-						$this->record_User_activity($keyword, $input_array, $sms_text, $phonenumber, $status="sent");
+						$this->send_message($sender, $message);
+						$this->record_User_activity($keyword, $input_array, $sms_text, $sender, $status="sent");
 						return;
 					}
 						else if ($this->matric_exist($matric) && strtolower(trim($input_array[2])) == 'results') {
 						$message = "Send text in this format - 'result,matric,password,semester,session' to ". $system_number. ' to view the result of all your courses in a semester';
-						$this->send_message($phonenumber, $message);
-						$this->record_User_activity($keyword, $input_array, $sms_text, $phonenumber, $status="sent");
+						$this->send_message($sender, $message);
+						$this->record_User_activity($keyword, $input_array, $sms_text, $sender, $status="sent");
 						return;
 					}
 					else if ($this->matric_exist($matric) &&strtolower(trim( $input_array[2])) == 'password') {
 										
 						$message = "Send text in this format - 'result,matric,old-password,new-password' to ". $system_number. ' to change your password.';
-						$this->send_message($phonenumber, $message);
-						$this->record_User_activity($keyword, $input_array, $sms_text, $phonenumber, $status="sent");
+						$this->send_message($sender, $message);
+						$this->record_User_activity($keyword, $input_array, $sms_text, $sender, $status="sent");
 							return;
 					} else {
 						$error_message = "An error occured. Check message format and send again.";
-						$this->send_message($phonenumber, $error_message);
-						$this->record_User_activity($keyword, $input_array, $sms_text, $phonenumber, $status="No response Sent");
+						$this->send_message($sender, $error_message);
+						$this->record_User_activity($keyword, $input_array, $sms_text, $sender, $status="sent (Incorrect Request)");
 						return;
 					}
 				}
 				break;
 			default:
 				$error_messaage = "Message is not in correct format.";
-				$this->send_message($phonenumber, $error_messaage);
+				$this->send_message($sender, $error_messaage);
 				break;
 			}
 		
@@ -233,14 +243,17 @@ class SMS extends CI_Controller {
 		
 		
 	}
-	public function record_User_activity($keyword, $input_array, $sms_text="NA", $phonenumber=00000, $status)
+	public function record_User_activity($keyword, $input_array, $sms_text="NA", $sender, $status)
 	{
+		if($input_array == null){
+			$input_array[1] = "NA";
+		}
 		
 		$data  = array(
 			'sms_type' => $keyword,
 			'matric' => $input_array[1],
 			'sms_message' => $sms_text,
-			'phonenumber' =>$phonenumber,
+			'phonenumber' =>$sender,
 			'status' => $status
 			);
 

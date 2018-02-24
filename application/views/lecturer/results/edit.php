@@ -72,19 +72,19 @@
 	
 	<div class="form-group">
 		<label>Continuous Assessment</label>
-		<input name="assessment" type="text" class="form-control" placeholder="Enter assessment" value="<?php echo $result->assessment; ?>">
+		<input id="assessment" name="assessment" type="text" class="form-control" placeholder="Enter assessment" value="<?php echo $result->assessment; ?>">
 	</div>
 	<div class="form-group">
 		<label>Exam score </label>
-		<input name="exam_score" type="number" step="0.001" class="form-control" placeholder="Enter the exam score" value="<?php echo $result->exam_score; ?>">
+		<input id="exam_score" name="exam_score" type="number" onkeyup="populateText();populateStatus();" step="0.001"  class="form-control" placeholder="Enter the exam score" value="<?php echo $result->exam_score; ?>">
 	</div>
 	<div class="form-group">
 		<label>Adjusted Score</label>
-		<input name="adjusted_mark" type="number" class="form-control" placeholder="Enter the adjusted mark" value="<?php echo $result->adjusted_mark; ?>">
+		<input id="total_score" name="adjusted_mark" type="number" readonly="true" class="form-control" placeholder="Enter the adjusted mark" value="<?php echo $result->adjusted_mark; ?>">
 	</div>
 	<div class="form-group">
 		<label>Remark</label>
-		<input name="remark" type="text" class="form-control" placeholder="Enter remark" value="<?php echo $result->remark; ?>">
+		<input id="remark" name="remark" type="text" readonly class="form-control" value="<?php echo $result->remark; ?>">
 	</div>
 	<div class="row">
 		<div class="col-md-6">
@@ -119,3 +119,44 @@
 		</div>
 	</div>
 	<?php echo form_close(); ?>
+
+
+	<script type="text/javascript">
+
+	function populateText(){
+		var assessment = document.getElementById('assessment').value;
+		var exam =  document.getElementById('exam_score').value;
+		var total = 0;
+
+		total = parseInt(assessment) + parseInt(exam);
+
+		document.getElementById('total_score').value = total;
+	}
+
+	function populateStatus(){
+		var assessment = document.getElementById('assessment').value;
+		var exam =  document.getElementById('exam_score').value;
+		var total = 0;
+
+		total = parseInt(assessment) + parseInt(exam);
+		var remark = "";
+
+		if(total >= 40){
+			remark = "PASS";
+		}else{
+			remark = "FAIL"
+		}
+
+		document.getElementById('remark').value = remark;
+	}
+
+	function cleartext(inputControl) {
+		var cleared = true;
+		if(cleared){
+			inpotControl.value  = "";
+
+			cleared = false;
+		}
+	}
+	
+</script>

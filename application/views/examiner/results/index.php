@@ -20,11 +20,11 @@
             <div class="list-group col-sm-4" style="height: 200px;">
               <?php if($result->approved == true): ?>
                 <div class="list-group-item  bg-4">
-                <span><b><strong><?php echo $result->course_code; ?> (<?php echo $result->session_name; ?>)</strong></b></span>
+                <span><b><strong><?php echo $result->course_fullname; ?> (<?php echo $result->session_name; ?>)</strong></b></span>
               </div>
               <?php  else:?>
               <div class="list-group-item  bg-1">
-                <span><b><strong><?php echo $result->course_code; ?> (<?php echo $result->session_name; ?>)</strong></b></span>
+                <span><b><strong><?php echo $result->course_fullname; ?> (<?php echo $result->session_name; ?>)</strong></b></span>
               </div>
             <?php endif; ?>
               
