@@ -106,8 +106,8 @@
 						<?php foreach($notification_unread as $notification): ?>	
 							<a href="<?php echo base_url(); ?>admin/notifications/detail/<?php echo $notification->id ;?>" class="list-group-item">
 								<h5 class="list-group-item-heading"><strong><?php echo $notification->title ;?></strong></h5>
-								<p class="list-group-item-text"><?php echo $notification->message ;?></p>
-								<small class="list-group-item-text"><b><?php echo $notification->sent_on ;?></b></small>							
+								<p class="list-group-item-text"><?php echo implode(' ', array_slice(explode(' ', $notification->message), 0, 10)). '....' ;?></p>
+								<small class="list-group-item-text"><b><?php echo date('jS F Y  h:i:sa', strtotime($notification->sent_on)) ;?></b></small>							
 							</a>
 						<?php endforeach; ?>	
 					</div>				

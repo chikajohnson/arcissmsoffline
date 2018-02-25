@@ -12,7 +12,8 @@ class Dashboard extends CI_Controller {
 			$notification = $this->notification_model->count_viewed($this->session->userdata('user_name'));
 			$notification_data  = array(
 				'notification_count' => $notification,
-				'notification_unread' => $notification_unread
+				'notification_unread' => $notification_unread,
+				'uploaded_result_count' => $this->result_model->count_uploaded_result($this->session->userdata('user_name'))
 	
 			);
 			//set notification session data
@@ -104,6 +105,7 @@ class Dashboard extends CI_Controller {
 					'full_name' => $full_name
 					);
 				
+				
 
 
 				//set session data
@@ -112,11 +114,15 @@ class Dashboard extends CI_Controller {
 
 				$notification = $this->notification_model->count_viewed($this->session->userdata('user_name'));
 				$notification_data  = array(
-					'notification_count' => $notification
+					'notification_count' => $notification,
+					'uploaded_result_count' => $this->result_model->count_uploaded_result($this->session->userdata('user_name'))
 				);
+
+				
 
 				//set notification session data
 				$this->session->set_userdata($notification_data);
+
 
 				$data  = array(
 				'resource_id' => $this->db->insert_id(),

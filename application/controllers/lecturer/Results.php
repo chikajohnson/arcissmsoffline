@@ -19,7 +19,8 @@ class Results extends CI_Controller {
 			$notification = $this->notification_model->count_viewed($this->session->userdata('user_name'));
 			$notification_data  = array(
 				'notification_count' => $notification,
-				'notification_unread' => $notification_unread
+				'notification_unread' => $notification_unread,
+				'uploaded_result_count' => $this->result_model->count_uploaded_result($this->session->userdata('user_name'))				
 	
 			);
 			//set notification session data

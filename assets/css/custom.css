@@ -97,6 +97,13 @@ li{
 	z-index: 1000;
 }
 
+.gray-color{
+	background: #7C7676 !important;
+	color:#fff !important;
+	padding:5px;
+}
+
+
 
 .new{
 	top:8px;

@@ -70,7 +70,14 @@
 							<!-- <li class="<?php if($this->uri->segment(3) == 'allocate'){echo "item";} ?>"><?php echo anchor('examiner/lecturers/allocate', 'Allocate Courses', 'title="Allocate Courses"'); ?></li> -->
 							<li class="<?php if($this->uri->segment(2) == 'lecturers' && $this->uri->segment(3) == null){echo "item";} ?>"><?php echo anchor('examiner/lecturers', 'Manage Lecturers', 'title="manage lecturers"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'usergroups'){echo "item";} ?>"><?php echo anchor('examiner/usergroups', 'Manage User Groups', 'title="Manage User Groups"'); ?></li>
-							<li class="<?php if($this->uri->segment(3) == 'approve_list' || $this->uri->segment(3) == 'view'){echo "item";} ?>"><?php echo anchor('examiner/dashboard/approve_list', 'Approve Results', 'title=" Approve Results"'); ?></li>
+							<li style="position:relative;" class="<?php if($this->uri->segment(3) == 'approve_list' || $this->uri->segment(3) == 'view'){echo "item";} ?>"><?php echo anchor('examiner/dashboard/approve_list', 'Approve Results', 'title=" Approve Results"'); ?>
+								<!-- <span style="position:absolute; top:10px; right:50px;" class="badge">33</span> -->
+								<!-- <?php if($this->session->userdata('approved_result_count') > 0 ): ?> -->
+									<span style="position:absolute; top:10px; right:50px;" class="badge gray-color">
+										<?php echo $this->session->userdata('approved_result_count') ;?>
+									</span>
+								<!-- <?php endif; ?> -->
+							</li>
 							<li class="<?php if($this->uri->segment(3) == 'activities'){echo "item";} ?>"><?php echo anchor('examiner/dashboard/activities', 'View Users Activities', 'title=" Monitor Users Activities"'); ?></li>	
 							<?php if($this->uri->segment(2) == "dashboard"): ?>
 								<li class="active"><?php echo anchor('/', 'Back To Home', 'title="Back to Home"'); ?></li>
@@ -88,8 +95,8 @@
 						<?php foreach($notification_unread as $notification): ?>	
 							<a href="<?php echo base_url(); ?>examiner/notifications/detail/<?php echo $notification->id ;?>" class="list-group-item">
 								<h5 class="list-group-item-heading"><strong><?php echo $notification->title ;?></strong></h5>
-								<p class="list-group-item-text"><?php echo $notification->message ;?></p>
-								<small class="list-group-item-text"><b><?php echo $notification->sent_on ;?></b></small>							
+								<p class="list-group-item-text"><?php echo implode(' ', array_slice(explode(' ', $notification->message), 0, 10)). '....'; ?></p>
+								<small class="list-group-item-text"><b><?php echo date('jS F Y  h:i:sa', strtotime($notification->sent_on)) ;?></b></small>							
 							</a>
 						<?php endforeach; ?>	
 					</div>				

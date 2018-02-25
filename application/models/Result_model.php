@@ -447,8 +447,19 @@ class Result_model extends CI_MODEL
 
 		$this->db->set('group_count', $count);
 		$this->db->where('group_code', $code);
-		$this->db->update("result_groups");
-				
+		$this->db->update("result_groups");			
 		
 	}	
+
+	public function count_uploaded_result($lecturer)
+	{
+		$this->db->where('lecturer_email', $lecturer);
+		return $this->db->count_all_results($this->table);
+	}
+
+	public function count_approved_result()
+	{
+		$this->db->where('approved', false);
+		return $this->db->count_all_results('result_groups');
+	}
 }

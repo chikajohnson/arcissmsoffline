@@ -70,7 +70,11 @@
 									</span>
 								<?php endif; ?>
 							</li>
-							<li class="<?php if($this->uri->segment(2) == 'results' && ($this->uri->segment(3) == null || $this->uri->segment(3) == "view" || $this->uri->segment(3) == "add" || $this->uri->segment(3) == "detail" || $this->uri->segment(3) == "edit")) {echo "item";} ?>"><?php echo anchor('lecturer/results', 'View  Results', 'title="View Results"'); ?></li>	
+							<li  style="position:relative;" class="<?php if($this->uri->segment(2) == 'results' && ($this->uri->segment(3) == null || $this->uri->segment(3) == "view" || $this->uri->segment(3) == "add" || $this->uri->segment(3) == "detail" || $this->uri->segment(3) == "edit")) {echo "item";} ?>"><?php echo anchor('lecturer/results', 'View  Results', 'title="View Results"'); ?>
+								<span style="position:absolute; top:10px; right:40px;" class="badge js-notification-count gray-color">
+									<?php echo $this->session->userdata('uploaded_result_count') ;?>
+								</span>
+							</li>	
 
 							<li class="<?php if($this->uri->segment(2) == 'results' && $this->uri->segment(3) == 'upload_result'){echo "item";} ?>"><?php echo anchor('lecturer/results/upload_result', 'Upload Results', 'title="Upload Results"'); ?></li>
 							
@@ -89,8 +93,8 @@
 						<?php foreach($notification_unread as $notification): ?>	
 							<a href="<?php echo base_url(); ?>lecturer/notifications/detail/<?php echo $notification->id ;?>" class="list-group-item">
 								<h5 class="list-group-item-heading"><strong><?php echo $notification->title ;?></strong></h5>
-								<p class="list-group-item-text"><?php echo $notification->message ;?></p>
-								<small class="list-group-item-text"><b><?php echo $notification->sent_on ;?></b></small>							
+								<p class="list-group-item-text"><?php echo implode(' ', array_slice(explode(' ', $notification->message), 0, 10)). '....';?></p>
+								<small class="list-group-item-text"><b><?php echo date('jS F Y  h:i:sa', strtotime($notification->sent_on));?></b></small>							
 							</a>
 						<?php endforeach; ?>	
 					</div>				
