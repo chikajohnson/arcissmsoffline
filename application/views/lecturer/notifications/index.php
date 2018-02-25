@@ -7,7 +7,7 @@
   </div> 
   <div class="row">
    <?php $item = 1; ?>
-    <?php echo form_open('admin/notifications/search'); ?>
+    <?php echo form_open('lecturer/notifications/search'); ?>
     <div class="row">
       <div class="col-sm-6">
       </div>
@@ -29,7 +29,7 @@
       </div>
       <?php echo form_close(); ?>
       <div class="col-sm-1">
-        <button type="link" class="btn-sm btn-success" style="width:130%; height:35px;">Refresh</button>
+        <button type="link" class="btn-sm bg-default" style="width:130%; height:35px;">Refresh</button>
       </div>
     </div>
   </div>
@@ -60,8 +60,8 @@
               <td><?php echo $notification->sender; ?></td>
               <td><?php echo $notification->sender_email; ?></td>
               <td>
-                <a href="<?php echo base_url(); ?>admin/notifications/detail/<?php echo $notification->id ;?>" title="details" class="btn btn-sm btn-default">Details</a>
-                <a href="<?php echo base_url(); ?>admin/notifications/delete/<?php echo $notification->id ;?>" onclick="confirmAction();" title="delete" class="btn btn-sm btn-danger">Delete</a>               
+                <a href="<?php echo base_url(); ?>lecturer/notifications/detail/<?php echo $notification->id ;?>" title="details" class="btn btn-sm bg-default">Details</a>
+                <a href="<?php echo base_url(); ?>lecturer/notifications/delete/<?php echo $notification->id ;?>" onclick="confirmAction();" title="delete" class="btn btn-sm btn-danger">Delete</a>               
               </tr>
               <?php endforeach;?>
             </tbody>

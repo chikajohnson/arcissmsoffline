@@ -42,6 +42,36 @@ li{
 	background: orange;
 }
 
+.bg-light{
+	background: #D6E7E2;
+}
+
+.bg-default, .bg-default:hover{
+	background: #B4B2B2;
+	color:#000;
+}
+
+.bg-white, .bg-white:hover{
+	background: #fff;
+	color:#000;
+}
+
+.bg-action, .bg-action:hover{
+	background: #0D810D;
+	color:#FCFAFA;
+	padding: 5px !important;
+	font-weight: bold;	
+}
+.padded{
+	padding: 5px !important;
+	font-weight: bold;
+}
+
+.rounded{
+	border-radius: 5px;
+}
+
+
 .student{
 	background: grey;
 	color: #fff !important;

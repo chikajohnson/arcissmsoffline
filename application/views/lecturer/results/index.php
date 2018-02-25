@@ -13,8 +13,8 @@
     <?php echo form_open('lecturer/results/search'); ?>
     <div class="row">
       <div class="col-sm-6">
-        <small class="pull-left"><a id="delete_button" href="<?php echo base_url(); ?>lecturer/results/add" title="add result" class="btn btn-sm btn-success pull-left">Add New result</a></small>
-        <small class="pull-left"><a  href="<?php echo base_url(); ?>lecturer/results/upload_result" title="Upload in batch" class="btn btn-sm btn-success pull-left">Upload Results in Batch</a></small>
+        <small class="pull-left"><a id="delete_button" href="<?php echo base_url(); ?>lecturer/results/add" title="add result" class="btn btn-sm bg-action pull-left">Add New result</a></small>
+        <small class="pull-left"><a  href="<?php echo base_url(); ?>lecturer/results/upload_result" title="Upload in batch" class="btn btn-sm bg-action pull-left">Upload Results in Batch</a></small>
       </div>
       <div class="col-sm-2">
         <select name="result" style="width:120%; height:35px;font-size:13px;" class="form-control">
@@ -38,7 +38,7 @@
       </div>
       <?php echo form_close(); ?>
       <div class="col-sm-1">
-        <button type="link" class="btn-sm btn-success" style="width:130%; height:35px;">Refresh</button>
+        <button type="link" class="btn-sm bg-default" style="width:130%; height:35px;">Refresh</button>
       </div>
     </div>
   </div>
@@ -91,12 +91,12 @@
                 <td><span class="label label-danger"><?php echo "Pending"; ?></span></td>
                 <td>
                 <a href="<?php echo base_url(); ?>lecturer/results/edit/<?php echo $result->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
-                <a href="<?php echo base_url(); ?>lecturer/results/detail/<?php echo $result->id ;?> " title="details" class="btn btn-sm btn-warning">Details</a><a href="<?php echo base_url(); ?>lecturer/results/delete/<?php echo $result->id ;?>" onclick="confirmAction();" title="delete" class="btn btn-sm btn-danger">Delete</a>
+                <a href="<?php echo base_url(); ?>lecturer/results/detail/<?php echo $result->id ;?> " title="details" class="btn btn-sm bg-default">Details</a><a href="<?php echo base_url(); ?>lecturer/results/delete/<?php echo $result->id ;?>" onclick="confirmAction();" title="delete" class="btn btn-sm btn-danger">Delete</a>
               </td>
               <?php elseif($result->approved == true): ?>
                 <td><span class="label label-success"><?php echo "Approved" ?></span></td>
                 <td>
-                <a href="<?php echo base_url(); ?>lecturer/results/detail/<?php echo $result->id ;?>" title="details" class="btn btn-warning">Details</a>
+                <a href="<?php echo base_url(); ?>lecturer/results/detail/<?php echo $result->id ;?>" title="details" class="btn bg-default">Details</a>
                 </td>
               <?php endif; ?>              
             </tr>

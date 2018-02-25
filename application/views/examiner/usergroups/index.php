@@ -25,7 +25,7 @@
           <td><?php echo $usergroup->description; ?></td>
           <td>
             <a href="<?php echo base_url(); ?>examiner/usergroups/edit/<?php echo $usergroup->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
-            <a href="<?php echo base_url(); ?>examiner/usergroups/detail/<?php echo $usergroup->id ;?> "title="details" class="btn btn-sm btn-warning">Details</a>
+            <a href="<?php echo base_url(); ?>examiner/usergroups/detail/<?php echo $usergroup->id ;?> "title="details" class="btn btn-sm bg-default">Details</a>
             <!-- <a href="<?php echo base_url(); ?>examiner/usergroups/delete/<?php echo $usergroup->id ;?>"title="delete" onclick="confirmAction();"; class="btn btn-click btn-sm btn-danger">Delete</a></td> -->
           </tr>          
           <?php endforeach;?>

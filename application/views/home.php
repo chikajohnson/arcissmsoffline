@@ -36,15 +36,19 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav pull-right">
           <?php if ($this->session->userdata('logged_in')): ?>  
-              <?php if ($this->session->userdata('user_type')  == 'examiner'): ?> 
-              <li class="notifications">
-                <a href="#">
-                  <i class="glyphicon glyphicon-globe"></i>
-                  <span class="badge">23</span>
-                </a>
-              </li>           
+              <?php if ($this->session->userdata('user_type')  == 'examiner'): ?>                        
               <li><a href="<?php echo base_url(); ?>examiner/dashboard">Enter Dashboard</a></li>
-                  <li><a href="<?php echo base_url(); ?>admin/dashboard/logout">Logout</a></li>
+              <li><a href="<?php echo base_url(); ?>admin/dashboard/logout">Logout</a></li>
+              <li class="notifications">
+                <a href="examiner/notifications">
+                <span class="glyphicon glyphicon-globe"></span>
+                    <?php if($this->session->userdata('notification_count') > 0 ): ?>
+                    <span  class="badge js-notification-count">
+                      <?php echo $this->session->userdata('notification_count') ;?>
+                    </span>
+                  <?php endif; ?>
+                </a>
+              </li>
               <?php endif; ?>
 
               <?php if ($this->session->userdata('user_type')  == 'admin'): ?>               
@@ -63,18 +67,18 @@
               <?php endif; ?>
 
               <?php if ($this->session->userdata('user_type')  == 'lecturer'): ?>  
-              <li>
-                 <a href="#">
-                    <span class="glyphicon glyphicon-globe"></span>
+                <li><a href="<?php echo base_url(); ?>lecturer/dashboard">Enter Dashboard</a></li>
+                <li><a href="<?php echo base_url(); ?>lecturer/dashboard/logout">Logout</a></li>
+                <li class="notifications">
+                <a href="lecturer/notifications">
+                <span class="glyphicon glyphicon-globe"></span>
                     <?php if($this->session->userdata('notification_count') > 0 ): ?>
-                    <span style="position:absolute; top:10px; right:50px;" class="badge js-notification-count">
+                    <span  class="badge js-notification-count">
                       <?php echo $this->session->userdata('notification_count') ;?>
                     </span>
                   <?php endif; ?>
-              </a>
+                </a>
               </li>
-                <li><a href="<?php echo base_url(); ?>lecturer/dashboard">Enter Dashboard</a></li>
-                <li><a href="<?php echo base_url(); ?>lecturer/dashboard/logout">Logout</a></li>
               <?php endif; ?>
           <?php else: ?>
             <li><?php echo anchor('login', 'Admin', 'title="Login"'); ?></li>

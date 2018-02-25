@@ -7,30 +7,46 @@ class Notifications extends CI_Controller {
 	{
 		parent::__construct();	
 
-		 if (!$this->session->userdata('logged_in')) {
-		 	redirect('welcome');
-		}
+		if (!$this->session->userdata('logged_in')) {
+			redirect('welcome');
+	   }
+
+	   if ($this->session->userdata('user_type') != 'lecturer') {
+			redirect('welcome');
+	   }
+	   
+	   if ($this->session->userdata('logged_in')) {	
+		$notification_unread = 	$this->notification_model->get_notifications_unread($this->session->userdata('user_name'));
+		
+		$notification = $this->notification_model->count_viewed($this->session->userdata('user_name'));
+		$notification_data  = array(
+			'notification_count' => $notification,
+			'notification_unread' => $notification_unread
+
+		);
+		//set notification session data
+		$this->session->set_userdata($notification_data);
+   }		
 
 	} 
 
 	public function index($Starting=0)
-	{
-		
+	{		
 		$user = $this->session->userdata('user_name');
 
 		$data['count'] = $this->notification_model->count($user);		
 		$data['notifications'] = $this->notification_model->get_notifications_by_receiver($user);
 		//var_dump($data); die();
-		$data['main'] = "admin/notifications/index";
-		$this->load->view('admin/layout/main', $data);
+		$data['main'] = "lecturer/notifications/index";
+		$this->load->view('lecturer/layout/main', $data);
 	}
 
 	
 	public function delete($id=0)
 	{
 		if ($this->notification_model->check_if_id_exists($id) == NULL) {
-			$data['main'] = 'admin/error';
-			$this->load->view('admin/layout/main', $data);
+			$data['main'] = 'lecturer/error';
+			$this->load->view('lecturer/layout/main', $data);
 		} else {
 
 			$this->notification_model->delete($id);
@@ -49,7 +65,7 @@ class Notifications extends CI_Controller {
 			//Set Message
 			$this->session->set_flashdata('success', 'notification has been deleted');
 
-			redirect('admin/notifications','refresh');
+			redirect('lecturer/notifications','refresh');
 		}
 	}
 
@@ -58,8 +74,8 @@ class Notifications extends CI_Controller {
 			//Load template
 			//var_dump($id); die();
 		if ($this->notification_model->check_if_id_exists($id) == NULL) {
-			$data['main'] = 'admin/error';
-			$this->load->view('admin/layout/main', $data);
+			$data['main'] = 'lecturer/error';
+			$this->load->view('lecturer/layout/main', $data);
 		} else {
 			$data['notification'] = $this->notification_model->get_notification_by_id($id);
 			$data['notification_count'] = $this->notification_model->count($this->session->userdata("user_name"));
@@ -86,8 +102,8 @@ class Notifications extends CI_Controller {
 				$this->session->set_userdata($notification_data);
 			}
 
-			$data['main'] = "admin/notifications/detail";
-			$this->load->view('admin/layout/main', $data);
+			$data['main'] = "lecturer/notifications/detail";
+			$this->load->view('lecturer/layout/main', $data);
 		}
 	}
 
@@ -95,7 +111,7 @@ class Notifications extends CI_Controller {
 	public function search()
 	{
 		if (!isset($_POST['notification'])){
-			redirect('admin/notifications/index','refresh');
+			redirect('lecturer/notifications/index','refresh');
 		}
 		
 		$data['notifications'] = null;
@@ -107,8 +123,8 @@ class Notifications extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE) {
 			// var_dump($data); die();
-			$data['main'] = "admin/notifications/index";
-		$this->load->view('admin/layout/main', $data);
+			$data['main'] = "lecturer/notifications/index";
+		$this->load->view('lecturer/layout/main', $data);
 		} else {
 			$data  = array(
 				'notification' => $this->input->post('notification'),
@@ -122,8 +138,8 @@ class Notifications extends CI_Controller {
 			$data['notifications'] = $this->course_model->search($data['notification'], $data['search_param']);
 			
 
-			$data['main'] = "admin/notifications/index";
-			$this->load->view('admin/layout/main', $data);			
+			$data['main'] = "lecturer/notifications/index";
+			$this->load->view('lecturer/layout/main', $data);			
 		}		
 	}
 
@@ -136,8 +152,8 @@ class Notifications extends CI_Controller {
 			$data['index'] = "All";
 
 			if ($this->form_validation->run() == FALSE) {
-				$data['main'] = "admin/notifications/index";
-				$this->load->view('admin/layout/main', $data);
+				$data['main'] = "lecturer/notifications/index";
+				$this->load->view('lecturer/layout/main', $data);
 			} else {
 				$data  = array(
 					'notification' => $this->input->post('notification')
@@ -147,13 +163,13 @@ class Notifications extends CI_Controller {
 				$data['index'] = $data['notification'];
 				$data['notifications'] = $this->notification_model->paginate($data['notification']);
 
-				$data['main'] = "admin/notifications/index";
-				$this->load->view('admin/layout/main', $data);
+				$data['main'] = "lecturer/notifications/index";
+				$this->load->view('lecturer/layout/main', $data);
 				
 			}
 
 		} else {
-			redirect('admin/notifications/index','refresh');
+			redirect('lecturer/notifications/index','refresh');
 		}
 	}
 	

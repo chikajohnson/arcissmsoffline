@@ -42,7 +42,7 @@
           </td>
           <td>
             <a href="<?php echo base_url(); ?>examiner/users/edit/<?php echo $user->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
-            <a href="<?php echo base_url(); ?>examiner/users/detail/<?php echo $user->id ;?> " title="details" class="btn btn-sm btn-warning">Details</a>
+            <a href="<?php echo base_url(); ?>examiner/users/detail/<?php echo $user->id ;?> " title="details" class="btn btn-sm bg-default">Details</a>
             <?php if($user->status == false): ?>
             <a  href="<?php echo base_url(); ?>examiner/users/activate/<?php echo $user->id ;?>" onclick="confirmActionActivate()" title="activate Account" class="btn btn-sm btn-success">activate</a>
             <?php elseif($user->status == true): ?>

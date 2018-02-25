@@ -35,9 +35,11 @@
                 <span>Lecturer : &nbsp;<b><strong><?php echo $result->lecturer_name; ?> </strong></b></span>
               </div>
               <?php if($result->approved == false): ?>
-              <div class="list-group-item ">
-                <a class="btn btn-warning" href="<?php echo base_url() ?>examiner/dashboard/view/<?php echo  $result->group_code;?>" title="">View</a>
+              <div class="list-group-item bg-light">
+                <a class="btn bg-white" href="<?php echo base_url() ?>examiner/dashboard/view/<?php echo  $result->group_code;?>" title="">View</a>
                 <a class="btn btn-success" onclick="confirmAction();" href="<?php echo base_url() ?>examiner/dashboard/approve/<?php echo  $result->group_code;?>"title="">Approve</a>
+                <a class="btn btn-danger" onclick="confirmRejectAction();" href="<?php echo base_url() ?>examiner/dashboard/reject/<?php echo  $result->group_code;?>"title="">Reject</a>
+
               </div>
               <?php else: ?>
                 <div class="list-group-item bg-4">
@@ -66,6 +68,18 @@
   function confirmAction() {
   
   response = confirm("Are you sure you want to approve these results");
+  if(response == true){
+  return true;
+  }
+  else if (response == false){
+  event.preventDefault();
+  }
+  
+  }
+
+  function confirmRejectAction() {
+  
+  response = confirm("Are you sure you want to reject these results");
   if(response == true){
   return true;
   }

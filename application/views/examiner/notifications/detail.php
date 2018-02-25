@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="table-responsive">
-		<h4 ><span class="label label-default">Notifications Details<small><a href="<?php echo base_url(); ?>admin/notifications" title="back to notifications" class="btn btn-md btn-default pull-right">Back</a></small></span></h4>
+		<h4 ><span class="label label-default">Notifications Details<small><a href="<?php echo base_url(); ?>examiner/notifications" title="back to notifications" class="btn btn-md btn-default pull-right">Back</a></small></span></h4>
 	</div>
 	<hr>
 	<table class="table table-striped table-condensed table-responsive" style="width:100%;">

@@ -28,7 +28,7 @@
           <td><?php echo $lecturer->email ?></td>
           <td>
             <a href="<?php echo base_url(); ?>examiner/lecturers/edit/<?php echo $lecturer->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
-            <a href="<?php echo base_url(); ?>examiner/lecturers/detail/<?php echo $lecturer->id ;?>" title="detail" class="btn btn-sm btn-warning">Detail</a>
+            <a href="<?php echo base_url(); ?>examiner/lecturers/detail/<?php echo $lecturer->id ;?>" title="detail" class="btn btn-sm bg-default">Detail</a>
             <a href="<?php echo base_url(); ?>examiner/lecturers/delete/<?php echo $lecturer->id ;?>" onclick="confirmAction();" title="delete" class="btn btn-sm btn-danger">Delete</a>
           </td>
         </tr>

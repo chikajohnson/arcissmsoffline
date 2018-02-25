@@ -99,8 +99,8 @@
 	</div>
 	<div class="col-md-12">
 		<div class="btn-group pull-right">
-			<input type="submit" name="import" id="page_submit" value = "Upload results " onclick="validateInputs();" class="btn btn-lg btn-primary">
-			<a  href="<?php echo base_url(); ?>lecturer/results"  class="btn btn-lg btn-default">Close</a>
+			<input type="submit" name="import" id="page_submit" value = "Upload Results " onclick="validateInputs();" class="btn btn-lg bg-action">
+			<a  href="<?php echo base_url(); ?>lecturer/results"  class="btn btn-lg btn-default padded">Close</a>
 		</div>
 	</div>
 	<?php echo form_close(); ?>

@@ -20,7 +20,6 @@ class Site extends CI_Controller {
 			$notification_data  = array(
 				'notification_count' => $notification,
 				'notification_unread' => $notification_unread
-
 			);
 			//set notification session data
 			$this->session->set_userdata($notification_data);
