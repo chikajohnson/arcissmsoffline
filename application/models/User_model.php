@@ -49,6 +49,17 @@ class User_model extends CI_MODEL
 
 		return $query->row();
 	}
+
+	public function get_user_by_type($type)
+	{		
+		$this->db->select('a.*, b.name as type, b.name as user_type' );
+		$this->db->from('users as a');
+		$this->db->join('usergroups as b', 'a.user_group = b.id', 'left');
+		$this->db->where('b.name', $type);
+		$query = $this->db->get();
+		return $query->row();
+	}
+
 	public function update($id, $data)
 	{			
 		$this->db->where('id', $id);

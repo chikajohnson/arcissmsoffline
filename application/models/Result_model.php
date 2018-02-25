@@ -415,8 +415,7 @@ class Result_model extends CI_MODEL
 	}
 
 	public function get_group_code($id)
-	{
-		
+	{		
 		$this->db->select("*");
 		$this->db->from('lecturer_results');
 		$this->db->where('id', $id);

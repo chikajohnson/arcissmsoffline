@@ -18,10 +18,10 @@
 			<tr>
 				<td>
 					<div class="col-md-3">
-						<h5><strong>Notification Content :</strong></h5>
+						<h5><strong>Message :</strong></h5>
 					</div>
 					<div class="col-md-9">
-						<h5><?php echo $notification->message; ?></h5>
+						<h5><strong><?php echo $notification->message; ?></strong></h5>
 					</div>
 				</td>
 			</tr>
@@ -49,7 +49,7 @@
 					<div class="col-md-3">
 						<h5><strong>Sent on :</strong></h5>					</div>
 					<div class="col-md-9">
-						<h5><?php echo $notification->sent_on; ?></h5>
+						<h5><?php echo date('jS F Y  h:i:sa', strtotime($notification->sent_on)); ?></h5>
 					</div>
 				</td>
 			</tr>

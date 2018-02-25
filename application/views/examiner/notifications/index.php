@@ -42,6 +42,7 @@
               <th>Title</th>
               <th>Sender</th>
               <th>Sender Email</th>
+              <th>Sent On</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -59,6 +60,7 @@
               </td>
               <td><?php echo $notification->sender; ?></td>
               <td><?php echo $notification->sender_email; ?></td>
+              <td><?php echo  date('jS F Y  h:i:sa', strtotime($notification->sent_on)); ?></td>
               <td>
                 <a href="<?php echo base_url(); ?>examiner/notifications/detail/<?php echo $notification->id ;?>" title="details" class="btn btn-sm bg-default">Details</a>
                 <a href="<?php echo base_url(); ?>examiner/notifications/delete/<?php echo $notification->id ;?>" onclick="confirmAction();" title="delete" class="btn btn-sm btn-danger">Delete</a>               

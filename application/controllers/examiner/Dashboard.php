@@ -76,6 +76,34 @@ class Dashboard extends CI_Controller {
 			$data['submitted_results'] = $this->result_model->get_submitted_results();
 			$this->result_model->approve_results($update_data, $group_code);
 
+			//Send notification to chief examiner after batch upload
+			date_default_timezone_set('Africa/Lagos');
+			$receiver_array = $this->result_model->get_results_by_group_code($group_code);
+			$receiver = $receiver_array[0]['lecturer_name'];
+			$receiver_email = $receiver_array[0]['lecturer_email'];
+			$receiver_type = "lecturer";
+			$viewed = false;
+			$title = "Results have been approved ";
+			$sender_email =  $this->session->userdata('user_name');
+			$sender =  $this->session->userdata('full_name');
+			$sender_type =  $this->session->userdata('user_type');	
+			$message =  $this->session->userdata('full_name')." has approved the results for ".$receiver_array[0]['course_fullname']. " - which you submitted for approval. Thank you.";			
+			
+			
+			$notification_data = array(
+				'receiver' => $receiver,
+				'receiver_email' => $receiver_email,
+				'receiver_type' => $receiver_type,
+				'sender' => $sender,
+				'sender_email' => $sender_email,
+				'sender_type' => $sender_type,
+				'viewed' => $viewed,
+				'title' => $title,
+				'message' => $message				
+			);
+
+			$this->notification_model->add($notification_data);	
+
 			//Set activities
 			$activities  = array(
 				'resource_id' => $this->db->insert_id(),

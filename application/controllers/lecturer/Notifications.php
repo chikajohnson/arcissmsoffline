@@ -131,11 +131,11 @@ class Notifications extends CI_Controller {
 				'search_param' => $this->input->post('search_param')
 				 );
 			
-			$data['count'] = $this->course_model->count();
+			$data['count'] = $this->notification_model->count($this->session->userdata('user_name'));
 
 			//insert notification
 			$data['index'] = "All";
-			$data['notifications'] = $this->course_model->search($data['notification'], $data['search_param']);
+			$data['notifications'] = $this->notification_model->search($data['notification'], $data['search_param']);
 			
 
 			$data['main'] = "lecturer/notifications/index";
@@ -159,7 +159,7 @@ class Notifications extends CI_Controller {
 					'notification' => $this->input->post('notification')
 					 );
 				
-				$data['count'] = $this->notification_model->count();	
+				$data['count'] = $this->notification_model->count($this->session->userdata('user_name'));	
 				$data['index'] = $data['notification'];
 				$data['notifications'] = $this->notification_model->paginate($data['notification']);
 

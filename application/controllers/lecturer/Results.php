@@ -230,9 +230,10 @@ class Results extends CI_Controller {
 								
 			}
 
+				$course_code = $this->course_model->get_course_fullname($batch_result[0]['course']);
 				if (count($batch_result) > 0) {	
 					$group_data  = array(
-						'course_code' => $this->course_model->get_course_code($batch_result[0]['course']),
+						'course_code' => $course_code,
 						'course_fullname' => $this->course_model->get_course_fullname($batch_result[0]['course']),
 						'session_name' => $batch_result[0]['session_name'],
 						'lecturer_email' => $this->session->userdata('user_name'),
@@ -260,7 +261,36 @@ class Results extends CI_Controller {
 
  
 				$number = $this->result_model->count_last_inserted_results($batch_upload_code);	       
-	            $msg = $upload_count." Result(s) have been succesfully inserted into the results table.";
+				$msg = $upload_count." Batch Result(s) have been succesfully uploaded.";
+				
+				
+			//Send notification to chief examiner after batch upload
+			date_default_timezone_set('Africa/Lagos');
+			$receiver_array = $this->user_model->get_user_by_type('examiner');
+			$receiver = $receiver_array->first_name . ' '. $receiver_array->last_name;
+			$receiver_email = $receiver_array->email;
+			$receiver_type = $receiver_array->user_type;
+			$viewed = false;
+			$title = "New Batch of Results Submitted for Approval";
+			$sender_email =  $this->session->userdata('user_name');
+			$sender =  $this->session->userdata('full_name');
+			$sender_type =  $this->session->userdata('user_type');	
+			$message =  $this->session->userdata('full_name')." has summited a new batch of results (".$course_code. ") for approval. Kindly attend to this.";			
+			
+			
+			$notification_data = array(
+				'receiver' => $receiver,
+				'receiver_email' => $receiver_email,
+				'receiver_type' => $receiver_type,
+				'sender' => $sender,
+				'sender_email' => $sender_email,
+				'sender_type' => $sender_type,
+				'viewed' => $viewed,
+				'title' => $title,
+				'message' => $message				
+			);
+
+			$this->notification_model->add($notification_data);	
 	            // Insert users activity
 	                $activity  = array(
 						'resource_id' => $batch_upload_code,
@@ -269,12 +299,10 @@ class Results extends CI_Controller {
 						'user_id' => $this->session->userdata('user_id'),
 						'message' => $upload_count . ' Result(s) have been upoaded for approval'
 					);
-					//Insert Activivty				
- 
-				
+
+				//Insert Activivty				
 				$this->activity_model->add($activity);			
 				$this->result_model->delete_last_inserted_tempresults($batch_upload_code);  
-
  
 	            $this->session->set_flashdata('success', $msg);   
 				redirect('lecturer/results','refresh');
@@ -299,6 +327,7 @@ class Results extends CI_Controller {
 		$this->session->set_flashdata('cancel_upload', 'Batch upload process has been terminated');
 		redirect('lecturer/results','refresh');	
 	}
+
 	public function index()
 	{
 			//Load template
@@ -310,6 +339,7 @@ class Results extends CI_Controller {
 		$data['main'] = "lecturer/results/index";
 		$this->load->view('lecturer/layout/main', $data);
 	}
+	
 	public function add()
 	{
 		$data['courses'] = $this->course_model->get_courses();
@@ -384,14 +414,44 @@ class Results extends CI_Controller {
 			$this->result_model->add($data);
 			$this->result_model->add_group_data($group_data);
 
+			$course =  $data['course_code'];
 			$result = $this->course_model->get_course($this->input->post('course'));
 			$data  = array(
 				'resource_id' => $this->db->insert_id(),
 				'type' => 'result',
 				'action' => 'added',
 				'user_id' => $this->session->userdata('user_id'),
-				'message' => 'A new result  was added('. $data['course_code']. ' for student - '.  $data['matric'] .')'
+				'message' => 'A new result  was added('. $course. ' for student - '.  $data['matric'] .')'
 				);
+
+			//Send notification to chief examiner after adding a result
+			date_default_timezone_set('Africa/Lagos');
+			$receiver_array = $this->user_model->get_user_by_type('examiner');
+			$receiver = $receiver_array->first_name . ' '. $receiver_array->last_name;
+			$receiver_email = $receiver_array->email;
+			$receiver_type = $receiver_array->user_type;
+			$viewed = false;
+			$title = "New Result Submitted for Approval";
+			$sender_email =  $this->session->userdata('user_name');
+			$sender =  $this->session->userdata('full_name');
+			$sender_type =  $this->session->userdata('user_type');	
+			$message =  $this->session->userdata('full_name')." has summited a new result(".$course.") for approval. Kindly attend to this.";			
+			
+			
+			$notification_data = array(
+				'receiver' => $receiver,
+				'receiver_email' => $receiver_email,
+				'receiver_type' => $receiver_type,
+				'sender' => $sender,
+				'sender_email' => $sender_email,
+				'sender_type' => $sender_type,	
+				'viewed' => $viewed,
+				'title' => $title,
+				'message' => $message				
+			);
+			$this->notification_model->add($notification_data);	
+			
+
 			//Insert Activivty
 			$this->activity_model->add($data);
 			//Set Message
