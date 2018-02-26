@@ -62,6 +62,14 @@ $route['examiner'] = 'examiner/dashboard/login';
 $route['examiner/home'] = 'examiner/dashboard/index';
 $route['examiner/activities'] = 'examiner/dashboard/index';
 
+
+$route['examiner/lecturers/edit/(:any)'] = 'examiner/lecturers/edit/$1';
+$route['examiner/lecturers/delete/(:any)'] = 'examiner/lecturers/delete/$1';
+$route['examiner/lecturers/detail/(:any)'] = 'examiner/lecturers/detail/$1';
+
+$route['examiner/lecturers/paginate/(:any)'] = 'examiner/lecturers/index';
+
+
 $route['admin/testing'] = 'admin/testing/test';
 
 $route['admin/courses/edit/(:any)'] = 'admin/courses/edit/$1';
@@ -95,6 +103,15 @@ $route['admin/students/edit/(:any)'] = 'admin/students/edit/$1';
 $route['admin/students/delete/(:any)'] = 'admin/students/delete/$1';
 $route['admin/students/detail/(:any)'] = 'admin/students/detail/$1';
 
+$route['admin/notifications/delete/(:any)'] = 'admin/notifications/delete/$1';
+$route['admin/notifications/detail/(:any)'] = 'admin/notifications/detail/$1';
+
+$route['lecturer/notifications/delete/(:any)'] = 'lecturer/notifications/delete/$1';
+$route['lecturer/notifications/detail/(:any)'] = 'lecturer/notifications/detail/$1';
+
+$route['examiner/notifications/delete/(:any)'] = 'examiner/notifications/delete/$1';
+$route['examiner/notifications/detail/(:any)'] = 'examiner/notifications/detail/$1';
+
 $route['admin/courses/search/(:any)'] = 'admin/courses/index/$1';
 $route['admin/educations/search/(:any)'] = 'admin/educations/index/$1';
 $route['admin/academic_sessions/search/(:any)'] = 'admin/academic_sessions/index/$1';
@@ -108,6 +125,9 @@ $route['sms/(:any)'] = 'SMS';
 
 $route['admin/courses/paginate/(:any)'] = 'admin/courses/index';
 $route['sms/(:any)'] = 'SMS';
+
+
+$route['lecturer'] = "lecturer/dashboard/index";
 
 
 

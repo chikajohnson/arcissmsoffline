@@ -5,23 +5,201 @@ class Dashboard extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		
+
+		if ($this->session->userdata('logged_in')) {	
+			$notification_unread = 	$this->notification_model->get_notifications_unread($this->session->userdata('user_name'));
+			
+			$notification = $this->notification_model->count_viewed($this->session->userdata('user_name'));
+			$notification_data  = array(
+				'notification_count' => $notification,
+				'notification_unread' => $notification_unread,
+				'approved_result_count' =>$this->result_model->count_approved_result()
+			);
+			//set notification session data
+			$this->session->set_userdata($notification_data);
+	   }		
 		
 	}
 	
 	public function index()
 	{
-		//var_dump('am here'); die();
-		
+
+		if ($this->session->userdata('user_type')!= 'examiner') {
+			redirect('welcome');
+		 }		
+		$this->approve_list();
+	}
+
+	public function activities()
+	{
 		if ($this->session->userdata('user_type')!= 'examiner') {
 			redirect('welcome');
 		 }
-
 		
 		$data['activities']  = $this->activity_model->get_admin_activities();
-
 		$data['main'] = 'examiner/index';
 		$this->load->view('examiner/layout/main', $data);
+	}
+
+
+
+	public function approve_list()
+	{
+
+		if ($this->session->userdata('user_type')!= 'examiner') {
+			redirect('welcome');
+		 }		
+		
+		$data['all_results_approved'] = $this->result_model->check_approved();
+		$data['submitted_results'] = $this->result_model->get_submitted_results();
+
+		$data['main'] = 'examiner/results/index';
+		$this->load->view('examiner/layout/main', $data);
+	}
+
+	public function approve($group_code=0)
+	{
+
+		if ($this->session->userdata('user_type')!= 'examiner') {
+			redirect('welcome');
+		 }	
+
+		if($this->lecturer_model->check_if_groupcode_exists($group_code) == NULL) {
+			$data['main'] = 'examiner/error';
+			$this->load->view('examiner/layout/main', $data);
+		}else{	
+
+			$update_data = array(
+				'approved' => true
+				);
+
+			$data['submitted_results'] = $this->result_model->get_submitted_results();
+			$this->result_model->approve_results($update_data, $group_code);
+
+			//Send notification to chief examiner after batch upload
+			date_default_timezone_set('Africa/Lagos');
+			$receiver_array = $this->result_model->get_results_by_group_code($group_code);
+			$receiver = $receiver_array[0]['lecturer_name'];
+			$receiver_email = $receiver_array[0]['lecturer_email'];
+			$receiver_type = "lecturer";
+			$viewed = false;
+			$title = "Results have been approved ";
+			$sender_email =  $this->session->userdata('user_name');
+			$sender =  $this->session->userdata('full_name');
+			$sender_type =  $this->session->userdata('user_type');	
+			$message =  $this->session->userdata('full_name')." has approved the results for ".$receiver_array[0]['course_fullname']. " - which you submitted for approval. Thank you.";			
+			
+			
+			$notification_data = array(
+				'receiver' => $receiver,
+				'receiver_email' => $receiver_email,
+				'receiver_type' => $receiver_type,
+				'sender' => $sender,
+				'sender_email' => $sender_email,
+				'sender_type' => $sender_type,
+				'viewed' => $viewed,
+				'title' => $title,
+				'message' => $message				
+			);
+
+			$this->notification_model->add($notification_data);	
+
+			//Set activities
+			$activities  = array(
+				'resource_id' => $this->db->insert_id(),
+				'type' => 'Result',
+				'action' => 'Approval',
+				'user_id' => $this->session->userdata('user_id'),
+				'message' => $this->session->userdata('user_name'). ' approved result(s) of group_code = '. $group_code
+				);
+		
+				//Insert Activivty
+				$this->activity_model->add($activities);
+
+			$this->session->set_flashdata('approve', 'The result has been approved successfully.');
+			redirect('examiner/dashboard/approve_list','refresh');
+		}
+	}
+
+	public function reject($group_code=0)
+	{
+		if ($this->session->userdata('user_type')!= 'examiner') {
+			redirect('welcome');
+		 }	
+
+		if($this->lecturer_model->check_if_groupcode_exists($group_code) == NULL) {
+			$data['main'] = 'examiner/error';
+			$this->load->view('examiner/layout/main', $data);
+		}else{	
+
+			$receiver_array = $this->result_model->get_results_by_group_code($group_code);
+
+			$this->result_model->reject_results( $group_code);
+
+			//Send notification to chief examiner after batch upload
+			date_default_timezone_set('Africa/Lagos');
+			$receiver = $receiver_array[0]['lecturer_name'];
+			$receiver_email = $receiver_array[0]['lecturer_email'];
+			$receiver_type = "lecturer";
+			$viewed = false;
+			$title = "Results Have Been Rejected ";
+			$sender_email =  $this->session->userdata('user_name');
+			$sender =  $this->session->userdata('full_name');
+			$sender_type =  $this->session->userdata('user_type');	
+			$message =  $this->session->userdata('full_name')." has rejected the results for ".$receiver_array[0]['course_fullname']. " - which you submitted for approval. Thank you.";			
+						
+			$notification_data = array(
+				'receiver' => $receiver,
+				'receiver_email' => $receiver_email,
+				'receiver_type' => $receiver_type,
+				'sender' => $sender,
+				'sender_email' => $sender_email,
+				'sender_type' => $sender_type,
+				'viewed' => $viewed,
+				'title' => $title,
+				'message' => $message				
+			);
+
+
+			$this->notification_model->add($notification_data);	
+
+			//Set activities
+			$activities  = array(
+				'resource_id' => $this->db->insert_id(),
+				'type' => 'Result',
+				'action' => 'Rejection',
+				'user_id' => $this->session->userdata('user_id'),
+				'message' => $this->session->userdata('user_name'). ' rejected result(s) of group_code = '. $group_code
+				);
+
+		
+				//Insert Activivty
+				$this->activity_model->add($activities);
+
+			$this->session->set_flashdata('approve', 'The result has been successfully rejected.');
+			redirect('examiner/dashboard/approve_list','refresh');
+		}
+	}
+
+	public function view($group_code=0)
+	{
+
+		if ($this->session->userdata('user_type')!= 'examiner') {
+			redirect('welcome');
+		 }		
+		
+		if($this->lecturer_model->check_if_groupcode_exists($group_code) == NULL) {
+			$data['main'] = 'examiner/error';
+			$this->load->view('examiner/layout/main', $data);
+		}else{	
+			$data['results'] = $this->result_model->get_group_results($group_code);
+			$data['result_detail'] = $this->result_model->get_results_detail($group_code);			
+
+
+			//var_dump($data['results']); die();
+			$data['main'] = 'examiner/results/all_results';
+			$this->load->view('examiner/layout/main', $data);
+		}
 	}
 
 	public function login()
@@ -29,7 +207,6 @@ class Dashboard extends CI_Controller {
 		if ($this->session->userdata('logged_in')) {
 			redirect('welcome');
 		}
-
 		
 		$this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -67,20 +244,43 @@ class Dashboard extends CI_Controller {
 					'full_name' => $full_name
 					);
 
+				
+
 				//set session data
 				$this->session->set_userdata($user_data);
 				$this->session->set_flashdata('login', 'Login successful');
+
+				$notification = $this->notification_model->count_viewed($this->session->userdata('user_name'));
+				$notification_data  = array(
+					'notification_count' => $notification,
+					'approved_result_count' =>$this->result_model->count_approved_result()
+				);
+
+				//set notification session data
+				$this->session->set_userdata($notification_data);
+					
+				$activities  = array(
+					'resource_id' => $this->db->insert_id(),
+					'type' => 'User',
+					'action' => 'Login',
+					'user_id' => $this->session->userdata('user_id'),
+					'message' => $this->session->userdata('user_name') . ' logged into of the system'
+					);
+
+		
+				//Insert Activivty
+				$this->activity_model->add($activities);
+
 				redirect('examiner/dashboard');
 
 			} else {
 
-				$this->session->set_flashdata('error', 'Invalid login');
+				$this->session->set_flashdata('error', 'Incorrect login user name or password.');
 
 				$data['main'] = 'login/examiner_login';
 				$this->load->view('login/layout/main', $data);				
 			}
 		}
-
 
 	}
 
@@ -88,9 +288,24 @@ class Dashboard extends CI_Controller {
 	{
 		$unset_items  = array('user_id','user_name','logged_in','user_type');
 
-		$this->session->unset_userdata($unset_items);
-		
-		$this->session->sess_destroy();
+		$data  = array(
+			'resource_id' => $this->db->insert_id(),
+			'type' => 'User',
+			'action' => 'Login',
+			'user_id' => $this->session->userdata('user_id'),
+			'message' => $this->session->userdata('user_name') . ' logged out of the system'
+			);
+
+		if (!$this->session->userdata('logged_in')) {
+			redirect('welcome');
+		}else{
+		//Insert Activivty
+			$this->activity_model->add($data);
+			$this->session->unset_userdata($unset_items);		
+			$this->session->sess_destroy();
+		}
+
 		redirect('welcome');
+
 	}
 }

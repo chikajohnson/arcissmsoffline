@@ -40,7 +40,7 @@ class Sms_model extends CI_MODEL
 		
 	public function get_single_result($matric, $course)
 	{
-		$this->db->select('r.matric, r.course_code, r.adjusted_mark as score, r.session_name as session' );
+		$this->db->select('r.matric, r.course_code, r.adjusted_mark as score, r.session_name as session, r.course_fullname' );
 		$this->db->from('results as r');	
 		$this->db->where('r.matric', $matric);
 		$this->db->where('r.course_code', $course);
@@ -51,7 +51,7 @@ class Sms_model extends CI_MODEL
 	public function get_all_results($matric, $semester, $session)
 	{
 
-		$this->db->select('r.matric, r.course_code, r.adjusted_mark as score, r.session_name as session');
+		$this->db->select('r.matric, r.course_code, r.adjusted_mark as score, r.session_name as session, r.semester_name as semester');
 		$this->db->from('results as r');
 		$this->db->where('r.matric', trim($matric));
 		$this->db->where('r.semester_name', strtolower(trim($semester)));
@@ -100,6 +100,7 @@ class Sms_model extends CI_MODEL
 		$this->db->select('*' );
 		$this->db->from("sms_request_responses");
 		$this->db->like($table_column, $parameter);
+		$this->db->order_by('id', 'desc');
 		$query = $this->db->get()->result();
 		return $query;
 	}
@@ -119,5 +120,4 @@ class Sms_model extends CI_MODEL
 		return $this->db->count_all("sms_request_responses");
 	}
 
-		
 }

@@ -4,7 +4,7 @@
 <?php $item_count = 1; ?>
 <div class="row">
   <div class="table-responsive">
-    <h4 ><span class="label label-default">User Information<small><a  href="<?php echo base_url(); ?>examiner/users/add" title="add user" class="btn btn-sm btn-success pull-right">Add User</a></small></span></h4>
+    <h4 ><span class="label label-default">User Information<small><a  href="<?php echo base_url(); ?>examiner/users/add" title="add user" class="btn btn-sm btn-success pull-right">Add New User</a></small></span></h4>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -31,11 +31,18 @@
           <td><?php echo $user->last_name.' &nbsp;'.$user->first_name; ?></td> 
            <td><?php echo $user->email; ?></td> 
           <td><?php echo $user->phonenumber; ?></td>
-          <!-- <td><?php echo $user->password; ?></td> -->
-          <td><?php echo $user->group; ?></td>
+          <td>
+            <?php if(strtolower($user->group) == "examiner"): ?>
+              <span>Examiner</span> 
+            <?php elseif(strtolower($user->group) == "admin"): ?>
+              <span>Admin</span> 
+            <?php elseif(strtolower($user->group) == "lecturer"): ?>
+              <span>Lecturer</span> 
+            <?php endif; ?>
+          </td>
           <td>
             <a href="<?php echo base_url(); ?>examiner/users/edit/<?php echo $user->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
-            <a href="<?php echo base_url(); ?>examiner/users/detail/<?php echo $user->id ;?> " title="details" class="btn btn-sm btn-warning">Details</a>
+            <a href="<?php echo base_url(); ?>examiner/users/detail/<?php echo $user->id ;?> " title="details" class="btn btn-sm bg-default">Details</a>
             <?php if($user->status == false): ?>
             <a  href="<?php echo base_url(); ?>examiner/users/activate/<?php echo $user->id ;?>" onclick="confirmActionActivate()" title="activate Account" class="btn btn-sm btn-success">activate</a>
             <?php elseif($user->status == true): ?>

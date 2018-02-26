@@ -68,7 +68,7 @@
 	</table>
 	<div>
 	<br>
-		<small><a href="<?php echo base_url(); ?>admin/messages/send/<?php echo $message->id; ?>" title="send message" class="btn btn btn-success">Send Message</a></small>
+		<small><a href="<?php echo base_url(); ?>admin/messages/send/<?php echo $message->id; ?>" title="send message" class="btn btn btn-success">Continue</a></small>
 	</div>
 	<br>
 	

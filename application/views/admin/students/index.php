@@ -58,7 +58,7 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Matric Number</th>
+              <th>Matric</th>
               <th>Name</th>
               <th>Phone Number</th>
               <th>Email</th>

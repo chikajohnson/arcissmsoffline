@@ -78,7 +78,7 @@
 			<tr>
 				<td>
 					<div class="col-md-12">
-						<h5><strong>Interests &nbsp; : &nbsp;</strong><?php echo $student->interests;?></h5>
+						<h5><strong>Specialization &nbsp; : &nbsp;</strong><?php echo $student->interests;?></h5>
 					</div>
 				</td>
 			</tr>

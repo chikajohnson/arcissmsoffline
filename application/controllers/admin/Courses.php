@@ -14,7 +14,20 @@ class Courses extends CI_Controller {
 
 		if ($this->session->userdata('user_type') != 'admin') {
 		 	redirect('welcome');
-		}			
+		}	
+		
+		if ($this->session->userdata('logged_in')) {	
+			$notification_unread = 	$this->notification_model->get_notifications_unread($this->session->userdata('user_name'));
+			
+			$notification = $this->notification_model->count_viewed($this->session->userdata('user_name'));
+			$notification_data  = array(
+				'notification_count' => $notification,
+				'notification_unread' => $notification_unread
+
+			);
+			//set notification session data
+			$this->session->set_userdata($notification_data);
+	   }
 
 	} 
 
@@ -116,7 +129,6 @@ class Courses extends CI_Controller {
 			}
 			
 		}
-
 		
 	}
 
@@ -195,11 +207,10 @@ class Courses extends CI_Controller {
 			
 
 			$data['main'] = "admin/courses/index";
-			$this->load->view('admin/layout/main', $data);
-			
-		}
-		
+			$this->load->view('admin/layout/main', $data);			
+		}		
 	}
+
 
 	public function paginate()
 	{
@@ -226,7 +237,6 @@ class Courses extends CI_Controller {
 
 				$data['main'] = "admin/courses/index";
 				$this->load->view('admin/layout/main', $data);
-
 				
 			}
 

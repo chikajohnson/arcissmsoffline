@@ -26,6 +26,16 @@ class Usergroup_model extends CI_MODEL
 		return $query->row();
 	}
 
+	public function get_usergroup_name($id)
+	{
+		
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->where('id', $id);
+		$query = $this->db->get();
+		return $query->row()->name;
+	}
+
 	public function count()
 	{
 		return $this->db->count_all('courses');

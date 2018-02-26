@@ -30,7 +30,7 @@
 							
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-danger" title="Reset login password">Reset password</button>
+						<button type="submit" class="btn btn-danger" onclick="confirmAction();" title="Reset login password">Reset password</button>
 					</div>
 				</div>
 			<?php echo form_close(); ?>
@@ -39,3 +39,17 @@
 </div> 
 
 <p class="col-md-4"><a class="btn btn-lg btn-default" href="<?php echo base_url(); ?>site" title="Back to Dashboard"><<<&nbsp;&nbsp;Back&nbsp;</a></p>
+<script>
+
+ function confirmAction() {
+      
+      response = confirm("Resetting a password makes the user's matric number the default password. Are you sure you want to reset this password?");
+	      if(response == true){
+	      return true;
+      }
+      else if (response == false){
+      	event.preventDefault();
+      }
+      
+      }
+ </script>

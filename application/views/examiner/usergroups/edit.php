@@ -3,6 +3,7 @@
 		<h4><b>Edit User Group</b></h4>
 	</div>
 </div>
+<?php echo validation_errors('<p class="alert alert-warning">'); ?>
 <div class="row">
 	<div class="col-lg-12">
 		<ol class="breadcrumb">

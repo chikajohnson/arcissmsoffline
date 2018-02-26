@@ -1,3 +1,4 @@
+<?php date_default_timezone_set('Africa/Lagos'); ?>
 <div class="col-md-offset-3">
 	<h3> <strong>Students Activities</strong></h3>
 </div>
@@ -27,6 +28,7 @@
 			<option value="matric">Matric Number</option>
 			<option value="phonenumber">Phone Number</option>
 			<option value="sms_type">SMS Type</option>
+			<option value="request_time">Date</option>
 		</select>
 	</div>
 	<div class="col-sm-2">
@@ -50,7 +52,7 @@
 				<th>User</th>
 				<th>Phonenumber</th>
 				<th>SMS Type</th>
-				<th>Status</th>
+				<th>Response Status</th>
 				<th>Message </th>
 			</tr>
 		</thead>
@@ -58,7 +60,7 @@
 			<?php foreach($activities as $activity):?>
 			<tr>
 				<td><?php echo $item_count; ?></td>
-				<td colspan="4"><?php echo date('jS F Y  h:i:sa', strtotime($activity->request_time)); ?></td>
+				<td colspan="4"><?php echo $activity->request_time; ?></td>
 				<td><?php echo $activity->matric; ?></td>
 				<td><?php echo $activity->phonenumber; ?></td>
 				<td><?php echo $activity->sms_type; ?></td>

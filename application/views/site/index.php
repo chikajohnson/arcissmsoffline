@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	<div class="text-center">
-		<h4>ARCIS SMS RESULTCHECKING SYSTEM</h4>
+		<h4><strong>ARCIS SMS RESULTCHECKING SYSTEM</strong></h4>
 	</div>
 	<hr>
 	<?php if($message): ?>

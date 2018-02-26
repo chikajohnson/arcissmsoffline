@@ -11,6 +11,8 @@
 		<link href="<?php echo base_url(); ?>assets/css/bootstrap.css" rel="stylesheet">
 		<link href="<?php echo  base_url(); ?>assets/css/dashboard.css" rel="stylesheet">
 		<link href="<?php echo  base_url(); ?>assets/css/custom.css" rel="stylesheet">
+		<link href="<?php echo  base_url(); ?>assets/css/animate.css" rel="stylesheet">
+
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 		<link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">	
@@ -41,6 +43,16 @@
 						<li class="text-info"><a href="<?php echo base_url(); ?>admin/dashboard/logout">Logout</a></li>
 						<li class="text-info"><a ><span class="glyphicon glyphicon-user"></span>
 							<?php echo $this->session->userdata('full_name') ;?></a></li>
+						<li class="notifications">
+						<a href="#">
+							<i class="glyphicon glyphicon-globe" title="notifications"></i>
+							<?php if($this->session->userdata('notification_count') > 0 ): ?>
+								<span class="badge js-notification-count">
+									<?php echo $this->session->userdata('notification_count') ;?>
+								</span>
+							<?php endif; ?>
+						</a>
+						</li>
 						<?php endif; ?>
 						<?php else: ?>
 						<li><?php echo anchor('login', 'Admin', 'title="Login"'); ?></li>
@@ -59,12 +71,25 @@
 							<li class="<?php if($this->uri->segment(2) == 'reset_password'){echo "item";} ?>"><?php echo anchor('site/reset_password', 'Reset Student Password', 'title="Reset Password"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'change_password'){echo "item";} ?>"><?php echo anchor('site/change_password', 'Change Student Password', 'title="Change Password"'); ?></li>
 							<li class="<?php if($this->uri->segment(2) == 'get_help'){echo "item";} ?>"><?php echo anchor('site/get_help', 'View Instructions', 'title="View Messaging Instruction"'); ?></li>
-							<li class="<?php if($this->uri->segment(2) == 'activities'){echo "item";} ?>""><?php echo anchor('site/activities', 'View Student Activities', 'title="Student Activities"'); ?></li>
+							<li class="<?php if($this->uri->segment(2) == 'activities'){echo "item";} ?>"><?php echo anchor('site/activities', 'View Student Activities', 'title="Student Activities"'); ?></li>
 							<li class="active"><?php echo anchor('admin/dashboard', '<<< &nbsp;Back To Admin Dashboard', 'title="Back to  Home"'); ?></li>
 						</ul>
 						<hr>
 					</div>
 				</div>
+				<?php $notification_unread = $this->session->userdata('notification_unread'); ?>
+				<?php if($notification_unread): ?>							
+					<div class="list-group unread_messages">
+						<?php foreach($notification_unread as $notification): ?>	
+							<a href="<?php echo base_url(); ?>admin/notifications/detail/<?php echo $notification->id ;?>" class="list-group-item">
+								<h5 class="list-group-item-heading"><strong><?php echo $notification->title ;?></strong></h5>
+								<p class="list-group-item-text"><?php echo implode(' ', array_slice(explode(' ', $notification->message), 0, 10)). '....'; ;?></p>
+								<small class="list-group-item-text"><b><?php echo date('jS F Y  h:i:sa', strtotime($notification->sent_on));?></b></small>							
+							</a>
+						<?php endforeach; ?>	
+					</div>				
+				<?php endif; ?>	
+
 				<div class="col-sm-10 col-sm-offset-2 main">
 					<?php
 						$this->load->view($main);

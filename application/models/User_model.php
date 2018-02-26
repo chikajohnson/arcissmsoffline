@@ -1,6 +1,6 @@
 <?php
 /**
-*
+* User_model
 */
 class User_model extends CI_MODEL
 {
@@ -49,6 +49,17 @@ class User_model extends CI_MODEL
 
 		return $query->row();
 	}
+
+	public function get_user_by_type($type)
+	{		
+		$this->db->select('a.*, b.name as type, b.name as user_type' );
+		$this->db->from('users as a');
+		$this->db->join('usergroups as b', 'a.user_group = b.id', 'left');
+		$this->db->where('b.name', $type);
+		$query = $this->db->get();
+		return $query->row();
+	}
+
 	public function update($id, $data)
 	{			
 		$this->db->where('id', $id);
@@ -125,11 +136,11 @@ class User_model extends CI_MODEL
 	}
 
 	
-	public function check_if_id_exist()
-	{
+	// public function check_if_id_exist()
+	// {
 		
-		redirect('examiner/error','refresh');
-	}
+	// 	redirect('examiner/error','refresh');
+	// }
 
 	public function check_if_id_exists($id)
 	{
@@ -166,6 +177,35 @@ class User_model extends CI_MODEL
 		return $query;
 				
 	}
+
+	public function check_email_exists($email)
+	{
+		$this->db->select('email');
+		$this->db->from('users');
+		$this->db->where('email', $email);
+
+		$result =  $this->db->count_all_results();		
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}
+	}
+
+	public function check_lecurer_email_exists($email)
+	{
+		$this->db->select('email');
+		$this->db->from('lecturers');
+		$this->db->where('email', $email);
+
+		$result =  $this->db->count_all_results();		
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}
+	}
+
 
 	
 }

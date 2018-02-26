@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div  id="print_html" class="row col-sm-11">
 		<div class="page-header text-center">
-			<h3>
+			<h4>
 			<?php $item_count = 1; ?>
 			<?php //var_dump($results); die(); ?>
 			<?php if($results): ?>
@@ -20,7 +20,7 @@
 				</b>
 				</small>
 			</span>
-			</h3>
+			</h4>
 		</div>
 		
 		<div class="row" style="font-size: 18px;">
@@ -54,7 +54,7 @@
 					<?php foreach($results as $result):?>
 					<tr>
 						<td><?php echo $item_count; ?></td>
-						<td><?php echo $result->course; ?></td>
+						<td><?php echo $result->course_fullname; ?></td>
 						<td><?php echo $result->assessment; ?></td>
 						<td><?php echo $result->exam_score; ?></td>
 						<?php if($result->adjusted_mark >= 40): ?>
@@ -73,10 +73,7 @@
 						<td><h3 class="label label-success" style="margin-left: 10px; padding:5px 20px;font-size:14px"> &nbsp;PASS</h3></td>
 						<?php elseif($result->adjusted_mark < 40): ?>
 						<td><h3 class="label label-danger" style="margin-left: 10px; padding:5px 20px;font-size:14px"> &nbsp;FAIL</h3></td>
-						<?php endif; ?>
-						<!-- <td>
-							<a href="<?php echo base_url(); ?>site/check_result/<?php echo $result->id ;?>" title="" class="btn btn-sm btn-primary">Detail</a>
-						</td> -->
+						<?php endif; ?>						
 					</tr>
 					<?php $item_count ++; ?>
 					<?php endforeach; ?>
@@ -84,7 +81,7 @@
 			</table>
 			
 			<div class="col-sm-offset-3">
-				<h3>Total Number of Courses : <?php echo $item_count - 1; ?></h3>
+				<h4>Total Number of Courses : <?php echo $item_count - 1; ?></h4>
 			</div>
 			<div class="row">
 				<a href="" title="Back to results" class="pull-left btn btn-lg btn-default glyphicon glyphicon-arrow-left"></a>

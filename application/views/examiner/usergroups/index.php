@@ -2,8 +2,8 @@
 <?php if($this->session->flashdata('success')): ?>
 <?php echo '<div class="alert alert-success alert-dismissable">'.$this->session->flashdata('success').'</div>'; ?>
 <?php endif;?>
-<div class="row">
 
+<div class="row">
   <div class="table-responsive">
     <h4 ><span class="label label-default">Usergroup Information<small><a href="<?php echo base_url(); ?>examiner/usergroups/add" title="add usergroup" class="btn btn-sm btn-success pull-right">Add Usergroup</a></small></span></h4>
     <table class="table table-striped">
@@ -25,7 +25,7 @@
           <td><?php echo $usergroup->description; ?></td>
           <td>
             <a href="<?php echo base_url(); ?>examiner/usergroups/edit/<?php echo $usergroup->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
-            <a href="<?php echo base_url(); ?>examiner/usergroups/detail/<?php echo $usergroup->id ;?> "title="details" class="btn btn-sm btn-warning">Details</a>
+            <a href="<?php echo base_url(); ?>examiner/usergroups/detail/<?php echo $usergroup->id ;?> "title="details" class="btn btn-sm bg-default">Details</a>
             <!-- <a href="<?php echo base_url(); ?>examiner/usergroups/delete/<?php echo $usergroup->id ;?>"title="delete" onclick="confirmAction();"; class="btn btn-click btn-sm btn-danger">Delete</a></td> -->
           </tr>          
           <?php endforeach;?>

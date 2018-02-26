@@ -3,5 +3,5 @@
 	<br>
 	<br>
 	<br>
-	<h2><a href="<?php echo base_url().$this->uri->segment(1); ?>">Back</a></h2>
+	<h2><a href="<?php echo base_url(); ?><?php echo $this->uri->segment(1); ?>">Back</a></h2>
 </div>

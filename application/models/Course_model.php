@@ -13,7 +13,7 @@ class Course_model extends CI_MODEL
 
 	public function get_courses()
 	{
-		$this->db->order_by("credit", "asc");
+		$this->db->order_by("title", "asc");
 		$query = $this->db->get($this->table);
 		return $query->result();
 	}
@@ -27,6 +27,16 @@ class Course_model extends CI_MODEL
 		$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->row();
+	}
+
+	public function get_allocated_courses($id)
+	{
+		$this->db->select('course_code, course_title');
+		$this->db->from("course_allocations");
+		$this->db->where('lecturer_id', $id);
+		$query = $this->db->get();
+
+		return $query->result();
 	}
 
 	public function search($table_column,$parameter)
@@ -53,8 +63,7 @@ class Course_model extends CI_MODEL
 	}
 
 	public function get_course_code($id)
-	{
-		
+	{		
 		$this->db->select('code');
 		$this->db->from($this->table);
 		$this->db->where('id', $id);
@@ -88,5 +97,16 @@ class Course_model extends CI_MODEL
 		$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->row(); 
+	}
+
+	public function get_course_fullname($id)
+	{
+		$this->db->select('code, title');
+		$this->db->from($this->table);
+		$this->db->where('id', $id);
+		$query = $this->db->get()->row();	
+		
+		return $query->code . ' - ' . $query->title;		
+				
 	}
 }

@@ -1,56 +1,91 @@
-
-<?php $alert = "No result has been added"; ?>
-<?php if($this->session->flashdata('success')): ?>
-<?php echo '<div class="alert alert-success alert-dismissable">'.$this->session->flashdata('success').'</div>'; ?>
-<?php endif;?>
-<?php if($this->session->flashdata('warning')): ?>
-<?php echo '<div class="alert alert-warning alert-dismissable">'.$this->session->flashdata('warning').'</div>'; ?>
-<?php endif;?>
-<?php $item_count = 1; ?>
-<div class="row">
-  <div class="table-responsive table-condensed">
-    <h4 >
-    <span class="label label-default">Students Result
-       
-       <!--  <small><a href="<?php echo base_url(); ?>examiner/results/upload_result" title="Upload multiple results at once " class="btn btn-md btn-primary pull-right">Upload in batch </a></small>
-         <small><a href="<?php echo base_url(); ?>examiner/results/add" title="add result" class="btn btn-md btn-primary pull-right">Add Result</a></small> -->
-    </span></h4>
-    <?php if($results) :?>
-    <table class="table table-responsive table-condensed table-striped table-hover table-bordered">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Matric Number</th>
-          <th>Course</th>
-          <th>Semester</th>
-          <th>Academic Session</th>
-          <th>Total Score</th>
-          <th>Remark</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-        <?php foreach($results as $result):?>
-
-        <tr>
-          <td><?php echo $item_count++; ?></td>
-          <td><?php echo $result->matric; ?></td>
-          <td><?php echo $result->code. ' - '.$result->course; ?></td>
-          <td><?php echo $result->semester; ?></td>
-          <td><?php echo $result->session ?></td>
-          <td><?php echo $result->adjusted_mark ?></td>
-          <td><?php echo $result->remark; ?></td>
-          <td>
-            <!-- <a href="<?php echo base_url(); ?>examiner/results/edit/<?php echo $result->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a> -->
-            <a href="<?php echo base_url(); ?>examiner/results/detail/<?php echo $result->id ;?> "title="details" class="btn btn-sm btn-warning">Details</a>
-            <!-- <a href="<?php echo base_url(); ?>examiner/results/delete/<?php echo $result->id ;?>"title="delete" class="btn btn-sm btn-danger">Delete</a> -->
-          </td>
-        </tr>
-        <?php endforeach;?>
-        <?php else: ?>
-      </tbody>
-    </table>
-    <?php endif; ?>
+<div>
+  <div class="row text-center">
+    <h4 class=""> <strong>List of examination results submitted for approval. </strong></h4>
+    <hr>
   </div>
-</div>
+  <?php if($this->session->flashdata('approve')): ?>
+  <?php echo '<div class="alert alert-success alert-dismissable">'.$this->session->flashdata('approve').'</div>'; ?>
+  <?php endif;?>
+  <?php if($this->session->flashdata('error')): ?>
+  <?php echo '<div class="alert alert-warning alert-dismissable">'.$this->session->flashdata('error').'</div>'; ?>
+  <?php endif;?>
+  
+  <div>
+    <div>
+      <div class="row text-center">
+        <div class="col-md-12">
+          <div class="text-center">
+            <?php if($submitted_results): ?>
+            <?php foreach($submitted_results as $result): ?>
+            <div class="list-group col-sm-4" style="height: 210px;">
+              <?php if($result->approved == true): ?>
+                <div class="list-group-item  bg-4">
+                <span><b><strong><?php echo $result->course_fullname; ?> <br>(<?php echo $result->session_name; ?>)</strong></b></span>
+              </div>
+              <?php  else:?>
+              <div class="list-group-item  bg-1">
+                <span><b><strong><?php echo $result->course_fullname; ?> <br>(<?php echo $result->session_name; ?>)</strong></b></span>
+              </div>
+            <?php endif; ?>
+              
+              <div class="list-group-item bg-success">
+                <span>Total Results: <b><strong><?php echo $result->group_count; ?> </strong></b></span>
+              </div>
+              <div class="list-group-item">
+                <span>Lecturer : &nbsp;<b><strong><?php echo $result->lecturer_name; ?> </strong></b></span>
+              </div>
+              <?php if($result->approved == false): ?>
+              <div class="list-group-item bg-light">
+                <a class="btn bg-white" href="<?php echo base_url() ?>examiner/dashboard/view/<?php echo  $result->group_code;?>" title="">View</a>
+                <a class="btn btn-success" onclick="confirmAction();" href="<?php echo base_url() ?>examiner/dashboard/approve/<?php echo  $result->group_code;?>"title="">Approve</a>
+                <a class="btn btn-danger" onclick="confirmRejectAction();" href="<?php echo base_url() ?>examiner/dashboard/reject/<?php echo  $result->group_code;?>"title="">Reject</a>
+
+              </div>
+              <?php else: ?>
+                <div class="list-group-item bg-4">
+                 Result(s) have been approved.
+              </div>
+              <?php endif; ?>               
+            </div>
+            <?php endforeach; ?>
+              <?php if($all_results_approved == true): ?>
+                
+                <div>                
+                  <h4 class="text-success" ><strong>All results have been approved</strong></h4>
+                </div>
+              <?php endif; ?>
+            <?php else: ?>
+              <br>
+            <h4>No result has been submiited for approval.</h4>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  
+  function confirmAction() {
+  
+  response = confirm("Are you sure you want to approve these results");
+  if(response == true){
+  return true;
+  }
+  else if (response == false){
+  event.preventDefault();
+  }
+  
+  }
+
+  function confirmRejectAction() {
+  
+  response = confirm("Are you sure you want to reject these results");
+  if(response == true){
+  return true;
+  }
+  else if (response == false){
+  event.preventDefault();
+  }
+  
+  }
+  </script>

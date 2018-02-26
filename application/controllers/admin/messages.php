@@ -11,6 +11,18 @@ class Messages extends CI_Controller {
 		if ($this->session->userdata('user_type') != 'admin') {
 		 	redirect('welcome');
 		}
+		if ($this->session->userdata('logged_in')) {	
+			$notification_unread = 	$this->notification_model->get_notifications_unread($this->session->userdata('user_name'));
+			
+			$notification = $this->notification_model->count_viewed($this->session->userdata('user_name'));
+			$notification_data  = array(
+				'notification_count' => $notification,
+				'notification_unread' => $notification_unread
+
+			);
+			//set notification session data
+			$this->session->set_userdata($notification_data);
+	   }
 		
 	}
 	
@@ -175,6 +187,7 @@ class Messages extends CI_Controller {
 						$this->load->view('admin/layout/main', $data);
 					} else{
 						$numbers = $this->core_model->get_phonenumbers($academic_session, $course);
+						
 						if(count($numbers) <= 0){
 							$this->session->set_flashdata('error', 'No student registered for <b>'. $this->course_model->get_course($course)->code. ' - '. $this->course_model->get_course($course)->title.'</b> in the <b>' .  $this->academic_session_model->get_academic_session($academic_session)->name.   '</b> session.');
 							redirect('admin/messages/send/'.$id,'refresh');
@@ -183,9 +196,10 @@ class Messages extends CI_Controller {
 						
 						$message_count = 0;
 						foreach ($numbers as $number) {
+
 							if(!is_null($number)){
 								$response =  $this->send_message($number, $message);								
-								if ($response == "error"){
+								if ($response != 101){
 									$this->session->set_flashdata('err_response', ' An Error occured while sending the message');
 									redirect('admin/messages','refresh');
 								}								
@@ -226,12 +240,12 @@ class Messages extends CI_Controller {
 						$this->load->view('admin/layout/main', $data);
 					} else{
 						$numbers = explode(",", $phonenumbers);
-						//var_dump($numbers); die();
+						
 						$message_count = 0;
 						foreach ($numbers as $number) {
 							if(!is_null(trim($number))){
 								$response =  $this->send_message($number, $message);
-								if ($response == "error"){
+								if ($response != 101){
 									$this->session->set_flashdata('err_response', ' An Error occured while sending the message');
 									redirect('admin/messages','refresh');
 								}
@@ -257,8 +271,7 @@ class Messages extends CI_Controller {
 					$this->activity_model->add($data);
 						$this->session->set_flashdata('success', $message_count . ' messages has been sent');
 						redirect('admin/messages','refresh');
-					}
-					
+					}					
 				}
 			}
 		}
@@ -267,27 +280,55 @@ class Messages extends CI_Controller {
 	
 	public function send_message($to, $text)
 	{	
-		//var_dump($to. "====== ". $text); die();
 		$curl = curl_init();
-		$header = array("Content-Type:application/json", "Accept:application/json", "authorization: Basic VGFyYkluYzpUZXN0MTIzNA==");
-		$postUrl = "https://api.infobip.com/sms/1/text/single";
-		$from = "ARCISSMS";
-		$post_fields = "{ \"from\":\"$from \", \"to\":[ \"$to\"], \"text\":\"$text\" }";
-		curl_setopt($curl, CURLOPT_URL, $postUrl);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-		curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
-		curl_setopt($curl, CURLOPT_MAXREDIRS, 2);
-		curl_setopt($curl, CURLOPT_POST, 1);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $post_fields);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+		//cloudsms setup information
+		 $userid =11984581;
+		 $password = 1234567890;
+		 $type =  0;
+		 $destination   = urlencode($to);
+		 $sender      = "ARCISSMS";
+		 $message = urlencode($text);
+		  
+		
+		curl_setopt_array($curl, array(
+		CURLOPT_URL =>  "http://developers.cloudsms.com.ng/api.php?userid=$userid&password=$password&type=$type&destination=$destination&sender=$sender&message=$message",
+		
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => "",
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 30,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => "POST",		
+		));
+
 		$response = curl_exec($curl);
-		$err = curl_error($curl);
+
 		curl_close($curl);
-		if ($err) {	
-			return "error";
-		} 
+		return $response;
+
+
+		// //var_dump($to. "====== ". $text); die();
+		// $curl = curl_init();
+		// $header = array("Content-Type:application/json", "Accept:application/json", "authorization: Basic VGFyYkluYzpUZXN0MTIzNA==");
+		// $postUrl = "https://api.infobip.com/sms/1/text/single";
+		// $from = "ARCISSMS";
+		// $post_fields = "{ \"from\":\"$from \", \"to\":[ \"$to\"], \"text\":\"$text\" }";
+		// curl_setopt($curl, CURLOPT_URL, $postUrl);
+		// curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+		// curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		// curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
+		// curl_setopt($curl, CURLOPT_MAXREDIRS, 2);
+		// curl_setopt($curl, CURLOPT_POST, 1);
+		// curl_setopt($curl, CURLOPT_POSTFIELDS, $post_fields);
+		// curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+		// $response = curl_exec($curl);
+		// $err = curl_error($curl);
+		// curl_close($curl);
+		// if ($err) {	
+		// 	return "error";
+		// } 
 		
 	}
 }

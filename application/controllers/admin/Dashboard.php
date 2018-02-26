@@ -5,7 +5,20 @@ class Dashboard extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		
+
+		if ($this->session->userdata('logged_in')) {	
+			$notification_unread = 	$this->notification_model->get_notifications_unread($this->session->userdata('user_name'));
+			
+			$notification = $this->notification_model->count_viewed($this->session->userdata('user_name'));
+			$notification_data  = array(
+				'notification_count' => $notification,
+				'notification_unread' => $notification_unread
+
+			);
+			//set notification session data
+			$this->session->set_userdata($notification_data);
+	   }
+				
 	}
 	
 	public function index()
@@ -21,7 +34,7 @@ class Dashboard extends CI_Controller {
 		$data['student_count'] = $this->student_model->count();
 		$data['course_count'] = $this->course_model->count();
 		$data['sms_count'] = $this->message_model->count();
-		$data['result_count'] = $this->result_model->count();
+		$data['result_count'] = $this->result_model->count_admin();
 		$data['program_count'] = $this->program_model->count();
 
 		$data['main'] = 'admin/dashboard';
@@ -80,11 +93,19 @@ class Dashboard extends CI_Controller {
 					'user_type' => $user_type,
 					'full_name' => $full_name
 					);
-				
 
-				//set session data
+				//set user session data
 				$this->session->set_userdata($user_data);
 				$this->session->set_flashdata('login', 'Login successful');
+
+				$notification = $this->notification_model->count_viewed($this->session->userdata('user_name'));
+				$notification_data  = array(
+					'notification_count' => $notification
+				);
+
+				//set notification session data
+				$this->session->set_userdata($notification_data);
+
 
 				$data  = array(
 				'resource_id' => $this->db->insert_id(),
@@ -100,7 +121,7 @@ class Dashboard extends CI_Controller {
 				redirect('admin/dashboard');
 			} else {
 
-				$this->session->set_flashdata('error', 'Invalid login');
+				$this->session->set_flashdata('error', 'Incorrect login user name or password.');
 
 				$data['main'] = 'login/login';
 				$this->load->view('login/layout/main', $data);				
@@ -119,12 +140,16 @@ class Dashboard extends CI_Controller {
 			'message' => $this->session->userdata('user_name') . ' logged out of the system'
 			);
 
+		if (!$this->session->userdata('logged_in')) {
+			redirect('welcome');
+		}else{
 		//Insert Activivty
-		$this->activity_model->add($data);
-		$this->session->unset_userdata($unset_items);		
-		$this->session->sess_destroy();
-
-
+			$this->activity_model->add($data);
+			$this->session->unset_userdata($unset_items);		
+			$this->session->sess_destroy();
+		}
 		redirect('welcome');
+
+
 	}
 }

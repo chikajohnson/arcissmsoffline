@@ -14,6 +14,18 @@ class Students extends CI_Controller {
 		 	redirect('welcome');
 		}	
 		
+		if ($this->session->userdata('logged_in')) {	
+			$notification_unread = 	$this->notification_model->get_notifications_unread($this->session->userdata('user_name'));
+			
+			$notification = $this->notification_model->count_viewed($this->session->userdata('user_name'));
+			$notification_data  = array(
+				'notification_count' => $notification,
+				'notification_unread' => $notification_unread
+
+			);
+			//set notification session data
+			$this->session->set_userdata($notification_data);
+	   }
 	}
 	
 	public function index()
@@ -25,6 +37,7 @@ class Students extends CI_Controller {
 		$data['main'] = "admin/students/index";
 		$this->load->view('admin/layout/main', $data);
 	}
+	
 	public function add()
 	{
 
@@ -35,24 +48,24 @@ class Students extends CI_Controller {
 		$this->form_validation->set_rules('matric', 'matric number', 'trim|required|callback_matric_check');
 		$this->form_validation->set_rules('last_name', 'last name', 'trim|required');
 		$this->form_validation->set_rules('first_name', 'first name', 'trim|required');
-		$this->form_validation->set_rules('other_names', 'other names', 'trim|required');
+		$this->form_validation->set_rules('other_names', 'other names', 'trim');
 		$this->form_validation->set_rules('gender', 'gender', 'trim|required');
 		//$this->form_validation->set_rules('password', 'password', 'trim|required');
 		//$this->form_validation->set_rules('photo', 'photo', 'trim|required');
 		$this->form_validation->set_rules('phonenumber1', 'phonenumber1', 'trim|required');
-		$this->form_validation->set_rules('phonenumber2', 'phonenumber2', 'trim|required');
+		$this->form_validation->set_rules('phonenumber2', 'phonenumber2', 'trim');
 		$this->form_validation->set_rules('email', 'email', 'trim|required|callback_email_check');
 		$this->form_validation->set_rules('country', 'country', 'trim|required');
 		$this->form_validation->set_rules('state', 'state', 'trim|required');
 		$this->form_validation->set_rules('lga', 'lga', 'trim|required');
 		//$this->form_validation->set_rules('user_id', 'user_id', 'trim|required');
-		$this->form_validation->set_rules('postal_address', 'postal address', 'trim|required');
+		$this->form_validation->set_rules('postal_address', 'postal address', 'trim');
 		$this->form_validation->set_rules('home_address', 'home address', 'trim|required');
 		$this->form_validation->set_rules('academic_session', 'Academic session', 'trim|required|greater_than[0]');
 		$this->form_validation->set_rules('application_number', 'application number', 'trim|required|callback_application_number_check');
 		$this->form_validation->set_rules('program', 'Program of study', 'trim|required|greater_than[0]');
 		//$this->form_validation->set_rules('sponsor', 'sponsor', 'trim|required');
-		//$this->form_validation->set_rules('interest', 'interest', 'trim|required');
+		$this->form_validation->set_rules('interest', 'specialization', 'trim|required');
 		$this->form_validation->set_message('greater_than', 'Please select %s.');
 
 		
@@ -79,7 +92,7 @@ class Students extends CI_Controller {
 				'academic_session'	=> $this->input->post('academic_session'),		
 				'application_number' => $this->input->post('application_number'),
 				'program' 			=> $this->input->post('program'),
-				'interests' 			=> $this->input->post('interests')
+				'interests' 		=> $this->input->post('interests')
 				);
 
 			if ($this->student_model->matric_exist($this->input->post('matric')) == true) {
@@ -121,20 +134,21 @@ class Students extends CI_Controller {
 			//$this->form_validation->set_rules('password', 'password', 'trim|required');
 			//$this->form_validation->set_rules('photo', 'photo', 'trim|required');
 			$this->form_validation->set_rules('phonenumber1', 'phonenumber1', 'trim|required');
-			$this->form_validation->set_rules('phonenumber2', 'phonenumber2', 'trim|required');
+			$this->form_validation->set_rules('phonenumber2', 'phonenumber2', 'trim');
 			$this->form_validation->set_rules('email', 'email', 'trim|required');
 			$this->form_validation->set_rules('country', 'country', 'trim|required');
 			$this->form_validation->set_rules('state', 'state', 'trim|required');
 			$this->form_validation->set_rules('lga', 'lga', 'trim|required');
 			//$this->form_validation->set_rules('user_id', 'user_id', 'trim|required');
-			$this->form_validation->set_rules('postal_address', 'postal_address', 'trim|required');
+			$this->form_validation->set_rules('postal_address', 'postal address', 'trim|required|contains_number_text');
 			$this->form_validation->set_rules('home_address', 'home_address', 'trim|required');
 			$this->form_validation->set_rules('academic_session', 'academic_session', 'trim|required|greater_than[0]');
 			$this->form_validation->set_rules('application_number', 'application number', 'trim|required');
 			$this->form_validation->set_rules('program', 'program', 'trim|required|greater_than[0]');
-			$this->form_validation->set_rules('interests', 'interests', 'trim|required');
+			$this->form_validation->set_rules('interests', 'specialization', 'trim|required');
 
 			$this->form_validation->set_message('greater_than', 'Please select  %s');
+			$this->form_validation->set_message('contains_number_text', 'The %s should contain postal codes');
 
 			if ($this->form_validation->run() == FALSE) {
 				//getcurrent student
@@ -236,6 +250,17 @@ class Students extends CI_Controller {
         }
     }
 
+    public function verify_format($number)
+    {
+    	if(substr($number,0,3) != "234"  || substr($number,0,4) != "+234"){
+		  	 $this->form_validation->set_message('Phone number is not in the correct format.');
+		    return false;
+		  } 
+		  else
+		  {
+		  	return true;
+		  } 
+	 }
 
     public function email_check($email)
     {
@@ -252,6 +277,7 @@ class Students extends CI_Controller {
 
     public function application_number_check($number)
     {
+
         if ($this->student_model->application_number_check(trim($number)) == true)
         {
                 $this->form_validation->set_message('application_number_check', 'The {field} ' .' <strong>'. $number.'</strong>'. ' already Exists');
@@ -262,6 +288,22 @@ class Students extends CI_Controller {
                 return TRUE;
         }
     }
+
+    public function contains_number_text($input)
+    {
+    	var_dump("false"); exit();
+        if (preg_match('/[A-Z]+[a-z]+[0-9]+/', $input))
+        {
+        	var_dump("false"); exit();
+               return FALSE;
+        }
+        else
+        {
+        		var_dump("true"); exit();
+                return TRUE;
+        }
+    }
+
 
     public function search()
 	{
