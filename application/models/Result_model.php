@@ -325,6 +325,7 @@ class Result_model extends CI_MODEL
 		$results = $query->result();
 		return $results;
 	}
+
 	public function approve_results($data, $group_code)
 	{
 		$this->db->trans_start();
@@ -369,6 +370,26 @@ class Result_model extends CI_MODEL
 		}
 		$this->db->trans_complete();
 	}
+
+	public function reject_results($group_code)
+	{
+		$this->db->trans_start();
+		
+		$this->delete_from_lecturer_results($group_code);		
+		$this->delete_from_result_groups($group_code);
+
+		
+		if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+		}
+		else
+		{
+			$this->db->trans_commit();
+		}
+		$this->db->trans_complete();
+	}
+
 
 	public function check_approved()
 	 {
@@ -462,4 +483,22 @@ class Result_model extends CI_MODEL
 		$this->db->where('approved', false);
 		return $this->db->count_all_results('result_groups');
 	}
+
+	public function delete_from_result_groups($code)
+	{
+		$this->db->select('*');
+		$this->db->from('result_groups');
+		$this->db->where('group_code', $code);
+		$this->db->delete("result_groups");
+
+	}
+	public function delete_from_lecturer_results($code)
+	{
+		$this->db->select('*');
+		$this->db->from('lecturer_results');
+		$this->db->where('group_code', $code);
+		$this->db->delete("lecturer_results");
+
+	}
+
 }

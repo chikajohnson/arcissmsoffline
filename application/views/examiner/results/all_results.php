@@ -13,16 +13,17 @@
     <div class="col-sm-3">
       <span>Lecturer: <b><strong><?php echo $result_detail->lecturer_name; ?> </strong></b></span>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <span>Course: <b><strong><?php echo $result_detail->course_fullname;  ?> </strong></b></span>
     </div>
     <div class="col-sm-2">
       <span>Session: <b><strong><?php echo $result_detail->session_name;  ?> </strong></b></span>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
       <span>Semester: <b><strong><?php echo $result_detail->semester_name;  ?> </strong></b></span>
     </div>
-    <div class="col-sm-1">
+    <div class="col-sm-3">
+      <a class="btn btn-danger" onclick="confirmRejectAction();" href="<?php echo base_url() ?>examiner/dashboard/reject/<?php echo  $result_detail->group_code;?>"title="">Reject Results</a>
       <a class="btn btn-success" onclick="confirmAction();" href="<?php echo base_url() ?>examiner/dashboard/approve/<?php echo  $result_detail->group_code;?>"title="">Approve Results</a>
     </div>
   </div>
@@ -74,6 +75,16 @@
   function confirmAction() {
   
   response = confirm("Are you sure you want to approve these results?");
+  if(response == true){
+   return true;
+  }
+    else if (response == false){
+    event.preventDefault();
+  }
+  }
+
+  function confirmRejectAction() {  
+  response = confirm("Are you sure you want to reject these results?");
   if(response == true){
    return true;
   }

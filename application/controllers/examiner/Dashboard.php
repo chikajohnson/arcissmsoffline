@@ -112,12 +112,71 @@ class Dashboard extends CI_Controller {
 				'user_id' => $this->session->userdata('user_id'),
 				'message' => $this->session->userdata('user_name'). ' approved result(s) of group_code = '. $group_code
 				);
-
 		
 				//Insert Activivty
 				$this->activity_model->add($activities);
 
 			$this->session->set_flashdata('approve', 'The result has been approved successfully.');
+			redirect('examiner/dashboard/approve_list','refresh');
+		}
+	}
+
+	public function reject($group_code=0)
+	{
+		if ($this->session->userdata('user_type')!= 'examiner') {
+			redirect('welcome');
+		 }	
+
+		if($this->lecturer_model->check_if_groupcode_exists($group_code) == NULL) {
+			$data['main'] = 'examiner/error';
+			$this->load->view('examiner/layout/main', $data);
+		}else{	
+
+			$receiver_array = $this->result_model->get_results_by_group_code($group_code);
+
+			$this->result_model->reject_results( $group_code);
+
+			//Send notification to chief examiner after batch upload
+			date_default_timezone_set('Africa/Lagos');
+			$receiver = $receiver_array[0]['lecturer_name'];
+			$receiver_email = $receiver_array[0]['lecturer_email'];
+			$receiver_type = "lecturer";
+			$viewed = false;
+			$title = "Results Have Been Rejected ";
+			$sender_email =  $this->session->userdata('user_name');
+			$sender =  $this->session->userdata('full_name');
+			$sender_type =  $this->session->userdata('user_type');	
+			$message =  $this->session->userdata('full_name')." has rejected the results for ".$receiver_array[0]['course_fullname']. " - which you submitted for approval. Thank you.";			
+						
+			$notification_data = array(
+				'receiver' => $receiver,
+				'receiver_email' => $receiver_email,
+				'receiver_type' => $receiver_type,
+				'sender' => $sender,
+				'sender_email' => $sender_email,
+				'sender_type' => $sender_type,
+				'viewed' => $viewed,
+				'title' => $title,
+				'message' => $message				
+			);
+
+
+			$this->notification_model->add($notification_data);	
+
+			//Set activities
+			$activities  = array(
+				'resource_id' => $this->db->insert_id(),
+				'type' => 'Result',
+				'action' => 'Rejection',
+				'user_id' => $this->session->userdata('user_id'),
+				'message' => $this->session->userdata('user_name'). ' rejected result(s) of group_code = '. $group_code
+				);
+
+		
+				//Insert Activivty
+				$this->activity_model->add($activities);
+
+			$this->session->set_flashdata('approve', 'The result has been successfully rejected.');
 			redirect('examiner/dashboard/approve_list','refresh');
 		}
 	}
