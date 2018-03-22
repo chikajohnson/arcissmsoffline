@@ -284,7 +284,7 @@ class Messages extends CI_Controller {
 
 		//cloudsms setup information
 		 $userid =11984581;
-		 $password = 1234567890;
+		 $password = 'chikodili';
 		 $type =  0;
 		 $destination   = urlencode($to);
 		 $sender      = "ARCISSMS";

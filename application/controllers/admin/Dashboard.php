@@ -13,7 +13,6 @@ class Dashboard extends CI_Controller {
 			$notification_data  = array(
 				'notification_count' => $notification,
 				'notification_unread' => $notification_unread
-
 			);
 			//set notification session data
 			$this->session->set_userdata($notification_data);
@@ -149,7 +148,5 @@ class Dashboard extends CI_Controller {
 			$this->session->sess_destroy();
 		}
 		redirect('welcome');
-
-
 	}
 }
