@@ -60,5 +60,24 @@ $(document).ready(function(){
 	{
 		this.css({"background-color": "yellow", "font-size": "200%"});
 	});
+
+function validate(a)
+{
+    var id= a.value;
+
+    swal({
+            title: "Are you sure?",
+            text: "You want to delete this Menu Item!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Delete it!",
+            closeOnConfirm: false }, function()
+        {
+            swal("Deleted!", "Menu Item has been Deleted.", "success");
+            $(location).attr('href','<?php echo base_url()?>admin/del_admin_menu/'+id);
+        }
+    );
+}
 	
 });

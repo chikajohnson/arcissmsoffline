@@ -12,9 +12,11 @@
 		<link href="<?php echo  base_url(); ?>assets/css/dashboard.css" rel="stylesheet">
 		<link href="<?php echo  base_url(); ?>assets/css/custom.css" rel="stylesheet">
 		<link href="<?php echo  base_url(); ?>assets/css/animate.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">		
-  
+		<link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">	  
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<script src="<?php echo base_url(); ?>assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.15.1/sweetalert2.all.js"></script>
+
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -125,9 +127,10 @@
 			<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
 			<!-- <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script> -->
 
-			 <script src="<?php echo base_url(); ?>assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+			<script src="<?php echo base_url(); ?>assets/js/jquery-3.1.1.min.js" type="text/javascript"></script>
 			<script src="<?php echo  base_url(); ?>assets/js/bootstrap.js"></script>			
 			<script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
-			<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>			
+			<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>	
+	
 		</body>
 	</html>
