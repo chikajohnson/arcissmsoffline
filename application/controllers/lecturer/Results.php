@@ -571,6 +571,7 @@ class Results extends CI_Controller {
 				redirect('lecturer/results','refresh');
 		}
 	}
+
 	public function search()
 	{
 		if (!isset($_POST['result'])){
@@ -580,7 +581,6 @@ class Results extends CI_Controller {
 		$data['results'] = null;
 		$data['index'] = "All";
 		$this->form_validation->set_rules('result', 'result', 'trim|required|differs[0]');
-		// $this->form_validation->set_rules('search_param', 'Search parameter', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
 			// var_dump($data); die();
 			$data['main'] = "lecturer/results/index";

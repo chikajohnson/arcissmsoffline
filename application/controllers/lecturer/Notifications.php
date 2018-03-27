@@ -122,7 +122,6 @@ class Notifications extends CI_Controller {
 		// $this->form_validation->set_rules('search_param', 'Search parameter', 'trim|required');
 
 		if ($this->form_validation->run() == FALSE) {
-			// var_dump($data); die();
 			$data['main'] = "lecturer/notifications/index";
 		$this->load->view('lecturer/layout/main', $data);
 		} else {

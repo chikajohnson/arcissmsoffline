@@ -5,7 +5,7 @@
 <div>
   <?php echo validation_errors('<br><p class="alert alert-warning">'); ?>
   </div> 
-  <div class="row">
+  <!-- <div class="row">
    <?php $item = 1; ?>
     <?php echo form_open('lecturer/notifications/search'); ?>
     <div class="row">
@@ -32,7 +32,7 @@
         <button type="link" class="btn-sm bg-default" style="width:130%; height:35px;">Refresh</button>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="row">
       <div class="table-responsive">
         <table class="table table-striped">

@@ -26,6 +26,7 @@ class Notifications extends CI_Controller {
 
 		);
 		//set notification session data
+		// var_dump($this->session->userdata());die();
 		$this->session->set_userdata($notification_data);
    }		
 

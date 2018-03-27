@@ -2,13 +2,12 @@
 	<div id="print_html" class="row">
 		<div class="text-center">
 			<h3>
-			<?php //var_dump($result); die(); ?>
 			<?php if ($result): ?>
-			Exam Result Detail
+			&nbsp;&nbsp;Exam Result Detail
 			
 			<span class="pull-right">
 				<small class="">
-				<b>Matric Number : &nbsp; <?php echo $result->matric; ?>	</b>
+				<b>&nbsp;&nbsp;Matric Number : &nbsp; <?php echo $result->matric; ?>	</b>
 				</small>
 				<small class="">
 				<b>&nbsp;     | &nbsp;  Session : &nbsp; <?php echo $result->session; ?></b>
@@ -22,12 +21,12 @@
 		<hr>
 		<div class="row" style="font-size: 18px;">
 			<div class="col-sm-4">
-				<span class="label label-default" >Name : </span>
+				<span class="label label-default" >&nbsp;&nbsp;Name : </span>
 				<small class=""><b> &nbsp; <?php echo $result->last_name. ' &nbsp;'. $result->first_name. ' &nbsp;'. $result->other_names; ?>
 				</b></small>
 			</div>
 			<div class="col-sm-6">
-				<span class="label label-default">Program of Study : </span>
+				<span class="label label-default">&nbsp;&nbsp;Program of Study : </span>
 				<small class=""><b> &nbsp; <?php echo $result->program; ?></b></small>
 			</div>
 		</div>
@@ -76,7 +75,7 @@
 				</div>
 				<div class="col-sm-12 text-right">
 					<a href="<?php echo base_url(); ?>lecturer/results" title="Back to results" class="btn btn-lg btn-default glyphicon glyphicon-arrow-left pull-left"></a>
-					<a id="print" class="btn btn-lg btn-danger pull-right" onclick="hideButton(); printJS('print_html', 'html'); showButton();">Export Result as PDF</a>
+					<a id="print" class="btn btn-lg btn-danger pull-right" onclick="hideButton(); printJS('print_html', 'html'); showButton();">Export as PDF &nbsp;<i class="fa fa-file-pdf-o"></i></a>
 				</div>
 				<?php else: ?>
 				<h3>

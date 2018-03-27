@@ -58,7 +58,7 @@ class Users extends CI_Controller {
 		// $this->form_validation->set_rules('user_name', 'User name', 'trim|required');				
 		$this->form_validation->set_rules('last_name', 'last_name', 'trim|required');
 		$this->form_validation->set_rules('first_name', 'first_name', 'trim|required');
-		$this->form_validation->set_rules('other_names', 'other_names', 'trim|required');
+		// $this->form_validation->set_rules('other_names', 'other_names', 'trim|required');
 		$this->form_validation->set_rules('email', 'email', 'trim|required|callback_email_check');
 		$this->form_validation->set_rules('password', 'password', 'trim|alpha_numeric|min_length[4]|max_length[10]|required');
 		$this->form_validation->set_rules('user_group', 'User group', 'trim|required|greater_than[0]');
@@ -133,7 +133,7 @@ class Users extends CI_Controller {
 			$this->form_validation->set_rules('phonenumber', 'phonenumber', 'trim|required');				
 			$this->form_validation->set_rules('last_name', 'last_name', 'trim|required');
 			$this->form_validation->set_rules('first_name', 'first_name', 'trim|required');
-			$this->form_validation->set_rules('other_names', 'other_names', 'trim|required');
+			// $this->form_validation->set_rules('other_names', 'other_names', 'trim|required');
 			$this->form_validation->set_rules('email', 'email', 'trim|required');
 			// $this->form_validation->set_rules('user_name', 'user_name', 'trim|required');
 			$this->form_validation->set_rules('password', 'password', 'trim|required');
@@ -152,7 +152,7 @@ class Users extends CI_Controller {
 					'first_name'		=> $this->input->post('first_name'),
 					'other_names'		=> $this->input->post('other_names'),
 					'email'				=> $this->input->post('email'),
-					'user_name' => $this->input->post('email'),
+					'user_name' => $this->input->post('user_name'),
 					'password' => md5($this->input->post('password')),
 					'user_group' => $this->input->post('user_group'),
 					'password_plain' =>  $this->input->post('password')
