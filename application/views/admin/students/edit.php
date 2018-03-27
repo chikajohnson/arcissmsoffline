@@ -19,7 +19,7 @@
 			<div class="row col-md-6">
 				<div class="form-group">
 					<label>Matric Number </label>
-					<input name="matric" type="text" class="form-control" placeholder="Enter student ID" value="<?php echo $student->matric ; ?>">
+					<input name="matric" type="text" class="form-control" readonly="true" placeholder="Enter student ID" value="<?php echo $student->matric ; ?>">
 				</div>
 				<div class="form-group">
 					<label>Last Name</label>
@@ -117,7 +117,7 @@
 				</div>
 				<div class="form-group">
 					<label>Application Number</label>
-					<input name="application_number" type="text" class="form-control" placeholder="Enter application number" value="<?php echo $student->application_number; ?>">
+					<input name="application_number" readonly="true" type="text" class="form-control" placeholder="Enter application number" value="<?php echo $student->application_number; ?>">
 				</div >
 			</div>
 			<div class="row col-md-6 pull-right">

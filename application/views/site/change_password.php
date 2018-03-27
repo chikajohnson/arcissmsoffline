@@ -40,7 +40,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label  class="col-sm-2 control-label">Repeat New Password</label>
+					<label  class="col-sm-2 control-label">Confirm Password</label>
 					<div class="col-sm-10">
 						<input type="password" name="password2" placeholder="Repeat your password. Password is between 4 to 6 digits only." class="form-control">
 					</div>

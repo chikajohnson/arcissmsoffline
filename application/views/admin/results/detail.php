@@ -4,11 +4,11 @@
 			<h3>
 			<?php //var_dump($result); die(); ?>
 			<?php if ($result): ?>
-			Exam Result Detail
+				<b>&nbsp;&nbsp; Exam Result Detail</b>
 			
 			<span class="pull-right">
 				<small class="">
-				<b>Matric Number : &nbsp; <?php echo $result->matric; ?>	</b>
+				<b>&nbsp;&nbsp; Matric Number : &nbsp; <?php echo $result->matric; ?>	</b>
 				</small>
 				<small class="">
 				<b>&nbsp;     | &nbsp;  Session : &nbsp; <?php echo $result->session; ?></b>
@@ -76,7 +76,7 @@
 				</div>
 				<div class="col-sm-12 text-right">
 					<a href="<?php echo base_url(); ?>admin/results" title="Back to results" class="btn btn-lg btn-default glyphicon glyphicon-arrow-left pull-left"></a>
-					<a id="print" class="btn btn-lg btn-danger pull-right" onclick="hideButton(); printJS('print_html', 'html'); showButton();">Export Result as PDF</a>
+					<a id="print" class="btn btn-lg btn-danger pull-right" onclick="hideButton(); printJS('print_html', 'html'); showButton();" >Export as PDF &nbsp;<i class="fa fa-file-pdf-o"></i></a>
 				</div>
 				<?php else: ?>
 				<h3>

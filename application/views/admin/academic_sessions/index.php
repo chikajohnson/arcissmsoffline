@@ -16,8 +16,8 @@
         <select name="academic_session" style="width:120%; height:35px;font-size:13px;" class="form-control">
           <option value="0" >Select Search Column</option>
           <option value="name">Academic Session</option>
-          <option value="session_starts">Start of session</option>
-          <option value="session_ends">End of Session</option>
+          <!-- <option value="session_starts">Start of session</option> -->
+          <!-- <option value="session_ends">End of Session</option> -->
         </select>
       </div>
       <div class="col-sm-2">
@@ -42,9 +42,9 @@
       <div class="col-sm-2">
         <select name="academic_session" style="width:45px; height:20px;font-size:13px;" onchange="this.form.submit()">
           <option value="<?php echo $index; ?>"><?php echo $index; ?></option>
-          <option value="1">5</option>
-          <option value="2">10</option>
-          <option value="3">100</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
         </select>
       </div>
     </div>
@@ -70,7 +70,8 @@
               <td><?php echo date('jS F Y', strtotime($academic_session->session_ends)); ?></td>
               <td>
                 <a href="<?php echo base_url(); ?>admin/academic_sessions/edit/<?php echo $academic_session->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
-                <a href="<?php echo base_url(); ?>admin/academic_sessions/detail/<?php echo $academic_session->id ;?> "title="details" class="btn btn-sm btn-warning">Details</a><a href="<?php echo base_url(); ?>admin/academic_sessions/delete/<?php echo $academic_session->id ;?>"title="delete" onclick="confirmAction();"  class="btn btn-sm btn-danger">Delete</a></td>
+                <a href="<?php echo base_url(); ?>admin/academic_sessions/detail/<?php echo $academic_session->id ;?> "title="details" class="btn btn-sm btn-warning">Details</a>
+                <!-- <a href="<?php echo base_url(); ?>admin/academic_sessions/delete/<?php echo $academic_session->id ;?>"title="delete" onclick="confirmAction();"  class="btn btn-sm btn-danger">Delete</a></td> -->
               </tr>
               <?php $item_count ++; ?>
               <?php endforeach;?>

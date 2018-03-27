@@ -32,7 +32,7 @@
           <td><?php echo $message_type->description; ?></td>
           <td>
             <a id="edit_button" href="<?php echo base_url(); ?>admin/message_types/edit/<?php echo $message_type->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
-            <a id="delete_button" href="<?php echo base_url(); ?>admin/message_types/delete/<?php echo $message_type->id ;?>" onclick="confirmAction();" title="delete" class="btn btn-sm btn-danger">Delete</a>
+            <!-- <a id="delete_button" href="<?php echo base_url(); ?>admin/message_types/delete/<?php echo $message_type->id ;?>" onclick="confirmAction();" title="delete" class="btn btn-sm btn-danger">Delete</a> -->
           </td>
         </tr>
          <?php $item_count++ ; ?>

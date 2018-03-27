@@ -19,10 +19,10 @@
           <option value="0" >Select Search Column</option>
           <option value="matric">Matric Number</option>
            <option value="session_name">Session Name</option>
-          <option value="semester_name">Semester</option>
+          <!-- <option value="semester_name">Semester</option> -->
           <option value="course_code">Course Code</option>
           <option value="remark">Remark</option>
-          <option value="assessment">Assessment</option>
+          <!-- <option value="assessment">Assessment</option> -->
           <option value="total_score">Total Score</option>
 
         </select>

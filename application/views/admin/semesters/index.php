@@ -36,7 +36,7 @@
             <td><?php echo $semester->name; ?></td>
             <td>
               <a href="<?php echo base_url(); ?>admin/semesters/edit/<?php echo $semester->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
-              <a href="<?php echo base_url(); ?>admin/semesters/delete/<?php echo $semester->id ;?>" onclick="confirmAction();" title="delete" class="btn btn-sm btn-danger">Delete</a></td>
+              <!-- <a href="<?php echo base_url(); ?>admin/semesters/delete/<?php echo $semester->id ;?>" onclick="confirmAction();" title="delete" class="btn btn-sm btn-danger">Delete</a></td> -->
             </tr>
             <?php $item_count ++ ;?>
             <?php endforeach;?>

@@ -94,7 +94,7 @@
 						<ul class="list-group">
 							<li class="list-group-item  text-center">
 								<h4 class="">
-								<strong class="text-danger">Result is not available!!!</strong>
+								<strong class="text-danger">No Result is Available!!!</strong>
 								<a href="" title="Back to results" class="pull-right btn btn-lg btn-default glyphicon glyphicon-arrow-left"></a>
 								</h4>
 							</li>

@@ -3,6 +3,7 @@
 		<h4><b>Edit Academic session</b></h4>
 	</div>
 </div>
+<?php echo validation_errors('<br><p class="alert alert-dismissable alert-warning">'); ?>
 <div class="row">
 	<div class="col-lg-12">
 		<ol class="breadcrumb">
@@ -23,11 +24,11 @@
 </div>
 <div class="form-group">
 	<label>Academic session Starts</label>
-	<input name="session_starts" type="text" class="form-control" placeholder=" Academic session  starts in" value="<?php echo $academic_session->session_starts; ?>" >
+	<input name="session_starts" type="date" class="form-control" placeholder=" Academic session  starts in" value="<?php echo $academic_session->session_starts; ?>" >
 </div>
 <div class="form-group">
 	<label>Academic session Ends</label>
-	<input name="session_ends" type="text" class="form-control" placeholder=" Academic session  ends in" value="<?php echo $academic_session->session_ends; ?>" >
+	<input name="session_ends" type="date" class="form-control" placeholder=" Academic session  ends in" value="<?php echo $academic_session->session_ends; ?>" >
 </div>
 <div class="col-md-12">
 	<div class="btn-group pull-right">

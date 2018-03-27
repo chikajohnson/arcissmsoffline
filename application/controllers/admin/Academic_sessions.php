@@ -45,8 +45,8 @@ class Academic_sessions extends CI_Controller {
 	{
 		$this->form_validation->set_rules('name', 'name', 'trim|required');
 		$this->form_validation->set_rules('description', 'description', 'trim|required');
-		$this->form_validation->set_rules('session_starts', 'session_starts', 'trim|required');
-		$this->form_validation->set_rules('session_ends', 'session_ends', 'trim|required');
+		$this->form_validation->set_rules('session_starts', 'session starts', 'trim|required');
+		$this->form_validation->set_rules('session_ends', 'session ends', 'trim|required');
 
 		if ($this->form_validation->run() == FALSE) {
 			

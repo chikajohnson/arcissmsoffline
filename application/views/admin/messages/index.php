@@ -45,9 +45,8 @@
             <td>
               <a href="<?php echo base_url(); ?>admin/messages/edit/<?php echo $message->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
               <a href="<?php echo base_url(); ?>admin/messages/detail/<?php echo $message->id ;?> "title="details" class="btn btn-sm btn-warning">Details</a>
-              <!-- <a href="<?php echo base_url(); ?>admin/messages/delete/<?php echo $message->id ;?>" title="delete" class="btn btn-sm btn-danger remove">Delete</a> -->
+              <a href="<?php echo base_url(); ?>admin/messages/delete/<?php echo $message->id ;?>" onclick="confirmAction()" title="delete" class="btn btn-sm btn-danger remove">Delete</a>
               <a href="<?php echo base_url(); ?>admin/messages/detail/<?php echo $message->id ;?>" title="send message" class="btn btn-sm btn-success">Send</a>
-                <button title="delete" class="btn btn-sm btn-danger remove" onclick="validate(this)">Delete</button>
 
             </td>
           </tr>
@@ -62,23 +61,16 @@
   </div>
   <script type="text/javascript">
 
-function validate(a)
-{
-    var id= a.value;
-
-    swal({
-            title: "Are you sure?",
-            text: "You want to delete this Menu Item!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, Delete it!",
-            closeOnConfirm: false }, function()
-        {
-            swal("Deleted!", "Menu Item has been Deleted.", "success");
-            $(location).attr('href','<?php echo base_url()?>admin/del_admin_menu/'+id);
-        }
-    );
-}
+ function confirmAction() {
+      
+      response = confirm("Are you sure you want to delete the item?");
+      if(response == true){
+        return true;
+      }
+      else if (response == false){       
+         event.preventDefault();
+      }
+     
+    }
 </script>
  

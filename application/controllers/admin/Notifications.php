@@ -37,7 +37,7 @@ class Notifications extends CI_Controller {
 
 		$data['count'] = $this->notification_model->count($user);		
 		$data['notifications'] = $this->notification_model->get_notifications_by_receiver($user);
-		//var_dump($data); die();
+
 		$data['main'] = "admin/notifications/index";
 		$this->load->view('admin/layout/main', $data);
 	}

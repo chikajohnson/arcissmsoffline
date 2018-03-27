@@ -96,7 +96,7 @@
 				<div class="form-group">
 					<label>Program of study</label>
 					<select name="program" class="form-control">
-						<option value="0" >Select UserGroup</option>
+						<option value="0" >Select programme of study</option>
 						<?php if($programs) : ?>
 						<?php foreach($programs as $program): ?>
 						<option value="<?php echo $program->id; ?>"><?php echo $program->name; ?></option>

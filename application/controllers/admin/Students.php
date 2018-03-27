@@ -41,14 +41,12 @@ class Students extends CI_Controller {
 	public function add()
 	{
 
-		//var_dump($this->session->userdata('user_id')); die();
 		$data['programs'] = $this->program_model->get_programs();
 		$data['academic_sessions'] = $this->academic_session_model->get_academic_sessions();
 
 		$this->form_validation->set_rules('matric', 'matric number', 'trim|required|callback_matric_check');
 		$this->form_validation->set_rules('last_name', 'last name', 'trim|required');
 		$this->form_validation->set_rules('first_name', 'first name', 'trim|required');
-		$this->form_validation->set_rules('other_names', 'other names', 'trim');
 		$this->form_validation->set_rules('gender', 'gender', 'trim|required');
 		//$this->form_validation->set_rules('password', 'password', 'trim|required');
 		//$this->form_validation->set_rules('photo', 'photo', 'trim|required');
@@ -59,13 +57,12 @@ class Students extends CI_Controller {
 		$this->form_validation->set_rules('state', 'state', 'trim|required');
 		$this->form_validation->set_rules('lga', 'lga', 'trim|required');
 		//$this->form_validation->set_rules('user_id', 'user_id', 'trim|required');
-		$this->form_validation->set_rules('postal_address', 'postal address', 'trim');
+		$this->form_validation->set_rules('postal_address', 'postal address', 'trim|required');
 		$this->form_validation->set_rules('home_address', 'home address', 'trim|required');
 		$this->form_validation->set_rules('academic_session', 'Academic session', 'trim|required|greater_than[0]');
 		$this->form_validation->set_rules('application_number', 'application number', 'trim|required|callback_application_number_check');
 		$this->form_validation->set_rules('program', 'Program of study', 'trim|required|greater_than[0]');
-		//$this->form_validation->set_rules('sponsor', 'sponsor', 'trim|required');
-		$this->form_validation->set_rules('interest', 'specialization', 'trim|required');
+		$this->form_validation->set_rules('interests', 'specialization', 'trim|required');
 		$this->form_validation->set_message('greater_than', 'Please select %s.');
 
 		
@@ -96,7 +93,6 @@ class Students extends CI_Controller {
 				);
 
 			if ($this->student_model->matric_exist($this->input->post('matric')) == true) {
-				//var_dump($this->student_model->matric_exist($this->input->post('matric'))); die();
 				$this->session->set_flashdata('unique', 'Maric Number already Exists');
 				redirect('admin/students/add');
 			} 
@@ -129,7 +125,6 @@ class Students extends CI_Controller {
 			$this->form_validation->set_rules('matric', 'matric', 'trim|required');	
 			$this->form_validation->set_rules('last_name', 'last_name', 'trim|required');
 			$this->form_validation->set_rules('first_name', 'first_name', 'trim|required');
-			$this->form_validation->set_rules('other_names', 'other_names', 'trim|required');
 			$this->form_validation->set_rules('gender', 'gender', 'trim|required');
 			//$this->form_validation->set_rules('password', 'password', 'trim|required');
 			//$this->form_validation->set_rules('photo', 'photo', 'trim|required');
@@ -140,7 +135,7 @@ class Students extends CI_Controller {
 			$this->form_validation->set_rules('state', 'state', 'trim|required');
 			$this->form_validation->set_rules('lga', 'lga', 'trim|required');
 			//$this->form_validation->set_rules('user_id', 'user_id', 'trim|required');
-			$this->form_validation->set_rules('postal_address', 'postal address', 'trim|required|contains_number_text');
+			$this->form_validation->set_rules('postal_address', 'postal address', 'trim|required');
 			$this->form_validation->set_rules('home_address', 'home_address', 'trim|required');
 			$this->form_validation->set_rules('academic_session', 'academic_session', 'trim|required|greater_than[0]');
 			$this->form_validation->set_rules('application_number', 'application number', 'trim|required');
@@ -148,7 +143,7 @@ class Students extends CI_Controller {
 			$this->form_validation->set_rules('interests', 'specialization', 'trim|required');
 
 			$this->form_validation->set_message('greater_than', 'Please select  %s');
-			$this->form_validation->set_message('contains_number_text', 'The %s should contain postal codes');
+			// $this->form_validation->set_message('contains_number_text', 'The %s should contain postal codes');
 
 			if ($this->form_validation->run() == FALSE) {
 				//getcurrent student
@@ -156,7 +151,6 @@ class Students extends CI_Controller {
 				$data['sessions'] = $this->academic_session_model->get_academic_sessions();
 				$data['student'] = $this->student_model->get_student($id);
 
-				//var_dump($data); die();
 				$data['main'] = "admin/students/edit";
 				$this->load->view('admin/layout/main', $data);
 
@@ -289,22 +283,7 @@ class Students extends CI_Controller {
         }
     }
 
-    public function contains_number_text($input)
-    {
-    	var_dump("false"); exit();
-        if (preg_match('/[A-Z]+[a-z]+[0-9]+/', $input))
-        {
-        	var_dump("false"); exit();
-               return FALSE;
-        }
-        else
-        {
-        		var_dump("true"); exit();
-                return TRUE;
-        }
-    }
-
-
+    
     public function search()
 	{
 		if (!isset($_POST['student'])){
@@ -320,7 +299,7 @@ class Students extends CI_Controller {
 		// $this->form_validation->set_rules('search_param', 'Search parameter', 'trim|required');
 
 		if ($this->form_validation->run() == FALSE) {
-			// var_dump($data); die();
+
 			$data['main'] = "admin/students/index";
 			$this->load->view('admin/layout/main', $data);
 		} else {

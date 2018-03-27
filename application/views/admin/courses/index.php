@@ -18,8 +18,7 @@
           <option value="0" >Select Search Column</option>
           <option value="title">Course Title</option>
           <option value="description">Description</option>
-          <option value="code">Code</option>
-          <option value="credit">Credit Unit</option>
+          <option value="code">Course Code</option>
         </select>
       </div>
       <div class="col-sm-2">

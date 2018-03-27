@@ -11,6 +11,16 @@
 				<?php echo $message; ?>
 			</div>
 	<?php endif; ?>
+	<?php if($message_success): ?>
+			<div class="alert alert-success alert-dismissible fade in text-center" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					<span class="sr-only"> close</span>
+				</button>
+				<?php echo $message_success; ?>
+			</div>
+	<?php endif; ?>
+	
 	
 		<div class="panel-heading text-center">
 			<h1 class="panel-title">
@@ -42,8 +52,9 @@
 <script>
 
  function confirmAction() {
-      
-      response = confirm("Resetting a password makes the user's matric number the default password. Are you sure you want to reset this password?");
+      if($)
+	  }
+      response = confirm("Resetting a password makes the user's matric number the default password. Are you sure you want to reset the password for this student?");
 	      if(response == true){
 	      return true;
       }

@@ -3,6 +3,9 @@
 		<h4><b>Edit Course</b></h4>
 	</div>
 </div>
+<div>
+	<?php echo validation_errors('<br><p class="alert alert-dismissable alert-warning">'); ?>
+</div>
 <div class="row">
 	<div class="col-lg-12">
 		<ol class="breadcrumb">

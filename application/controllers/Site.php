@@ -168,6 +168,7 @@ class Site extends CI_Controller {
 		$this->form_validation->set_rules('matric', 'matric number','trim|required');
 		
 		$output['message'] = '';
+		$output['message_success'] = '';
 		if ($this->form_validation->run() == FALSE) {
 			$output['main'] = 'site/reset_password';
 			$this->load->view('site/layout/main', $output);
@@ -191,7 +192,7 @@ class Site extends CI_Controller {
 				
 			
 			$this->core_model->reset_password($data['matric']);
-			$output['message'] = 'Password reset was successful.';
+			$output['message_success'] = 'Password reset was successful.';
 
 			$data  = array(
 				'resource_id' => $this->db->insert_id(),
@@ -203,7 +204,7 @@ class Site extends CI_Controller {
 			//Insert Activivty
 			$this->activity_model->add($data);
 
-			$output['main'] = 'site/index';
+			$output['main'] = 'site/reset_password';
 			$this->load->view('site/layout/main', $output);
 		}
 			

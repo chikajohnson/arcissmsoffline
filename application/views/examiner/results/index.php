@@ -40,6 +40,7 @@
                 <a class="btn btn-success" onclick="confirmAction();" href="<?php echo base_url() ?>examiner/dashboard/approve/<?php echo  $result->group_code;?>"title="">Approve</a>
                 <a class="btn btn-danger" onclick="confirmRejectAction();" href="<?php echo base_url() ?>examiner/dashboard/reject/<?php echo  $result->group_code;?>"title="">Reject</a>
 
+
               </div>
               <?php else: ?>
                 <div class="list-group-item bg-4">
@@ -63,13 +64,42 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title text-center text-primary" for="textarea"><strong> Enter reason for rejecting this result</strong></h3>
+      </div>
+      <div class="modal-body row">        
+        <div class="form-group">
+          <div class="col-sm-12">
+          <strong><textarea name="reason" id="textarea" class="form-control" rows="5" required="required" placeholder="State reasons, at least 20 craracters long."></textarea></strong>
+          </div>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-lg btn-danger pull-left" >Reject Result</button>
+        <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+  <!-- modal page end -->
+  
   <script type="text/javascript">
   
   function confirmAction() {
   
   response = confirm("Are you sure you want to approve these results");
   if(response == true){
-  return true;
+    return true;
   }
   else if (response == false){
   event.preventDefault();
