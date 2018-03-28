@@ -20,7 +20,6 @@ class Semesters extends CI_Controller {
 			$notification_data  = array(
 				'notification_count' => $notification,
 				'notification_unread' => $notification_unread
-
 			);
 			//set notification session data
 			$this->session->set_userdata($notification_data);
@@ -38,7 +37,7 @@ class Semesters extends CI_Controller {
 	}
 	public function add()
 	{
-		$this->form_validation->set_rules('name', 'name', 'trim|required');
+		$this->form_validation->set_rules('name', 'name', 'trim|required|callback_title_exist');
 		
 		if ($this->form_validation->run() == FALSE) {
 			$data['main'] = "admin/semesters/add";
@@ -134,4 +133,17 @@ class Semesters extends CI_Controller {
 				redirect('admin/semesters','refresh');
 		}
 	}
+
+	public function title_exist($title)
+    {		
+        if ($this->semester_model->title_exist(trim($title)) == true)
+        {
+                $this->form_validation->set_message('title_exist', 'The semester name ' .' <strong>'. $title.'</strong>'. ' already Exists');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+    }
 }

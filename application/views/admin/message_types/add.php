@@ -4,6 +4,9 @@
 		<?php echo validation_errors('<br><p class="alert alert-warning">'); ?>
 		</div>
 	</div>
+	<?php if($this->session->flashdata('error')): ?>
+	<?php echo '<div class="alert alert-warning alert-dismissable">'.$this->session->flashdata('error').'</div>'; ?>
+	<?php endif;?>
 	<div class="row">
 		<div class="col-lg-12">
 			<ol class="breadcrumb">

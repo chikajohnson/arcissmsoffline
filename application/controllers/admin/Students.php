@@ -57,7 +57,7 @@ class Students extends CI_Controller {
 		$this->form_validation->set_rules('state', 'state', 'trim|required');
 		$this->form_validation->set_rules('lga', 'lga', 'trim|required');
 		//$this->form_validation->set_rules('user_id', 'user_id', 'trim|required');
-		$this->form_validation->set_rules('postal_address', 'postal address', 'trim|required');
+		// $this->form_validation->set_rules('postal_address', 'postal address', 'trim|required');
 		$this->form_validation->set_rules('home_address', 'home address', 'trim|required');
 		$this->form_validation->set_rules('academic_session', 'Academic session', 'trim|required|greater_than[0]');
 		$this->form_validation->set_rules('application_number', 'application number', 'trim|required|callback_application_number_check');
@@ -84,7 +84,7 @@ class Students extends CI_Controller {
 				'state' 			=> $this->input->post('state'),
 				'lga' 				=> $this->input->post('lga'),
 				'user_id' 			=>  $this->session->userdata('user_id'),
-				'postal_address'	=> $this->input->post('postal_address'),
+				// 'postal_address'	=> $this->input->post('postal_address'),
 				'home_address'		=> $this->input->post('home_address'),
 				'academic_session'	=> $this->input->post('academic_session'),		
 				'application_number' => $this->input->post('application_number'),
@@ -135,7 +135,7 @@ class Students extends CI_Controller {
 			$this->form_validation->set_rules('state', 'state', 'trim|required');
 			$this->form_validation->set_rules('lga', 'lga', 'trim|required');
 			//$this->form_validation->set_rules('user_id', 'user_id', 'trim|required');
-			$this->form_validation->set_rules('postal_address', 'postal address', 'trim|required');
+			// $this->form_validation->set_rules('postal_address', 'postal address', 'trim|required');
 			$this->form_validation->set_rules('home_address', 'home_address', 'trim|required');
 			$this->form_validation->set_rules('academic_session', 'academic_session', 'trim|required|greater_than[0]');
 			$this->form_validation->set_rules('application_number', 'application number', 'trim|required');
@@ -170,7 +170,7 @@ class Students extends CI_Controller {
 					'state' 			=> $this->input->post('state'),
 					'lga' 				=> $this->input->post('lga'),
 					'user_id' 			=>  $this->session->userdata('user_id'),
-					'postal_address'	=> $this->input->post('postal_address'),
+					// 'postal_address'	=> $this->input->post('postal_address'),
 					'home_address'		=> $this->input->post('home_address'),
 					'academic_session'	=> $this->input->post('academic_session'),		
 					'application_number' => $this->input->post('application_number'),

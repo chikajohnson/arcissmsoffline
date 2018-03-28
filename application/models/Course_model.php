@@ -109,4 +109,34 @@ class Course_model extends CI_MODEL
 		return $query->code . ' - ' . $query->title;		
 				
 	}
+
+	public function code_exist($code)
+	{
+		$this->db->select('code');
+		$this->db->from($this->table);
+		$this->db->where('code', $code);
+
+		$result =  $this->db->count_all_results();
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}
+		
+	}
+
+	public function title_exist($title)
+	{
+		$this->db->select('title');
+		$this->db->from($this->table);
+		$this->db->where('title', $title);
+
+		$result =  $this->db->count_all_results();
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}
+		
+	}
 }

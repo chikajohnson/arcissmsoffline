@@ -86,10 +86,10 @@
 					<label>Home Address</label>
 					<textarea name="home_address" placeholder="Enter Home address" class="form-control"><?php echo $student->home_address; ?></textarea>
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label>Postal Address</label>
 					<textarea name="postal_address" placeholder="Enter Postal address" class="form-control"><?php echo $student->postal_address; ?></textarea>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<hr>

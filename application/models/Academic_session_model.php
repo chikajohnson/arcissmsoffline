@@ -86,4 +86,20 @@ class Academic_session_model extends CI_MODEL
 
 
 	}
+
+	public function session_exist($name)
+	{
+		$this->db->select('name');
+		$this->db->from($this->table);
+		$this->db->where('name', $name);
+
+		$result =  $this->db->count_all_results();
+		//var_dump($result); die();
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}
+		
+	}
 }

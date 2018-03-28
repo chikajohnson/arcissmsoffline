@@ -71,7 +71,7 @@
 						<h5><strong>Home Address &nbsp; :&nbsp;</strong> <?php echo $student->home_address;?></h5>
 					</div>
 					<div class="col-md-6">
-						<h5><strong>Postal Address &nbsp; :&nbsp;</strong> <?php echo $student->postal_address;?></h5>					
+						<!-- <h5><strong>Postal Address &nbsp; :&nbsp;</strong> <?php echo $student->postal_address;?></h5>					 -->
 					</div>
 				</td>
 			</tr>

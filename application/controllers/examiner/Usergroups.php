@@ -42,7 +42,7 @@ class Usergroups extends CI_Controller {
 
 	public function add()
 	{
-		$this->form_validation->set_rules('name', 'name', 'trim|required');
+		$this->form_validation->set_rules('name', 'name', 'trim|required|callback_usergroup_exist');
 		$this->form_validation->set_rules('description', 'description', 'trim|required');
 
 		if ($this->form_validation->run() == FALSE) {
@@ -163,4 +163,17 @@ class Usergroups extends CI_Controller {
 				redirect('examiner/usergroups','refresh');
 		}
 	}
+
+	public function usergroup_exist($group)
+    {		
+        if ($this->usergroup_model->usergroup_exist(trim($group)) == true)
+        {
+                $this->form_validation->set_message('usergroup_exist', 'The user group ' .' <strong>'. $group.'</strong>'. ' already Exists');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+    }
 }

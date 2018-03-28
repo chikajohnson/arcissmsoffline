@@ -68,7 +68,20 @@ class Usergroup_model extends CI_MODEL
 		$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->row(); 
+	}
 
+	public function usergroup_exist($name)
+	{
+		$this->db->select('name');
+		$this->db->from($this->table);
+		$this->db->where('name', $name);
 
+		$result =  $this->db->count_all_results();
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}
+		
 	}
 }

@@ -81,10 +81,10 @@
 					<label>Home Address</label>
 					<textarea name="home_address" placeholder="Enter Home address" class="form-control"><?php echo set_value('home_address'); ?></textarea>
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label>Postal Address</label>
-					<textarea name="postal_address" placeholder="Enter Postal address" class="form-control"><?php echo set_value('postal_address'); ?></textarea>
-				</div>
+					<textarea name="postal_address" id="postalAddress" placeholder="Enter Postal address" class="form-control"><?php echo set_value('postal_address'); ?></textarea>
+				</div> -->
 			</div>
 		</div>
 		<hr>
@@ -130,10 +130,19 @@
 		<hr>
 		<div class="col-md-12">
 			<div class="btn-group pull-right">
-				<input type="submit" name="submit" id="page_submit" value = "Continue " class="btn btn-sm btn-primary">
+				<input type="submit" name="submit" id="page_submit" value = "Continue " onclick="checkIsNumber()" class="btn btn-sm btn-primary">
 				<a href="<?php echo base_url(); ?>admin/students" class="btn btn-sm btn-default">Close</a>
 			</div>
 		</div>
 		
 	</div>
 	<?php echo form_close(); ?>
+	<!-- <script>
+	$(document).ready(function () {
+		function checkIsNumber() {
+			var myArray = $('#postalAddress').val().split();
+			alert(myArray);
+			return false;
+		}
+	});
+	</script> -->

@@ -43,8 +43,8 @@ class Courses extends CI_Controller {
 
 	public function add()
 	{
-		$this->form_validation->set_rules('title', 'title', 'trim|required');
-		$this->form_validation->set_rules('code', 'code', 'trim|required');
+		$this->form_validation->set_rules('title', 'title', 'trim|required|callback_title_exist');
+		$this->form_validation->set_rules('code', 'code', 'trim|required|callback_code_exist');
 		$this->form_validation->set_rules('credit', 'credit', 'trim|required');
 		$this->form_validation->set_rules('description', 'description', 'trim|required');
 
@@ -244,5 +244,31 @@ class Courses extends CI_Controller {
 			redirect('admin/courses/index','refresh');
 		}
 	}
+
+	public function code_exist($name)
+    {		
+        if ($this->course_model->code_exist(trim($name)) == true)
+        {
+                $this->form_validation->set_message('code_exist', 'The {field} ' .' <strong>'. $name.'</strong>'. ' already Exists');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+	}
+	
+	public function title_exist($title)
+    {		
+        if ($this->course_model->title_exist(trim($title)) == true)
+        {
+                $this->form_validation->set_message('title_exist', 'There is a course with the title' .' <strong>'. $title.'</strong>'. ' already in the system');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+    }
 	
 }

@@ -151,6 +151,22 @@ class User_model extends CI_MODEL
 		return $query->row(); 
 	}
 
+	public function check_if_examiner_exists()
+	{
+		$this->db->select('*');
+		$this->db->from($this->table);
+		$this->db->where('user_group', '1');
+		$query = $this->db->get()->row();
+		
+		$result =  $this->db->count_all_results();
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}	
+	
+	}
+
 	public function get_user_name($id)
 	{
 		$this->db->select('last_name, first_name, email');

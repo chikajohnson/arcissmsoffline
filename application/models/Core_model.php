@@ -233,8 +233,7 @@ class Core_model extends CI_MODEL
 	}
 
 	public function get_phonenumbers($session, $course)
-	{
-		
+	{		
 		$numbers = array();
 		$query = "SELECT DISTINCT students.phonenumber1 from students 	where students.matric in (	SELECT results.matric from results
 			    WHERE results.course = $course AND results.session = $session )";

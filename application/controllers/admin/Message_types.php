@@ -39,7 +39,7 @@ class Message_types extends CI_Controller {
 	public function add()
 	{
 		
-		$this->form_validation->set_rules('name', 'name', 'trim|required');
+		$this->form_validation->set_rules('name', 'name', 'trim|required|callback_name_exist');
 		$this->form_validation->set_rules('description', 'description', 'trim|required');
 
 		if ($this->form_validation->run() == FALSE) {
@@ -49,7 +49,7 @@ class Message_types extends CI_Controller {
 			$data  = array(
 				'name' => $this->input->post('name'),
 				'description'	=> $this->input->post('description')
-				);
+				);				
 
 			//insert message_type
 			$this->message_type_model->add($data);
@@ -75,7 +75,6 @@ class Message_types extends CI_Controller {
 			$this->load->view('admin/layout/main', $data);
 		} else {
 			$data['message_type'] = $this->message_type_model->get_message_type($id);
-					//var_dump($data['message_types']);var_dump($data['groups']);die();
 
 			$this->form_validation->set_rules('name', 'name', 'trim|required');
 			$this->form_validation->set_rules('description', 'description', 'trim|required');
@@ -145,7 +144,19 @@ class Message_types extends CI_Controller {
 				redirect('admin/message_types','refresh');
 		}
 
-		
 	}
+
+	public function name_exist($name)
+    {		
+        if ($this->message_type_model->name_exist(trim($name)) == true)
+        {
+                $this->form_validation->set_message('name_exist', 'The {field} ' .' <strong>'. $name.'</strong>'. ' already Exists');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+    }
 	
 }

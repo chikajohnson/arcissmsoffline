@@ -43,8 +43,8 @@ class Lecturers extends CI_Controller {
 		$this->form_validation->set_rules('last_name', 'last name', 'trim|required');
 		$this->form_validation->set_rules('first_name', 'first name', 'trim|required');
 		$this->form_validation->set_rules('title', 'title', 'trim|required');
-		$this->form_validation->set_rules('phonenumber', 'phonenumber', 'trim|required');
-		$this->form_validation->set_rules('email', 'email', 'trim|required');
+		$this->form_validation->set_rules('phonenumber', 'phonenumber', 'trim|required|callback_phonenumber_exist');
+		$this->form_validation->set_rules('email', 'email', 'trim|required|callback_email_exist');
 		if ($this->form_validation->run() == FALSE) {
 			$data['main'] = "examiner/lecturers/add";
 			$this->load->view('examiner/layout/main', $data);
@@ -250,7 +250,6 @@ class Lecturers extends CI_Controller {
 			$data['course_detail'] = $this->course_model->get_course($data['code']);
 			$data['allocations'] = $this->lecturer_model->get_course_allocation_list($data['code']);
 
-			//var_dump($data['course_detail']); die();
 
 			$data['main'] = "examiner/lecturers/allocation_list";
 			$this->load->view('examiner/layout/main', $data);
@@ -281,9 +280,32 @@ class Lecturers extends CI_Controller {
 
 	public function check_if_allocated($course_id, $lecturer_id)
 	{
-
-
 		return $this->lecturer_model->check_if_allocated($course_id, $lecturer_id);
 	}
+
+	public function email_exist($email)
+    {		
+        if ($this->lecturer_model->email_exist(trim($email)) == true)
+        {
+                $this->form_validation->set_message('email_exist', 'The {field} ' .' <strong>'. $email.'</strong>'. ' already Exists');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+	}
+	public function phonenumber_exist($number)
+    {		
+        if ($this->lecturer_model->phonenumber_exist(trim($number)) == true)
+        {
+                $this->form_validation->set_message('phonenumber_exist', 'The {field} ' .' <strong>'. $number.'</strong>'. ' already Exists');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+    }
 	
 }

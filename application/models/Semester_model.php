@@ -65,4 +65,20 @@ class Semester_model extends CI_MODEL
 
 
 	}
+
+	public function title_exist($title)
+	{
+		$this->db->select('name');
+		$this->db->from($this->table);
+		$this->db->where('name', $title);
+
+		$result =  $this->db->count_all_results();
+		//var_dump($result); die();
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}
+		
+	}
 }

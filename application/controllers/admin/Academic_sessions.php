@@ -43,9 +43,9 @@ class Academic_sessions extends CI_Controller {
 
 	public function add()
 	{
-		$this->form_validation->set_rules('name', 'name', 'trim|required');
+		$this->form_validation->set_rules('name', 'name', 'trim|required|callback_session_exist');
 		$this->form_validation->set_rules('description', 'description', 'trim|required');
-		$this->form_validation->set_rules('session_starts', 'session starts', 'trim|required');
+		$this->form_validation->set_rules('session_starts', 'session starts', 'trim|required|callback_check_higher_date['.$this->input->post('session_ends').']');
 		$this->form_validation->set_rules('session_ends', 'session ends', 'trim|required');
 
 		if ($this->form_validation->run() == FALSE) {
@@ -92,7 +92,7 @@ class Academic_sessions extends CI_Controller {
 
 			$this->form_validation->set_rules('name', 'name', 'trim|required');
 			$this->form_validation->set_rules('description', 'description', 'trim|required');
-			$this->form_validation->set_rules('session_starts', 'session_starts', 'trim|required');
+			$this->form_validation->set_rules('session_starts', 'session_starts', 'trim|required|callback_check_higher_date['.$this->input->post('session_ends').']');
 			$this->form_validation->set_rules('session_ends', 'session_ends', 'trim|required');
 
 
@@ -248,5 +248,33 @@ class Academic_sessions extends CI_Controller {
 		} else {
 			redirect('admin/academic_sessions/index','refresh');
 		}
+
+
 	}
+
+	public function session_exist($name)
+    {		
+        if ($this->academic_session_model->session_exist(trim($name)) == true)
+        {
+                $this->form_validation->set_message('session_exist', 'The {field} ' .' <strong>'. $name.'</strong>'. ' already Exists');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+	}
+	
+	public function check_higher_date($start_date, $end_date)
+    {		
+        if (strtotime($start_date) > strtotime($end_date))
+        {
+                $this->form_validation->set_message('check_higher_date', 'Session Start date must not be greater than Session end date');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+    }
 }

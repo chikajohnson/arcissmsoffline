@@ -36,7 +36,6 @@ class Users extends CI_Controller {
 		//Load template
 		$data['users'] = $this->user_model->get_users();
 		$data['groups'] = $this->usergroup_model->get_usergroups();
-		//var_dump($data['users']);die();
 
 		$data['main'] = "examiner/users/index";
 		$this->load->view('examiner/layout/main', $data);
@@ -83,7 +82,10 @@ class Users extends CI_Controller {
 				'password_plain' => $this->input->post('password')
 				);
 
-			//var_dump($this->usergroup_model->get_usergroup_name($data['user_group'])); die();
+			if($this->input->post('user_group') == '1' && $this->user_model->check_if_examiner_exists() == true){				
+					$this->session->set_flashdata('error', '<strong> There is a chief Examiner already created in the system.</strong> Only one Chief Examiner is allowed.');
+					redirect('examiner/users/add');
+			}
 
 			if($this->usergroup_model->get_usergroup_name($data['user_group']) == "lecturer"){
 				
@@ -92,6 +94,7 @@ class Users extends CI_Controller {
 					redirect('examiner/users/add');
 				}
 			}
+
 			//insert user
 			$this->user_model->add($data);
 			$data  = array(

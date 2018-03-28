@@ -17,7 +17,8 @@
           <option value="0" >Select Search Column</option>
           <option value="matric">Matric Number</option>
           <option value="email">Email</option>
-          <option value="last_name">Name</option>
+          <option value="last_name">Last Name</option>
+          <option value="first_name">First Name</option>
           <option value="phonenumber1">Phonenumber</option>
           <option value="application_number">Application Number</option>          
         </select>

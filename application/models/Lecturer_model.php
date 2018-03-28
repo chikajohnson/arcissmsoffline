@@ -111,9 +111,34 @@ class Lecturer_model extends CI_MODEL
 		return $query->row(); 
 	}
 
+	public function phonenumber_exist($number)
+	{
+		$this->db->select('phonenumber');
+		$this->db->from($this->table);
+		$this->db->where('phonenumber', $number);
 
+		$result =  $this->db->count_all_results();
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}
+		
+	}
+	public function email_exist($email)
+	{
+		$this->db->select('email');
+		$this->db->from($this->table);
+		$this->db->where('email', $email);
 
-
+		$result =  $this->db->count_all_results();
+		if ($result >=  1) {
+			return True;
+		} else {
+			return false;
+		}
+		
+	}
 	
 }
 
