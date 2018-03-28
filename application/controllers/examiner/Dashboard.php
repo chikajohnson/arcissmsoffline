@@ -121,6 +121,13 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
+	public function show_reject()
+	{		
+		$data['main'] = 'examiner/results/reject';
+		$this->load->view('examiner/layout/main', $data);
+		
+	}
+
 	public function reject($group_code=0)
 	{
 		if ($this->session->userdata('user_type')!= 'examiner') {

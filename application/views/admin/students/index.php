@@ -81,7 +81,9 @@
               <td><?php echo $student->session; ?></td>
               <td>
                 <a href="<?php echo base_url(); ?>admin/students/edit/<?php echo $student->id ;?>" title="edit" class="btn btn-sm btn-primary">Edit</a>
-                <a href="<?php echo base_url(); ?>admin/students/detail/<?php echo $student->id ;?>" click="confirmAction();" title="detail" class="btn btn-sm btn-warning">Detail</a>
+                <a href="<?php echo base_url(); ?>admin/students/detail/<?php echo $student->id ;?>"  class="btn btn-sm btn-warning">Detail</a>
+                <a href="<?php echo base_url(); ?>admin/students/delete/<?php echo $student->id ;?>"  class="btn btn-sm btn-danger">Delete</a>
+
                </td> 
             <?php endforeach;?>
           </tbody>
